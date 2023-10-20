@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class StartPanel extends JPanel {
 
-    public StartPanel() {
+    public StartPanel(Frame frame) {
         super();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         JLabel jLabelOne = new JLabel();
@@ -28,6 +28,7 @@ public class StartPanel extends JPanel {
         JButton startButton = new JButton("Start game");
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
+        startButton.addActionListener((l) -> frame.StartMazeGame());
         this.add(startButton);
     }
 }

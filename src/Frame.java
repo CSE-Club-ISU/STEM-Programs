@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class Frame extends JFrame {
+    StartPanel startPanel;
+    MazeGame mazeGame;
     public static void main(String[] args) {
         Runnable r = new Runnable() {
             public void run() {
@@ -18,11 +20,11 @@ public class Frame extends JFrame {
     }
 
     private void create() throws FileNotFoundException {
-        JPanel panel = new StartPanel();
-        add(panel);
+        startPanel = new StartPanel(this);
+        add(startPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1500, 800);
-        setIconImage(new javax.swing.ImageIcon("CSEClubLogoNoText.png").getImage());
+        setIconImage(new javax.swing.ImageIcon("CSEClubLogoNoTextBorder.png").getImage());
         setLocationRelativeTo(null);
         setTitle("CSE");
         setVisible(true);
@@ -39,5 +41,12 @@ public class Frame extends JFrame {
 //        startPanel.setPreferredSize(frame.getSize());
 //
 //        frame.setVisible(true);
+    }
+
+    public void StartMazeGame() {
+        remove(startPanel);
+        mazeGame = new MazeGame();
+        add(mazeGame);
+        update(getGraphics());
     }
 }
