@@ -1,11 +1,13 @@
 package src;
 
+import src.MazeGame.MazePanel;
+
 import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class Frame extends JFrame {
     StartPanel startPanel;
-    MazeGame mazeGame;
+    MazePanel mazeGame;
     public static void main(String[] args) {
         Runnable r = new Runnable() {
             public void run() {
@@ -45,7 +47,7 @@ public class Frame extends JFrame {
 
     public void StartMazeGame() {
         remove(startPanel);
-        mazeGame = new MazeGame();
+        mazeGame = new MazePanel();
         add(mazeGame);
         update(getGraphics());
     }
