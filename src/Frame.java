@@ -32,7 +32,7 @@ public class Frame extends JFrame {
         setLocationRelativeTo(null);
         setTitle("CSE");
         setVisible(true);
-        startMazeGame();
+//        startMazeGame();
     }
 
     public void startMazeGame() {
