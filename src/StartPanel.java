@@ -7,28 +7,17 @@ public class StartPanel extends JPanel {
 
     public StartPanel(Frame frame) {
         super();
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
-        JLabel jLabelOne = new JLabel();
-        jLabelOne.setFont(font);
-        JLabel jLabelTwo = new JLabel();
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
 
-
-        jLabelOne.setText("ISU Computer Science and Software Engineering Club");
-        jLabelTwo.setText("This is text two");
-
-        jLabelOne.setAlignmentX(CENTER_ALIGNMENT);
-        jLabelTwo.setAlignmentX(CENTER_ALIGNMENT);
-        add(jLabelOne);
-        add(jLabelTwo);
+        Frame.addTextToComp("ISU Computer Science and Software Engineering Club",this);
 
         setAlignmentX(CENTER_ALIGNMENT);
 
         JButton startButton = new JButton("Start game");
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
-        startButton.addActionListener((l) -> frame.StartMazeGame());
+        startButton.addActionListener((l) -> frame.startMazeGame());
         this.add(startButton);
     }
 }

@@ -3,9 +3,11 @@ package src;
 import src.MazeGame.MazePanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 
 public class Frame extends JFrame {
+    static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
     StartPanel startPanel;
     MazePanel mazeGame;
     public static void main(String[] args) {
@@ -45,10 +47,21 @@ public class Frame extends JFrame {
 //        frame.setVisible(true);
     }
 
-    public void StartMazeGame() {
+    public void startMazeGame() {
         remove(startPanel);
         mazeGame = new MazePanel();
         add(mazeGame);
-        update(getGraphics());
+        setVisible(true);
+        paintAll(getGraphics());
     }
+
+    public static JLabel addTextToComp(String text, JComponent component) {
+        JLabel newLabel = new JLabel();
+        newLabel.setFont(font);
+        newLabel.setText(text);
+        newLabel.setAlignmentX(CENTER_ALIGNMENT);
+        component.add(newLabel);
+        return newLabel;
+    }
+
 }
