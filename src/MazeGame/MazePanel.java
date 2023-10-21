@@ -7,12 +7,14 @@ import java.awt.*;
 
 public class MazePanel extends JPanel {
     MazeGame mazeGame;
+    CellUI[][] mazeUI;
     public MazePanel() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
 
         mazeGame = new MazeGame(10, 10);
         Cell[][] maze = mazeGame.getMaze();
+        mazeUI = new CellUI[maze.length][maze[0].length];
         Frame.addTextToComp("Maze Game", this);
 
         Panel mazeP = new Panel();
@@ -26,10 +28,11 @@ public class MazePanel extends JPanel {
         mazeP.setLayout(gridLayout);
         for (int r = 0; r < maze.length; r++) {
             for (int c = 0; c < maze[r].length; c++) {
-                CellUI cellUI = new CellUI(maze[r][c],mazeP.getWidth() / (maze.length + 2));
-                mazeP.add(cellUI);
+                mazeUI[r][c] = new CellUI(maze[r][c],mazeP.getMaximumSize().width / (maze.length + 2));
+                mazeP.add(mazeUI[r][c]);
             }
         }
         this.add(mazeP);
+        paintAll(getGraphics());
     }
 }

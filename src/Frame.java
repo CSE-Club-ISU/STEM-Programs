@@ -32,19 +32,7 @@ public class Frame extends JFrame {
         setLocationRelativeTo(null);
         setTitle("CSE");
         setVisible(true);
-//        JPanel mainPanel = new JPanel();
-//
-//        // put main panel in a window
-//        JFrame frame = new JFrame("Maze Game!");
-//        frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        StartPanel startPanel = new StartPanel();
-//        mainPanel.setLayout(new GridLayout());
-//        mainPanel.add(startPanel);
-//        startPanel.setPreferredSize(frame.getSize());
-//
-//        frame.setVisible(true);
+        startMazeGame();
     }
 
     public void startMazeGame() {
