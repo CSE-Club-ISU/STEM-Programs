@@ -11,3 +11,5 @@ A common problem is to give the instructions on how to get from point A to point
 To solve this we need to create an algorithm to search all possibilities in a maze. 
 When creating an algorithm, the logic has to be determined before trying to solve the maze. 
 So our challenge to the kids is to give us a list of instructions to move a dot through a maze.
+
+![MazeGameGeneratedMaze](https://github.com/CSE-Club-ISU/STEM-Algorithms/assets/7538725/63603424-692a-47e2-8e14-00931d78551a)
