@@ -9,14 +9,19 @@ public class CellUI extends JPanel {
     int size;
 
     public CellUI(Cell cell, int size) {
-        this.setLayout(null);
+        setLayout(null);
         this.cell = cell;
-        this.setBackground(Color.lightGray);
-        this.setSize(size, size);
+        if (cell.isStartCell())
+            setBackground(Color.green);
+        else if (cell.isEndCell())
+            setBackground(Color.red);
+        else
+            setBackground(Color.lightGray);
+        setSize(size, size);
         this.size = size;
         wallPanel = new JPanel();
         wallPanel.setBackground(Color.blue);
-        this.add(wallPanel);
+        add(wallPanel);
     }
 
     @Override

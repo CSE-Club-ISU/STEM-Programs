@@ -103,4 +103,12 @@ public class Cell {
         else dir += 1;
         return dir;
     }
+
+    public boolean isStartCell() {
+        return mazeGame.startCell == this;
+    }
+
+    public boolean isEndCell() {
+        return mazeGame.endCell == this;
+    }
 }
