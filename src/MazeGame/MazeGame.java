@@ -1,5 +1,8 @@
 package src.MazeGame;
 
+import src.MyQueue;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
@@ -8,6 +11,7 @@ public class MazeGame {
     int pastVisitedValue;
     Cell startCell;
     Cell endCell;
+    int endDistance;
 
     public MazeGame(int rows, int columns) {
         pastVisitedValue = 0;
@@ -17,8 +21,9 @@ public class MazeGame {
                 maze[r][c] = new Cell(this,r,c);
             }
         }
-        generateStartAndEndPosition();
+        generateStartPosition();
         generateMazeDFS();
+        generateEndPosition();
     }
 
     public void setAllWalls() {
@@ -29,7 +34,7 @@ public class MazeGame {
         }
     }
 
-    public void generateStartAndEndPosition() {
+    public void generateStartPosition() {
         Random rand = new Random();
         int side = rand.nextInt(4);
         if (side == 0)
@@ -40,18 +45,44 @@ public class MazeGame {
             startCell = maze[rand.nextInt(maze.length)][0];
         else
             startCell = maze[rand.nextInt(maze.length)][maze[0].length - 1];
+    }
 
-        do {
-            side = rand.nextInt(4);
-            if (side == 0)
-                endCell = maze[0][rand.nextInt(maze[0].length)];
-            else if (side == 1)
-                endCell = maze[maze.length - 1][rand.nextInt(maze[0].length)];
-            else if (side == 2)
-                endCell = maze[rand.nextInt(maze.length)][0];
-            else
-                endCell = maze[rand.nextInt(maze.length)][maze[0].length - 1];
-        } while (endCell == startCell);
+    public void generateEndPosition() {
+        int startR = startCell.r;
+        int startC = startCell.c;
+        pastVisitedValue++;
+        MyQueue<Cell> queue = new MyQueue<>();
+        MyQueue<Integer> queueDist = new MyQueue<>();
+        queue.add(maze[startR][startC]);
+        queueDist.add(0);
+        queue.peek().visited = pastVisitedValue;
+        Cell currentCell = null;
+        ArrayList<Cell> ends = new ArrayList<>();
+        ArrayList<Integer> endsDist = new ArrayList<>();
+        while(queue.hasNext()) {
+            currentCell = queue.remove();
+            Integer dist = queueDist.remove();
+            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue);
+            for (int i = 0; i < neighbors.size(); i++) {
+                neighbors.get(i).visited = pastVisitedValue;
+                queue.add(neighbors.get(i));
+                queueDist.add(dist + 1);
+            }
+            if (currentCell.getNeighborCount() == 1) {
+                if (ends.size() >= 10 && dist > endsDist.get(0)) {
+                    ends.remove(0);
+                    endsDist.remove(0);
+                }
+                if (ends.size() < 10) {
+                    ends.add(currentCell);
+                    endsDist.add(dist);
+                }
+            }
+        }
+        int randomEnd = new Random().nextInt(ends.size());
+        endCell = ends.get(randomEnd);
+        endDistance = endsDist.get(randomEnd);
+        System.out.println("Distance from start to end: " + endDistance);
     }
 
 

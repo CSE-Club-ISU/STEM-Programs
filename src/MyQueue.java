@@ -3,12 +3,12 @@ package src;
 /**
  * A regular Queue that can resize when nessesary
  */
-class MyQueue<T> {
+public class MyQueue<T> {
     Object[] queue;
     int startIndex;
     int length;
 
-    MyQueue() {
+    public MyQueue() {
         queue = new Object[10];
         startIndex = 0;
         length = 0;

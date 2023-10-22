@@ -28,23 +28,6 @@ public class Cell {
         }
     }
 
-    int getUnexploredSide() {
-        if (!visitedSides[2]) return 1;
-        if (!visitedSides[3]) return 2;
-        if (!visitedSides[1]) return -1;
-        if (!visitedSides[0]) return -2;
-        return 0;
-    }
-
-    int getNumUnexploredSides() {
-        int unexplored = 0;
-        if (c != 0 && !visitedSides[0]) unexplored++;
-        if (r != 0 && !visitedSides[1]) unexplored++;
-        if (c != mazeGame.maze[0].length && !visitedSides[3]) unexplored++;
-        if (r != mazeGame.maze.length && !visitedSides[2]) unexplored++;
-        return unexplored;
-    }
-
     public Cell moveToUnvistedNeighbor(int visitedInt, boolean removeWalls) {
         ArrayList<Cell> unvisited = new ArrayList(4);
         ArrayList<Integer> unvisitedDir = new ArrayList(4);
@@ -72,6 +55,16 @@ public class Cell {
         return targetCell;
     }
 
+    public int getNeighborCount() {
+        int count = 0;
+        for (int i = 0; i < walls.length; i++) {
+            if (!walls[i]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public boolean hasUnvisitedNeighbor(int visitedInt) {
         for (int i = -2; i <= 2; i++) {
             if (i == 0) continue;
@@ -80,6 +73,18 @@ public class Cell {
                 return true;
         }
         return false;
+    }
+
+    public ArrayList<Cell> getUnvisitedNeighborsWithWalls(int visitedInt) {
+        ArrayList<Cell> unvisitedNeighbors = new ArrayList<>(4);
+        for (int i = -2; i <= 2; i++) {
+            if (i == 0) continue;
+            if (walls[convertDirectionToIndex(i)]) continue;
+            Cell targetCell = getCellInDir(i);
+            if (targetCell != null && targetCell.visited != visitedInt)
+                unvisitedNeighbors.add(targetCell);
+        }
+        return unvisitedNeighbors;
     }
 
     /**

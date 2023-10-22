@@ -12,13 +12,13 @@ public class MazePanel extends JPanel {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
 
-        mazeGame = new MazeGame(10, 10);
+        mazeGame = new MazeGame(40, 40);
         Cell[][] maze = mazeGame.getMaze();
         mazeUI = new CellUI[maze.length][maze[0].length];
         Frame.addTextToComp("Maze Game", this);
 
         Panel mazeP = new Panel();
-        mazeP.setMaximumSize(new Dimension(500,500));
+        mazeP.setMaximumSize(new Dimension(800,800));
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(maze.length);
         gridLayout.setColumns(maze[0].length);
