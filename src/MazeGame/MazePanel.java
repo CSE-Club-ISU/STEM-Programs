@@ -22,8 +22,6 @@ public class MazePanel extends JPanel {
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(maze.length);
         gridLayout.setColumns(maze[0].length);
-//        gridLayout.setHgap(2);
-//        gridLayout.setVgap(2);
 
         mazeP.setLayout(gridLayout);
         for (int r = 0; r < maze.length; r++) {
