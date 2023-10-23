@@ -7,30 +7,44 @@ import java.awt.*;
 
 public class MazePanel extends JPanel {
     MazeGame mazeGame;
+    Panel mazePanel;
     CellUI[][] mazeUI;
     public MazePanel() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
-
-        mazeGame = new MazeGame(40, 40);
-        Cell[][] maze = mazeGame.getMaze();
-        mazeUI = new CellUI[maze.length][maze[0].length];
+        mazeUI = new CellUI[10][10];
         Frame.addTextToComp("Maze Game", this);
+        JButton resetButton = new JButton("Regenerate");
+        resetButton.setVerticalTextPosition(AbstractButton.CENTER);
+        resetButton.setAlignmentX(CENTER_ALIGNMENT);
+        resetButton.addActionListener((l) -> {clearMaze(); generateMaze(); });
+        this.add(resetButton);
 
-        Panel mazeP = new Panel();
-        mazeP.setMaximumSize(new Dimension(800,800));
+        generateMaze();
+    }
+
+    public void clearMaze() {
+        remove(mazePanel);
+    }
+
+    public void generateMaze() {
+        mazeGame = new MazeGame(mazeUI.length, mazeUI[0].length);
+        Cell[][] maze = mazeGame.getMaze();
+        mazePanel = new Panel();
+        mazePanel.setBackground(Color.LIGHT_GRAY);
+        mazePanel.setMaximumSize(new Dimension(700,700));
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(maze.length);
         gridLayout.setColumns(maze[0].length);
 
-        mazeP.setLayout(gridLayout);
+        mazePanel.setLayout(gridLayout);
         for (int r = 0; r < maze.length; r++) {
             for (int c = 0; c < maze[r].length; c++) {
-                mazeUI[r][c] = new CellUI(maze[r][c],mazeP.getMaximumSize().width / (maze.length + 2));
-                mazeP.add(mazeUI[r][c]);
+                mazeUI[r][c] = new CellUI(maze[r][c],mazePanel.getMaximumSize().width / (maze.length + 2));
+                mazePanel.add(mazeUI[r][c]);
             }
         }
-        this.add(mazeP);
+        this.add(mazePanel);
         paintAll(getGraphics());
     }
 }

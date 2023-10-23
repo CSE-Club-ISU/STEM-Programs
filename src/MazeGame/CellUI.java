@@ -34,9 +34,9 @@ public class CellUI extends JPanel {
         if (cell.walls[1])
             g.fillRect(0, 0, getWidth(), 3); //top
         if (cell.walls[2])
-            g.fillRect(0, getHeight() - 3, getWidth(), 3); //bottom
+            g.fillRect(0, getHeight() - 2, getWidth(), 3); //bottom
         if (cell.walls[3])
-            g.fillRect(getWidth() - 3, 0, 3, getHeight()); //right
+            g.fillRect(getWidth() - 2, 0, 3, getHeight()); //right
         g.setColor(Color.LIGHT_GRAY);
     }
 }
