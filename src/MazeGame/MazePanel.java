@@ -12,19 +12,27 @@ public class MazePanel extends JPanel {
     public MazePanel() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
-        mazeUI = new CellUI[10][10];
+        mazeUI = new CellUI[20][20];
         Frame.addTextToComp("Maze Game", this);
         JButton resetButton = new JButton("Regenerate");
         resetButton.setVerticalTextPosition(AbstractButton.CENTER);
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
-        resetButton.addActionListener((l) -> {clearMaze(); generateMaze(); });
+        resetButton.addActionListener((l) -> {mazeGame.startMazeGame(); refreshCells(); });
+        resetButton.setBackground(Color.BLUE);
+        resetButton.setForeground(Color.white);
+        resetButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        resetButton.setFocusPainted(false);
         this.add(resetButton);
 
         generateMaze();
     }
 
-    public void clearMaze() {
-        remove(mazePanel);
+    public void refreshCells() {
+        for (int r = 0; r < mazeUI.length; r++) {
+            for (int c = 0; c < mazeUI[r].length; c++) {
+                mazeUI[r][c].paintAll(mazeUI[r][c].getGraphics());
+            }
+        }
     }
 
     public void generateMaze() {

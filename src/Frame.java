@@ -24,6 +24,7 @@ public class Frame extends JFrame {
     }
 
     private void create() throws FileNotFoundException {
+        setBackground(new Color(38,38,38));
         startPanel = new StartPanel(this);
         add(startPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,6 +45,10 @@ public class Frame extends JFrame {
     }
 
     public static JLabel addTextToComp(String text, JComponent component) {
+        return addTextToComp(text, font, component);
+    }
+
+    public static JLabel addTextToComp(String text, Font font, JComponent component) {
         JLabel newLabel = new JLabel();
         newLabel.setFont(font);
         newLabel.setText(text);

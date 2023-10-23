@@ -21,6 +21,11 @@ public class MazeGame {
                 maze[r][c] = new Cell(this,r,c);
             }
         }
+        startMazeGame();
+    }
+
+    public void startMazeGame() {
+        setAllWalls();
         generateStartPosition();
         generateMazeDFS();
         generateEndPosition();
