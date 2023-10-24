@@ -34,6 +34,7 @@ public class Frame extends JFrame {
         setTitle("CSE");
         setVisible(true);
 //        startMazeGame();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void startMazeGame() {
