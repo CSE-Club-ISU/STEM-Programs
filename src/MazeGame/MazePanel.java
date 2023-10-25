@@ -12,7 +12,7 @@ public class MazePanel extends JPanel {
     public MazePanel() {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
-        mazeUI = new CellUI[20][20];
+        mazeUI = new CellUI[10][10];
         Frame.addTextToComp("Maze Game", this);
         JButton resetButton = new JButton("Regenerate");
         resetButton.setVerticalTextPosition(AbstractButton.CENTER);
