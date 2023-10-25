@@ -17,15 +17,15 @@ public class MazePanel extends JPanel {
         Frame.addTextToComp("Maze Game", this);
         Box top = Box.createHorizontalBox();
 
-        JButton resetButton = new JButton("Regenerate");
-        resetButton.setVerticalTextPosition(AbstractButton.CENTER);
-        resetButton.setAlignmentX(CENTER_ALIGNMENT);
-        resetButton.addActionListener((l) -> regenerateMaze());
-        resetButton.setBackground(Color.BLUE);
-        resetButton.setForeground(Color.white);
-        resetButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        resetButton.setFocusPainted(false);
-        top.add(resetButton);
+        JButton regenerateButton = new JButton("Regenerate");
+        regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
+        regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
+        regenerateButton.addActionListener((l) -> { regenerateButton.setEnabled(false); regenerateMaze(); });
+        regenerateButton.setBackground(Color.BLUE);
+        regenerateButton.setForeground(Color.white);
+        regenerateButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        regenerateButton.setFocusPainted(false);
+        top.add(regenerateButton);
 
         sizeInput = new JTextField(Integer.toString(mazeUI.length));
         sizeInput.setMaximumSize(new Dimension(100,30));
@@ -50,11 +50,8 @@ public class MazePanel extends JPanel {
         try {
             int size = Integer.parseInt(sizeInput.getText());
             if (size != mazeUI.length) {
-                for (int r = 0; r < mazeUI.length; r++) {
-                    for (int c = 0; c < mazeUI[r].length; c++) {
-                        mazePanel.remove(mazeUI[r][c]);
-                    }
-                }
+                mazePanel.removeAll();
+                mazePanel.repaint();
                 this.paintAll(getGraphics());
                 mazeUI = new CellUI[size][size];
                 generateMaze();
