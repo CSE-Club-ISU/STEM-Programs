@@ -3,10 +3,12 @@ package src.MazeGame;
 import src.Frame;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MazePanel extends JPanel {
     MazeGame mazeGame;
+    InstructionPanel instructionPanel;
     Panel mazePanel;
     CellUI[][] mazeUI;
     JTextField sizeInput;
@@ -20,22 +22,32 @@ public class MazePanel extends JPanel {
         JButton regenerateButton = new JButton("Regenerate");
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
-        regenerateButton.addActionListener((l) -> { regenerateButton.setEnabled(false); regenerateMaze(); });
+        regenerateButton.addActionListener((l) -> regenerateMaze());
         regenerateButton.setBackground(Color.BLUE);
         regenerateButton.setForeground(Color.white);
-        regenerateButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         regenerateButton.setFocusPainted(false);
+        regenerateButton.setBorder(new EmptyBorder(10,10,10,10));
         top.add(regenerateButton);
 
         sizeInput = new JTextField(Integer.toString(mazeUI.length));
         sizeInput.setMaximumSize(new Dimension(100,30));
+        sizeInput.setBorder(new EmptyBorder(10,10,10,10));
         top.add(sizeInput);
         add(top);
+
+        Box mazeInstructionPanel = Box.createHorizontalBox();
+        mazeInstructionPanel.setBorder(new EmptyBorder(10,10,10,10));
         mazePanel = new Panel();
         mazePanel.setBackground(Color.LIGHT_GRAY);
         mazePanel.setMaximumSize(new Dimension(700,700));
-        this.add(mazePanel);
+        mazeInstructionPanel.add(mazePanel);
+
         generateMaze();
+
+        instructionPanel = new InstructionPanel();
+        mazeInstructionPanel.add(instructionPanel);
+        add(mazeInstructionPanel);
+
     }
 
     public void refreshCells() {

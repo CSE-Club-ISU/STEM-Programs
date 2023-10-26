@@ -64,6 +64,7 @@ public class MazeGame {
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
         ArrayList<Integer> endsDist = new ArrayList<>();
+        int maxEndSize = (int)Math.min(20, Math.max(1, 2 * maze.length / 5f));
         while(queue.hasNext()) {
             currentCell = queue.remove();
             Integer dist = queueDist.remove();
@@ -73,12 +74,12 @@ public class MazeGame {
                 queue.add(neighbors.get(i));
                 queueDist.add(dist + 1);
             }
-            if (currentCell.getNeighborCount() == 1) {
-                if (ends.size() >= 10 && dist > endsDist.get(0)) {
+            if (currentCell.getNeighborCount() == 1 && currentCell != startCell) {
+                if (ends.size() >= maxEndSize && dist > endsDist.get(0)) {
                     ends.remove(0);
                     endsDist.remove(0);
                 }
-                if (ends.size() < 10) {
+                if (ends.size() < maxEndSize) {
                     ends.add(currentCell);
                     endsDist.add(dist);
                 }
