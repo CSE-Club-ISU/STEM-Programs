@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InstructionPanel extends JPanel {
+
+    JScrollPane scrollPane;
     JTextArea instructionInput;
     MazePanel mazePanel;
     InstructionPanelInput instructionPanelInput;
@@ -17,9 +19,11 @@ public class InstructionPanel extends JPanel {
         instructionTitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
         instructionTitle.setAlignmentX(CENTER_ALIGNMENT);
         add(instructionTitle);
+
+
         instructionInput = new JTextArea("");
-        instructionInput.setMaximumSize(new Dimension(400,600));
-        instructionInput.setMinimumSize(new Dimension(400,600));
+        instructionInput.setMaximumSize(new Dimension(200,600));
+        instructionInput.setMinimumSize(new Dimension(200,600));
         instructionInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 24));
         instructionInput.setForeground(Color.BLACK);
         instructionInput.setDisabledTextColor(Color.black);
@@ -27,9 +31,17 @@ public class InstructionPanel extends JPanel {
         setBorder(new EmptyBorder(0,20,0,0));
         instructionInput.setBackground(Color.lightGray);
         instructionInput.isCursorSet();
-        add(instructionInput);
         instructionPanelInput = new InstructionPanelInput(this);
         frame.addKeyListener(instructionPanelInput);
+
+
+        scrollPane = new JScrollPane(instructionInput);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setMaximumSize(new Dimension(200,600));
+        scrollPane.setMinimumSize(new Dimension(200,600));
+        add(scrollPane);
+
         setFocusable(true);
     }
 }
