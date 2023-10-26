@@ -26,6 +26,7 @@ public class MazePanel extends JPanel {
         regenerateButton.setBackground(Color.BLUE);
         regenerateButton.setForeground(Color.white);
         regenerateButton.setFocusPainted(false);
+        regenerateButton.setFocusable(false);
         regenerateButton.setBorder(new EmptyBorder(10,10,10,10));
         top.add(regenerateButton);
 
