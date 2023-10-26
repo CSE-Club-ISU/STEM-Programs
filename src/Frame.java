@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 
 public class Frame extends JFrame {
-    static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+    public static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
     StartPanel startPanel;
     MazePanel mazeGame;
     public static void main(String[] args) {
