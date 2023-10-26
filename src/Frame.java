@@ -24,6 +24,7 @@ public class Frame extends JFrame {
     }
 
     private void create() throws FileNotFoundException {
+        setFocusable(true);
         setBackground(new Color(38,38,38));
         startPanel = new StartPanel(this);
         add(startPanel);
@@ -39,7 +40,7 @@ public class Frame extends JFrame {
 
     public void startMazeGame() {
         remove(startPanel);
-        mazeGame = new MazePanel();
+        mazeGame = new MazePanel(this);
         add(mazeGame);
         setVisible(true);
         paintAll(getGraphics());

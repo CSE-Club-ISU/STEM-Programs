@@ -12,7 +12,7 @@ public class MazePanel extends JPanel {
     Panel mazePanel;
     CellUI[][] mazeUI;
     JTextField sizeInput;
-    public MazePanel() {
+    public MazePanel(Frame frame) {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         mazeUI = new CellUI[10][10];
@@ -44,7 +44,7 @@ public class MazePanel extends JPanel {
 
         generateMaze();
 
-        instructionPanel = new InstructionPanel();
+        instructionPanel = new InstructionPanel(this, frame);
         mazeInstructionPanel.add(instructionPanel);
         add(mazeInstructionPanel);
 
