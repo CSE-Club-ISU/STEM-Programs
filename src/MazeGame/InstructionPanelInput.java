@@ -51,6 +51,10 @@ public class InstructionPanelInput extends KeyAdapter {
 
     }
 
+    public void clearInstructions() {
+        instructionPanel.instructionInput.setText("");
+    }
+
     @Override
     public void keyReleased(KeyEvent event) {
     }
