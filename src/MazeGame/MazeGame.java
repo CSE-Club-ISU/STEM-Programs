@@ -85,6 +85,10 @@ public class MazeGame {
                 }
             }
         }
+        if (ends.isEmpty()){
+            System.out.println("Failed to create end");
+            return;
+        }
         int randomEnd = new Random().nextInt(ends.size());
         endCell = ends.get(randomEnd);
         endDistance = endsDist.get(randomEnd);

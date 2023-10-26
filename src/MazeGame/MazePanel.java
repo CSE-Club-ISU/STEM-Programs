@@ -41,6 +41,7 @@ public class MazePanel extends JPanel {
         mazePanel = new Panel();
         mazePanel.setBackground(Color.LIGHT_GRAY);
         mazePanel.setMaximumSize(new Dimension(700,700));
+        mazePanel.setMinimumSize(new Dimension(700,700));
         mazeInstructionPanel.add(mazePanel);
 
         generateMaze();
