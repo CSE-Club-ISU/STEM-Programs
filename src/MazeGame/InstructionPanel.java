@@ -36,7 +36,7 @@ public class InstructionPanel extends JPanel {
 
 
         scrollPane = new JScrollPane(instructionInput);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setMaximumSize(new Dimension(200,600));
         scrollPane.setMinimumSize(new Dimension(200,600));

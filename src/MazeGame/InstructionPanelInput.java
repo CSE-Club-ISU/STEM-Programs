@@ -53,6 +53,7 @@ public class InstructionPanelInput extends KeyAdapter {
 
     public void clearInstructions() {
         instructionPanel.instructionInput.setText("");
+        instructionCount = 0;
     }
 
     @Override
