@@ -39,11 +39,40 @@ public class Cell {
                 unvisitedDir.add(i);
             }
         }
+        if (unvisited.isEmpty()) return null;
         int index = new Random().nextInt(0,unvisited.size());
         Cell targetCell = unvisited.get(index);
         int cellDir = unvisitedDir.get(index);
         if (targetCell == null)
             throw new IllegalStateException("Called chooseUnvistedNeighbor with no unvisted neighbors.");
+        if (removeWalls) {
+            int dir = convertDirectionToIndex(cellDir);
+            walls[dir] = false;
+
+            dir = convertDirectionToIndex(-cellDir);
+            targetCell.walls[dir] = false;
+        }
+        return targetCell;
+    }
+
+    public Cell moveToVisitedNeighbor(int visitedInt, boolean removeWalls) {
+        ArrayList<Cell> visited = new ArrayList(4);
+        ArrayList<Integer> unvisitedDir = new ArrayList(4);
+        for (int i = -2; i <= 2; i++) {
+            if (i == 0) continue;
+            Cell targetCell = getCellInDir(i);
+
+            if (targetCell != null && targetCell.visited == visitedInt) {
+                visited.add(targetCell);
+                unvisitedDir.add(i);
+            }
+        }
+        if (visited.isEmpty()) return null;
+        int index = new Random().nextInt(0,visited.size());
+        Cell targetCell = visited.get(index);
+        int cellDir = unvisitedDir.get(index);
+        if (targetCell == null)
+            throw new IllegalStateException("Called chooseVistedNeighbor with no visited neighbors.");
         if (removeWalls) {
             int dir = convertDirectionToIndex(cellDir);
             walls[dir] = false;
@@ -74,11 +103,21 @@ public class Cell {
         return false;
     }
 
-    public ArrayList<Cell> getUnvisitedNeighborsWithWalls(int visitedInt) {
+    public boolean hasVisitedNeighbor(int visitedInt) {
+        for (int i = -2; i <= 2; i++) {
+            if (i == 0) continue;
+            Cell targetCell = getCellInDir(i);
+            if (targetCell != null && targetCell.visited == visitedInt)
+                return true;
+        }
+        return false;
+    }
+
+    public ArrayList<Cell> getUnvisitedNeighborsWithWalls(int visitedInt, boolean inverse) {
         ArrayList<Cell> unvisitedNeighbors = new ArrayList<>(4);
         for (int i = -2; i <= 2; i++) {
             if (i == 0) continue;
-            if (walls[convertDirectionToIndex(i)]) continue;
+            if ((!inverse && walls[convertDirectionToIndex(i)]) || (inverse && !walls[convertDirectionToIndex(i)])) continue;
             Cell targetCell = getCellInDir(i);
             if (targetCell != null && targetCell.visited != visitedInt)
                 unvisitedNeighbors.add(targetCell);

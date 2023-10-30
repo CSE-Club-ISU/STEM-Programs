@@ -18,7 +18,7 @@ public class MazeGame {
         maze = new Cell[rows][columns];
         for (int r = 0; r < maze.length; r++) {
             for (int c = 0; c < maze[0].length; c++) {
-                maze[r][c] = new Cell(this,r,c);
+                maze[r][c] = new Cell(this, r, c);
             }
         }
         startMazeGame();
@@ -27,7 +27,7 @@ public class MazeGame {
     public void startMazeGame() {
         setAllWalls();
         generateStartPosition();
-        generateMazeDFS();
+        generateMazePrims();
         generateEndPosition();
     }
 
@@ -64,11 +64,11 @@ public class MazeGame {
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
         ArrayList<Integer> endsDist = new ArrayList<>();
-        int maxEndSize = (int)Math.min(20, Math.max(1, 2 * maze.length / 5f));
-        while(queue.hasNext()) {
+        int maxEndSize = (int) Math.min(20, Math.max(1, 2 * maze.length / 5f));
+        while (queue.hasNext()) {
             currentCell = queue.remove();
             Integer dist = queueDist.remove();
-            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue);
+            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue, false);
             for (int i = 0; i < neighbors.size(); i++) {
                 neighbors.get(i).visited = pastVisitedValue;
                 queue.add(neighbors.get(i));
@@ -85,7 +85,7 @@ public class MazeGame {
                 }
             }
         }
-        if (ends.isEmpty()){
+        if (ends.isEmpty()) {
             System.out.println("Failed to create end");
             return;
         }
@@ -105,7 +105,7 @@ public class MazeGame {
         stack.push(maze[startR][startC]);
         stack.peek().visited = pastVisitedValue;
         Cell currentCell = null;
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             currentCell = stack.pop();
             if (currentCell.hasUnvisitedNeighbor(pastVisitedValue)) {
                 stack.push(currentCell);
@@ -113,6 +113,28 @@ public class MazeGame {
                 currentCell.visited = pastVisitedValue;
                 stack.push(currentCell);
             }
+        }
+    }
+
+    public void generateMazePrims() {
+        pastVisitedValue++;
+        setAllWalls();
+        ArrayList<Cell> toAdd = new ArrayList<>();
+        toAdd.add(startCell);
+        Random rand = new Random();
+        while (!toAdd.isEmpty()) {
+            int random = rand.nextInt(toAdd.size());
+            Cell currentCell = toAdd.get(random);
+            toAdd.remove(random);
+            currentCell.moveToVisitedNeighbor(pastVisitedValue, true);
+            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue, true);
+            for (int n = 0; n < neighbors.size(); n++) {
+                if(!neighbors.get(n).hasVisitedNeighbor(pastVisitedValue)) {
+                    toAdd.add(neighbors.get(n));
+                }
+            }
+            currentCell.visited = pastVisitedValue;
+
         }
     }
 
