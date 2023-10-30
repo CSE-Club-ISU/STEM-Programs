@@ -9,7 +9,7 @@ import java.awt.*;
 public class MazePanel extends JPanel {
     MazeGame mazeGame;
     InstructionPanel instructionPanel;
-    Panel mazePanel;
+    Panel mazeDisplay;
     CellUI[][] mazeUI;
     JTextField sizeInput;
     public MazePanel(Frame frame) {
@@ -22,27 +22,31 @@ public class MazePanel extends JPanel {
         JButton regenerateButton = new JButton("Regenerate");
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
-        regenerateButton.addActionListener((l) -> { instructionPanel.instructionPanelInput.clearInstructions(); frame.requestFocusInWindow(); regenerateMaze(); });
+        regenerateButton.addActionListener((l) -> {
+            instructionPanel.instructionPanelInput.clearInstructions();
+            frame.requestFocusInWindow();
+            regenerateMaze();
+        });
         regenerateButton.setBackground(Color.BLUE);
         regenerateButton.setForeground(Color.white);
         regenerateButton.setFocusPainted(false);
         regenerateButton.setFocusable(false);
-        regenerateButton.setBorder(new EmptyBorder(10,10,10,10));
+        regenerateButton.setBorder(new EmptyBorder(10, 10, 10, 10));
         top.add(regenerateButton);
 
         sizeInput = new JTextField(Integer.toString(mazeUI.length));
-        sizeInput.setMaximumSize(new Dimension(100,30));
-        sizeInput.setBorder(new EmptyBorder(10,10,10,10));
+        sizeInput.setMaximumSize(new Dimension(100, 30));
+        sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));
         top.add(sizeInput);
         add(top);
 
         Box mazeInstructionPanel = Box.createHorizontalBox();
-        mazeInstructionPanel.setBorder(new EmptyBorder(10,10,10,10));
-        mazePanel = new Panel();
-        mazePanel.setBackground(Color.LIGHT_GRAY);
-        mazePanel.setMaximumSize(new Dimension(700,700));
-        mazePanel.setMinimumSize(new Dimension(700,700));
-        mazeInstructionPanel.add(mazePanel);
+        mazeInstructionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        mazeDisplay = new Panel();
+        mazeDisplay.setBackground(Color.LIGHT_GRAY);
+        mazeDisplay.setMaximumSize(new Dimension(700, 700));
+        mazeDisplay.setMinimumSize(new Dimension(700, 700));
+        mazeInstructionPanel.add(mazeDisplay);
 
         generateMaze();
 
@@ -61,12 +65,13 @@ public class MazePanel extends JPanel {
     }
 
     public void regenerateMaze() {
+        instructionPanel.clearPath();
         try {
             int size = Integer.parseInt(sizeInput.getText());
             if (size != mazeUI.length) {
-                mazePanel.removeAll();
-                mazePanel.repaint();
-                this.paintAll(getGraphics());
+                mazeDisplay.removeAll();
+                mazeDisplay.repaint();
+//                this.paintAll(getGraphics());
                 mazeUI = new CellUI[size][size];
                 generateMaze();
             } else {
@@ -76,6 +81,7 @@ public class MazePanel extends JPanel {
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
+        paintAll(getGraphics());
     }
 
     public void generateMaze() {
@@ -84,11 +90,11 @@ public class MazePanel extends JPanel {
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(maze.length);
         gridLayout.setColumns(maze[0].length);
-        mazePanel.setLayout(gridLayout);
+        mazeDisplay.setLayout(gridLayout);
         for (int r = 0; r < maze.length; r++) {
             for (int c = 0; c < maze[r].length; c++) {
-                mazeUI[r][c] = new CellUI(maze[r][c],mazePanel.getMaximumSize().width / (maze.length + 2));
-                mazePanel.add(mazeUI[r][c]);
+                mazeUI[r][c] = new CellUI(maze[r][c], mazeDisplay.getMaximumSize().width / (maze.length + 2), this);
+                mazeDisplay.add(mazeUI[r][c]);
             }
         }
         paintAll(getGraphics());

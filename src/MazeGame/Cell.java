@@ -1,6 +1,5 @@
 package src.MazeGame;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -101,6 +100,13 @@ public class Cell {
             return mazeGame.maze[r][c-1];
         }
         return null;
+    }
+
+    /**
+     * @param dir 1=down, 2=right, -1=up, -2=left
+     */
+    boolean hasWallInDirection(int dir) {
+        return walls[convertDirectionToIndex(dir)];
     }
 
     int convertDirectionToIndex(int dir) {

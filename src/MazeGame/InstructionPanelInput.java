@@ -30,6 +30,8 @@ public class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
             instructionCount = Math.max(0,instructionCount - 1);
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            instructionPanel.visualisePath();
         }
 
     }
@@ -54,9 +56,5 @@ public class InstructionPanelInput extends KeyAdapter {
     public void clearInstructions() {
         instructionPanel.instructionInput.setText("");
         instructionCount = 0;
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
     }
 }
