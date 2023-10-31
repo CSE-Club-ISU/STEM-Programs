@@ -27,7 +27,13 @@ public class MazeGame {
     public void startMazeGame() {
         setAllWalls();
         generateStartPosition();
-        generateMazePrims();
+        Random rand = new Random();
+        int randMaze = rand.nextInt(3);
+        if (randMaze == 0) {
+            generateMazePrims();
+        } else {
+            generateMazeDFS();
+        }
         generateEndPosition();
     }
 
@@ -41,6 +47,11 @@ public class MazeGame {
 
     public void generateStartPosition() {
         Random rand = new Random();
+        startCell = maze[rand.nextInt(maze.length)][rand.nextInt(maze[0].length)];
+    }
+
+    public void generateStartPositionOnSide() {
+        Random rand = new Random();
         int side = rand.nextInt(4);
         if (side == 0)
             startCell = maze[0][rand.nextInt(maze[0].length)];
@@ -51,6 +62,7 @@ public class MazeGame {
         else
             startCell = maze[rand.nextInt(maze.length)][maze[0].length - 1];
     }
+
 
     public void generateEndPosition() {
         int startR = startCell.r;
@@ -125,8 +137,9 @@ public class MazeGame {
         Random rand = new Random();
         while (!toAdd.isEmpty()) {
             int random = rand.nextInt(toAdd.size());
-            Cell currentCell = toAdd.get(random);
-            toAdd.remove(random);
+            int nextIndex = (int)Math.sqrt(random);
+            Cell currentCell = toAdd.get(nextIndex);
+            toAdd.remove(nextIndex);
             currentCell.moveToVisitedNeighbor(pastVisitedValue, true);
             ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue, true);
             for (int n = 0; n < neighbors.size(); n++) {

@@ -59,14 +59,16 @@ public class InstructionPanel extends JPanel {
             int dir = getDirectionFromChar(input.charAt(inputIndex));
             CellUI nextCell = currentCell.getCellInDir(dir);
             currentCell.outLineDir = dir;
-            if (currentCell.cell.hasWallInDirection(dir))
-                break;
+            if (currentCell.cell.hasWallInDirection(dir)) break;
             if (nextCell == null) break;
             nextCell.inLineDir = -dir;
             currentCell.paintComponent(currentCell.getGraphics());
             currentCell = nextCell;
             previousPath.add(currentCell);
             inputIndex = input.indexOf(':', inputIndex) + 2;
+        }
+        if (currentCell != null && currentCell.cell.isStartCell()) {
+            System.out.println("You Won!");
         }
         currentCell.paintComponent(currentCell.getGraphics());
         mazePanel.paintAll(mazePanel.getGraphics());
