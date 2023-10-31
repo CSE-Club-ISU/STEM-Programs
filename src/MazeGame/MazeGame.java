@@ -121,6 +121,7 @@ public class MazeGame {
         setAllWalls();
         ArrayList<Cell> toAdd = new ArrayList<>();
         toAdd.add(startCell);
+
         Random rand = new Random();
         while (!toAdd.isEmpty()) {
             int random = rand.nextInt(toAdd.size());
@@ -134,8 +135,11 @@ public class MazeGame {
                 }
             }
             currentCell.visited = pastVisitedValue;
-
         }
+
+        generateEndPosition();
+        startCell = endCell;
+        endCell = null;
     }
 
     public Cell[][] getMaze() {
