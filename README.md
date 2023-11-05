@@ -13,3 +13,8 @@ When creating an algorithm, the logic has to be determined before trying to solv
 So our challenge to the kids is to give us a list of instructions to move a dot through a maze.
 
 ![MazeGameGeneratedMaze](https://github.com/CSE-Club-ISU/STEM-Algorithms/assets/7538725/63603424-692a-47e2-8e14-00931d78551a)
+
+Notes on compiling to jar file from intellij:
+* Add a .manifest.txt file to src and write :Main-Class: src/Frame" inside
+* cd back to STEM-Algorithms outside of src and run the "jar cfm STEM-Algorithms.jar src/manifest.txt *" in the terminal
+* A jar file named STEM-Algorithms should now be created
