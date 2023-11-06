@@ -1,7 +1,7 @@
 package src;
 
 /**
- * A regular Queue that can resize when nessesary
+ * A regular Queue that can resize when necessary
  */
 public class MyQueue<T> {
     Object[] queue;

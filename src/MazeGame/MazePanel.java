@@ -94,6 +94,7 @@ public class MazePanel extends JPanel {
         for (int r = 0; r < maze.length; r++) {
             for (int c = 0; c < maze[r].length; c++) {
                 mazeUI[r][c] = new CellUI(maze[r][c], mazeDisplay.getMaximumSize().width / (maze.length + 2), this);
+                maze[r][c].cellUI = mazeUI[r][c];
                 mazeDisplay.add(mazeUI[r][c]);
             }
         }

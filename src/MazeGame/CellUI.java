@@ -19,22 +19,6 @@ public class CellUI extends JPanel {
         this.size = size;
     }
 
-    /**
-     * @param dir 1=down, 2=right, -1=up, -2=left
-     */
-    CellUI getCellInDir(int dir) {
-        if (dir == 1 && cell.r != mazePanel.mazeUI.length - 1) {
-            return mazePanel.mazeUI[cell.r + 1][cell.c];
-        } else if (dir == 2 && cell.c != mazePanel.mazeUI[0].length - 1) {
-            return mazePanel.mazeUI[cell.r][cell.c + 1];
-        } else if (dir == -1 && cell.r != 0) {
-            return mazePanel.mazeUI[cell.r - 1][cell.c];
-        } else if (dir == -2 && cell.c != 0) {
-            return mazePanel.mazeUI[cell.r][cell.c - 1];
-        }
-        return null;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

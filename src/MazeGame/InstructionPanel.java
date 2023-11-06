@@ -57,7 +57,7 @@ public class InstructionPanel extends JPanel {
         int inputIndex = input.indexOf(':') + 2;
         while(inputIndex > 1 && currentCell != null) {
             int dir = getDirectionFromChar(input.charAt(inputIndex));
-            CellUI nextCell = currentCell.getCellInDir(dir);
+            CellUI nextCell = currentCell.cell.getCellInDir(dir).cellUI;
             currentCell.outLineDir = dir;
             if (currentCell.cell.hasWallInDirection(dir)) break;
             if (nextCell == null) break;
