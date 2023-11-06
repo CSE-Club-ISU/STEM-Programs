@@ -18,6 +18,13 @@ public class StartPanel extends JPanel {
         JLabel title = Frame.addTextToComp("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
         title.setForeground(new Color(250, 180, 0));
 
+        add(createBackgroundImage());
+        setAlignmentX(CENTER_ALIGNMENT);
+
+        add(createStartButton(frame));
+    }
+
+    private JLabel createBackgroundImage() {
         BufferedImage imageResource;
         try {
             imageResource = ImageIO.read(new File("CSEClubLogo.png"));
@@ -26,9 +33,10 @@ public class StartPanel extends JPanel {
         }
         JLabel image = new JLabel(new ImageIcon(imageResource));
         image.setAlignmentX(CENTER_ALIGNMENT);
-        add(image);
-        setAlignmentX(CENTER_ALIGNMENT);
+        return image;
+    }
 
+    private JButton createStartButton(Frame frame) {
         JButton startButton = new JButton("Start game");
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -40,7 +48,7 @@ public class StartPanel extends JPanel {
         startButton.setFocusPainted(false);
         startButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         startButton.setForeground(new Color(255, 255, 200));
-        this.add(startButton);
+        return startButton;
     }
 
     @Override
