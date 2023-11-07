@@ -9,6 +9,7 @@ public class CellUI extends JPanel {
     int size;
     int inLineDir;
     int outLineDir;
+    Color lineColor;
 
     public CellUI(Cell cell, int size, MazePanel mazePanel) {
         this.mazePanel = mazePanel;
@@ -49,18 +50,13 @@ public class CellUI extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         if (inLineDir != 0 || outLineDir != 0) {
             g2.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-            g2.setColor(Color.BLUE);
             drawLine(g2, inLineDir);
             drawLine(g2, outLineDir);
         }
-
-        g.setColor(Color.LIGHT_GRAY);
     }
 
     private void drawLine(Graphics2D g2, int dir) {
-        if (cell.hasWallInDirection(dir))
-            g2.setColor(Color.RED);
-        else g2.setColor(Color.blue);
+        g2.setColor(lineColor);
         if (dir == 1) {
             g2.drawLine(getWidth() / 2, getHeight() / 2, getWidth() / 2, getHeight());
         } else if (dir == -1) {

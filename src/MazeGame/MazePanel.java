@@ -23,7 +23,6 @@ public class MazePanel extends JPanel {
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
         regenerateButton.addActionListener((l) -> {
-            instructionPanel.instructionPanelInput.clearInstructions();
             frame.requestFocusInWindow();
             regenerateMaze();
         });
@@ -66,6 +65,7 @@ public class MazePanel extends JPanel {
 
     public void regenerateMaze() {
         instructionPanel.clearPath();
+        instructionPanel.instructionPanelInput.clearInstructions();
         try {
             int size = Integer.parseInt(sizeInput.getText());
             if (size != mazeUI.length) {

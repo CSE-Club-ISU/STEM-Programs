@@ -28,7 +28,7 @@ public class MazeGame {
         setAllWalls();
         generateStartPosition();
         Random rand = new Random();
-        int randMaze = rand.nextInt(3);
+        int randMaze = rand.nextInt(4);
         if (randMaze == 0) {
             generateMazePrims();
         } else {

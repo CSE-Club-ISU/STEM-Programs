@@ -49,6 +49,15 @@ public class InstructionPanel extends JPanel {
     }
 
     public void visualisePath() {
+        Color returnColor = generatePath();
+        for (CellUI cellUI: previousPath) {
+            cellUI.lineColor = returnColor;
+            cellUI.paintComponent(cellUI.getGraphics());
+        }
+//        mazePanel.paintAll(mazePanel.getGraphics());
+    }
+
+    public Color generatePath() {
         clearPath();
         CellUI[][] grid = mazePanel.mazeUI;
         CellUI currentCell = grid[mazePanel.mazeGame.startCell.r][mazePanel.mazeGame.startCell.c];
@@ -57,21 +66,28 @@ public class InstructionPanel extends JPanel {
         int inputIndex = input.indexOf(':') + 2;
         while(inputIndex > 1 && currentCell != null) {
             int dir = getDirectionFromChar(input.charAt(inputIndex));
-            CellUI nextCell = currentCell.cell.getCellInDir(dir).cellUI;
+            Cell nextGameCell = currentCell.cell.getCellInDir(dir);
             currentCell.outLineDir = dir;
-            if (currentCell.cell.hasWallInDirection(dir)) break;
-            if (nextCell == null) break;
+            if (currentCell.cell.hasWallInDirection(dir) || nextGameCell == null) {
+                int startIndex = inputIndex - 3;
+                while(startIndex >= 0 && Character.isDigit(input.charAt(startIndex))) {
+                    startIndex--;
+                }
+                startIndex++;
+                instructionInput.setText(input.substring(0,startIndex) + ">" + input.substring(startIndex));
+                return Color.RED;
+            }
+            CellUI nextCell = nextGameCell.cellUI;
             nextCell.inLineDir = -dir;
-            currentCell.paintComponent(currentCell.getGraphics());
             currentCell = nextCell;
             previousPath.add(currentCell);
             inputIndex = input.indexOf(':', inputIndex) + 2;
         }
-        if (currentCell != null && currentCell.cell.isStartCell()) {
+        if (currentCell != null && currentCell.cell.isEndCell()) {
             System.out.println("You Won!");
+            return Color.GREEN;
         }
-        currentCell.paintComponent(currentCell.getGraphics());
-        mazePanel.paintAll(mazePanel.getGraphics());
+        return Color.BLUE;
     }
 
     public void clearPath() {
@@ -80,6 +96,7 @@ public class InstructionPanel extends JPanel {
             previousPath.get(i).outLineDir = 0;
             previousPath.get(i).repaint();
         }
+        previousPath.clear();
     }
 
     int getDirectionFromChar(char c) {

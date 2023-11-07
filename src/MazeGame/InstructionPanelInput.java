@@ -16,30 +16,59 @@ public class InstructionPanelInput extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_UP) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Up\n");
-            instructionCount++;
+            if (!isBackwardsMovement("Down")) {
+                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Up\n");
+                instructionCount++;
+            } else removeFirstInstruction();
+            instructionPanel.visualisePath();
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Down\n");
-            instructionCount++;
+            if (!isBackwardsMovement("Up")) {
+                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Down\n");
+                instructionCount++;
+            } else removeFirstInstruction();
+            instructionPanel.visualisePath();
         } else if (keyCode == KeyEvent.VK_LEFT) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Left\n");
-            instructionCount++;
+            if (!isBackwardsMovement("Right")) {
+                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Left\n");
+                instructionCount++;
+            } else removeFirstInstruction();
+            instructionPanel.visualisePath();
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Right\n");
-            instructionCount++;
+            if (!isBackwardsMovement("Left")) {
+                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Right\n");
+                instructionCount++;
+            } else removeFirstInstruction();
+            instructionPanel.visualisePath();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
-            instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
-            instructionCount = Math.max(0,instructionCount - 1);
+            removeFirstInstruction();
+            instructionPanel.visualisePath();
         } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.visualisePath();
         }
 
     }
 
+    boolean isBackwardsMovement(String backWardsMove) {
+        int index = instructionPanel.instructionInput.getText().lastIndexOf(':') + 2;
+        if (index == 1) return false;
+        if (index + backWardsMove.length() >= instructionPanel.instructionInput.getText().length()) return false;
+        String previousMove = instructionPanel.instructionInput.getText().substring(index, index + backWardsMove.length());
+        if (previousMove.equals(backWardsMove)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    void removeFirstInstruction() {
+        instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
+        instructionCount = Math.max(0,instructionCount - 1);
+    }
+
     int getStartIndexOfSecondToLastLine(String text) {
         int index = instructionPanel.instructionInput.getText().lastIndexOf(':') - 1;
         if (index == -1) return -1;
-        while(index > -1 && Character.isDigit(text.charAt(index))) {
+        while(index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
             index--;
         }
         return index;
