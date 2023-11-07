@@ -12,6 +12,7 @@ public class MazeGame {
     Cell startCell;
     Cell endCell;
     int endDistance;
+    String algorithmName;
 
     public MazeGame(int rows, int columns) {
         pastVisitedValue = 0;
@@ -21,6 +22,7 @@ public class MazeGame {
                 maze[r][c] = new Cell(this, r, c);
             }
         }
+        algorithmName = "None";
         startMazeGame();
     }
 
@@ -28,7 +30,7 @@ public class MazeGame {
         setAllWalls();
         generateStartPosition();
         Random rand = new Random();
-        int randMaze = rand.nextInt(1);
+        int randMaze = rand.nextInt(4);
         if (randMaze == 0) {
             generateMazePrims();
         } else {
@@ -109,6 +111,7 @@ public class MazeGame {
 
 
     public void generateMazeDFS() {
+        algorithmName = "Depth-First-Search";
         int startR = startCell.r;
         int startC = startCell.c;
         pastVisitedValue++;
@@ -129,6 +132,7 @@ public class MazeGame {
     }
 
     public void generateMazePrims() {
+        algorithmName = "Prims";
         pastVisitedValue++;
         setAllWalls();
         ArrayList<Cell> toAdd = new ArrayList<>();

@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MazePanel extends JPanel {
+    JLabel title;
     MazeGame mazeGame;
     InstructionPanel instructionPanel;
     Panel mazeDisplay;
@@ -16,7 +17,7 @@ public class MazePanel extends JPanel {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         mazeUI = new CellUI[10][10];
-        Frame.addTextToComp("Maze Game", this);
+        title = Frame.addTextToComp("Maze Game", this);
         Box top = Box.createHorizontalBox();
 
         JButton regenerateButton = new JButton("Regenerate");
@@ -76,6 +77,7 @@ public class MazePanel extends JPanel {
                 generateMaze();
             } else {
                 mazeGame.startMazeGame();
+                title.setText("Maze: " + mazeGame.algorithmName);
                 refreshCells();
             }
         } catch (NumberFormatException e) {
@@ -86,6 +88,7 @@ public class MazePanel extends JPanel {
 
     public void generateMaze() {
         mazeGame = new MazeGame(mazeUI.length, mazeUI[0].length);
+        title.setText("Maze: " + mazeGame.algorithmName);
         Cell[][] maze = mazeGame.getMaze();
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(maze.length);
