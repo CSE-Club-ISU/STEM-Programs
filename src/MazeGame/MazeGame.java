@@ -28,7 +28,7 @@ public class MazeGame {
         setAllWalls();
         generateStartPosition();
         Random rand = new Random();
-        int randMaze = rand.nextInt(4);
+        int randMaze = rand.nextInt(1);
         if (randMaze == 0) {
             generateMazePrims();
         } else {
@@ -136,8 +136,8 @@ public class MazeGame {
 
         Random rand = new Random();
         while (!toAdd.isEmpty()) {
-            int random = rand.nextInt(toAdd.size());
-            int nextIndex = (int)Math.sqrt(random);
+            int random = rand.nextInt(toAdd.size() / 2,toAdd.size());
+            int nextIndex = random;
             Cell currentCell = toAdd.get(nextIndex);
             toAdd.remove(nextIndex);
             currentCell.moveToVisitedNeighbor(pastVisitedValue, true);
