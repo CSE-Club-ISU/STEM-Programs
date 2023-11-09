@@ -39,6 +39,9 @@ public class InstructionPanelInput extends KeyAdapter {
                 instructionCount++;
             } else removeFirstInstruction();
             instructionPanel.visualisePath();
+        } else if (keyCode == KeyEvent.VK_DELETE) {
+            instructionPanel.clearPath();
+            clearInstructions();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             removeFirstInstruction();
             instructionPanel.visualisePath();
