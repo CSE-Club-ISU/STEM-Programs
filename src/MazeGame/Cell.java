@@ -10,6 +10,7 @@ public class Cell {
     boolean[] visitedSides;
     public int visited;
     int r, c;
+    Cell parent;
 
     public Cell(MazeGame mazeGame, int r, int c) {
         this.mazeGame = mazeGame;

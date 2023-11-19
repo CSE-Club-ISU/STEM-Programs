@@ -2,70 +2,96 @@ package src.MazeGame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
-    int instructionCount;
+    ArrayList<Integer> instructions;
 
     public InstructionPanelInput(InstructionPanel instructionPanel) {
         this.instructionPanel = instructionPanel;
-        instructionCount = 0;
+        instructions = new ArrayList<>(100);
     }
 
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_UP) {
-            if (!isBackwardsMovement("Down")) {
-                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Up\n");
-                instructionCount++;
-            } else removeFirstInstruction();
-            instructionPanel.visualisePath();
+            doInstruction(-1);
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            if (!isBackwardsMovement("Up")) {
-                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Down\n");
-                instructionCount++;
-            } else removeFirstInstruction();
-            instructionPanel.visualisePath();
+            doInstruction(1);
         } else if (keyCode == KeyEvent.VK_LEFT) {
-            if (!isBackwardsMovement("Right")) {
-                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Left\n");
-                instructionCount++;
-            } else removeFirstInstruction();
-            instructionPanel.visualisePath();
+            doInstruction(-2);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            if (!isBackwardsMovement("Left")) {
-                instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionCount + ": Right\n");
-                instructionCount++;
-            } else removeFirstInstruction();
-            instructionPanel.visualisePath();
+            doInstruction(2);
         } else if (keyCode == KeyEvent.VK_DELETE) {
             instructionPanel.clearPath();
             clearInstructions();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             removeFirstInstruction();
-            instructionPanel.visualisePath();
-        } else if (keyCode == KeyEvent.VK_ENTER) {
-            instructionPanel.visualisePath();
+            instructionPanel.visualisePath(instructions);
+        }else if (keyCode == KeyEvent.VK_ENTER) {
+            instructionPanel.clearPath();
+            clearInstructions();
+            Cell[][] grid = instructionPanel.mazePanel.mazeGame.getMaze();
+            Cell currentNode = instructionPanel.mazePanel.mazeGame.endCell;
+            StringBuilder output = new StringBuilder();
+            ArrayList<String> lines = new ArrayList<>(100);
+            while(currentNode.parent != null) {
+                if (currentNode.getCellInDir(1) == currentNode.parent) {
+                    lines.add("0: Up\n");
+                    currentNode = currentNode.getCellInDir(1);
+                } else if (currentNode.getCellInDir(2) == currentNode.parent) {
+                    lines.add("0: Left\n");
+                    currentNode = currentNode.getCellInDir(2);
+                } else if (currentNode.getCellInDir(-1) == currentNode.parent) {
+                    lines.add("0: Down\n");
+                    currentNode = currentNode.getCellInDir(-1);
+                }else if (currentNode.getCellInDir(-2) == currentNode.parent) {
+                    lines.add("0: Right\n");
+                    currentNode = currentNode.getCellInDir(-2);
+                }
+            }
+            StringBuilder sb = new StringBuilder(lines.size() * 10);
+            for (int i = lines.size() - 1; i >= 0; i--) {
+                sb.append(lines.get(i));
+            }
+            instructionPanel.instructionInput.setText(sb.toString());
+            instructionPanel.visualisePath(instructions);
         }
 
     }
 
-    boolean isBackwardsMovement(String backWardsMove) {
-        int index = instructionPanel.instructionInput.getText().lastIndexOf(':') + 2;
-        if (index == 1) return false;
-        if (index + backWardsMove.length() >= instructionPanel.instructionInput.getText().length()) return false;
-        String previousMove = instructionPanel.instructionInput.getText().substring(index, index + backWardsMove.length());
-        if (previousMove.equals(backWardsMove)) {
-            return true;
+    void doInstruction(int direction) {
+        if (isBackWardsInstruction(direction)) {
+            removeFirstInstruction();
+            return;
         }
-        return false;
+        instructions.add(direction);
+        if (direction == 1) {
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Down\n");
+        } else if (direction == -1) {
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Up\n");
+        } else if (direction == 2) {
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Right\n");
+        } else if (direction == -2) {
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Left\n");
+        }
+        int errorLine = instructionPanel.visualisePath(instructions);
+        //TODO: Add text signal to error line
     }
 
+    boolean isBackWardsInstruction(int direction) {
+        if (instructions.isEmpty())
+            return false;
+        return instructions.get(instructions.size() - 1) == -direction;
+    }
 
     void removeFirstInstruction() {
+        if (instructions.isEmpty()) return;
+        instructions.remove(instructions.size() - 1);
         instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
-        instructionCount = Math.max(0,instructionCount - 1);
+        instructionPanel.visualisePath(instructions);
     }
 
     int getStartIndexOfSecondToLastLine(String text) {
@@ -87,6 +113,6 @@ public class InstructionPanelInput extends KeyAdapter {
 
     public void clearInstructions() {
         instructionPanel.instructionInput.setText("");
-        instructionCount = 0;
+        instructions.clear();
     }
 }

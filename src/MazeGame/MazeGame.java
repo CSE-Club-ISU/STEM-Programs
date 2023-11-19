@@ -86,6 +86,7 @@ public class MazeGame {
             for (int i = 0; i < neighbors.size(); i++) {
                 neighbors.get(i).visited = pastVisitedValue;
                 queue.add(neighbors.get(i));
+                neighbors.get(i).parent = currentCell;
                 queueDist.add(dist + 1);
             }
             if (currentCell.getNeighborCount() == 1 && currentCell != startCell) {
