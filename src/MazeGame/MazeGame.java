@@ -3,6 +3,7 @@ package src.MazeGame;
 import src.MyQueue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
 
@@ -13,6 +14,7 @@ public class MazeGame {
     Cell endCell;
     int endDistance;
     String algorithmName;
+    ArrayList<Integer> solutionInstructions;
 
     public MazeGame(int rows, int columns) {
         pastVisitedValue = 0;
@@ -108,6 +110,25 @@ public class MazeGame {
         endCell = ends.get(randomEnd);
         endDistance = endsDist.get(randomEnd);
         System.out.println("Distance from start to end: " + endDistance);
+
+        solutionInstructions = new ArrayList<>(100);
+        Cell currentNode = endCell;
+        while(currentNode.parent != null) {
+            if (currentNode.getCellInDir(1) == currentNode.parent) {
+                currentNode = currentNode.getCellInDir(1);
+                solutionInstructions.add(-1);
+            } else if (currentNode.getCellInDir(2) == currentNode.parent) {
+                currentNode = currentNode.getCellInDir(2);
+                solutionInstructions.add(-2);
+            } else if (currentNode.getCellInDir(-1) == currentNode.parent) {
+                currentNode = currentNode.getCellInDir(-1);
+                solutionInstructions.add(1);
+            }else if (currentNode.getCellInDir(-2) == currentNode.parent) {
+                currentNode = currentNode.getCellInDir(-2);
+                solutionInstructions.add(2);
+            }
+        }
+        Collections.reverse(solutionInstructions);
     }
 
 

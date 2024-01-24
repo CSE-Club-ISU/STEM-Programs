@@ -32,34 +32,9 @@ public class InstructionPanelInput extends KeyAdapter {
             instructionPanel.visualisePath(instructions);
         }else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.clearPath();
-            clearInstructions();
-            Cell[][] grid = instructionPanel.mazePanel.mazeGame.getMaze();
-            Cell currentNode = instructionPanel.mazePanel.mazeGame.endCell;
-            StringBuilder output = new StringBuilder();
-            ArrayList<String> lines = new ArrayList<>(100);
-            while(currentNode.parent != null) {
-                if (currentNode.getCellInDir(1) == currentNode.parent) {
-                    lines.add("0: Up\n");
-                    currentNode = currentNode.getCellInDir(1);
-                } else if (currentNode.getCellInDir(2) == currentNode.parent) {
-                    lines.add("0: Left\n");
-                    currentNode = currentNode.getCellInDir(2);
-                } else if (currentNode.getCellInDir(-1) == currentNode.parent) {
-                    lines.add("0: Down\n");
-                    currentNode = currentNode.getCellInDir(-1);
-                }else if (currentNode.getCellInDir(-2) == currentNode.parent) {
-                    lines.add("0: Right\n");
-                    currentNode = currentNode.getCellInDir(-2);
-                }
-            }
-            StringBuilder sb = new StringBuilder(lines.size() * 10);
-            for (int i = lines.size() - 1; i >= 0; i--) {
-                sb.append(lines.get(i));
-            }
-            instructionPanel.instructionInput.setText(sb.toString());
-            instructionPanel.visualisePath(instructions);
+//            clearInstructions();
+            instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
         }
-
     }
 
     void doInstruction(int direction) {
