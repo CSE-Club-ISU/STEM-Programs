@@ -32,7 +32,7 @@ public class MazeGame {
         setAllWalls();
         generateStartPosition();
         Random rand = new Random();
-        int randMaze = rand.nextInt(4);
+        int randMaze = rand.nextInt(4) + 1;
         if (randMaze == 0) {
             generateMazePrims();
         } else {
@@ -69,6 +69,11 @@ public class MazeGame {
 
 
     public void generateEndPosition() {
+//        for (Cell[] row: maze) {
+//            for (Cell cell: row) {
+//                cell.parent = null;
+//            }
+//        }
         int startR = startCell.r;
         int startC = startCell.c;
         pastVisitedValue++;
@@ -77,6 +82,7 @@ public class MazeGame {
         queue.add(maze[startR][startC]);
         queueDist.add(0);
         queue.peek().visited = pastVisitedValue;
+        queue.peek().parent = null;
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
         ArrayList<Integer> endsDist = new ArrayList<>();
@@ -86,9 +92,10 @@ public class MazeGame {
             Integer dist = queueDist.remove();
             ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue, false);
             for (int i = 0; i < neighbors.size(); i++) {
-                neighbors.get(i).visited = pastVisitedValue;
-                queue.add(neighbors.get(i));
-                neighbors.get(i).parent = currentCell;
+                Cell neighborCell = neighbors.get(i);
+                neighborCell.visited = pastVisitedValue;
+                queue.add(neighborCell);
+                neighborCell.parent = currentCell;
                 queueDist.add(dist + 1);
             }
             if (currentCell.getNeighborCount() == 1 && currentCell != startCell) {
