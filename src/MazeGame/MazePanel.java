@@ -19,13 +19,28 @@ public class MazePanel extends JPanel {
         setLayout(boxLayout);
         mazeUI = new CellUI[10][10];
         title = UIUtils.addTextToComp("Maze Game", this);
-        Box top = Box.createHorizontalBox();
 
+        Box top = Box.createHorizontalBox();
+        top.add(createRegenerateMazeButton());
+        top.add(createSizeInputField());
+        add(top);
+
+        Box mazeAndInstructionHolder = Box.createHorizontalBox();
+        mazeAndInstructionHolder.setBorder(new EmptyBorder(10, 10, 10, 10));
+        mazeAndInstructionHolder.add(createMazeDisplay());
+        instructionPanel = new InstructionPanel(this, frame);
+        mazeAndInstructionHolder.add(instructionPanel);
+        add(mazeAndInstructionHolder);
+
+        generateMaze();
+    }
+
+    private JButton createRegenerateMazeButton() {
         JButton regenerateButton = new JButton("Regenerate");
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
         regenerateButton.addActionListener((l) -> {
-            frame.requestFocusInWindow();
+            Frame.getInstance().requestFocusInWindow();
             regenerateMaze();
         });
         regenerateButton.setBackground(Color.BLUE);
@@ -33,28 +48,22 @@ public class MazePanel extends JPanel {
         regenerateButton.setFocusPainted(false);
         regenerateButton.setFocusable(false);
         regenerateButton.setBorder(new EmptyBorder(10, 10, 10, 10));
-        top.add(regenerateButton);
+        return regenerateButton;
+    }
 
+    private JTextField createSizeInputField() {
         sizeInput = new JTextField(Integer.toString(mazeUI.length));
         sizeInput.setMaximumSize(new Dimension(100, 30));
         sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));
-        top.add(sizeInput);
-        add(top);
+        return sizeInput;
+    }
 
-        Box mazeInstructionPanel = Box.createHorizontalBox();
-        mazeInstructionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    private Panel createMazeDisplay() {
         mazeDisplay = new Panel();
         mazeDisplay.setBackground(Color.LIGHT_GRAY);
         mazeDisplay.setMaximumSize(new Dimension(700, 700));
         mazeDisplay.setMinimumSize(new Dimension(700, 700));
-        mazeInstructionPanel.add(mazeDisplay);
-
-        generateMaze();
-
-        instructionPanel = new InstructionPanel(this, frame);
-        mazeInstructionPanel.add(instructionPanel);
-        add(mazeInstructionPanel);
-
+        return mazeDisplay;
     }
 
     public void refreshCells() {
