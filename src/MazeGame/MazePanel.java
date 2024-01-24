@@ -31,8 +31,6 @@ public class MazePanel extends JPanel {
         instructionPanel = new InstructionPanel(this, frame);
         mazeAndInstructionHolder.add(instructionPanel);
         add(mazeAndInstructionHolder);
-
-        generateMaze();
     }
 
     private JButton createRegenerateMazeButton() {
@@ -41,7 +39,7 @@ public class MazePanel extends JPanel {
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
         regenerateButton.addActionListener((l) -> {
             Frame.getInstance().requestFocusInWindow();
-            regenerateMaze();
+            generateMaze();
         });
         regenerateButton.setBackground(Color.BLUE);
         regenerateButton.setForeground(Color.white);
@@ -74,29 +72,11 @@ public class MazePanel extends JPanel {
         }
     }
 
-    public void regenerateMaze() {
-        instructionPanel.clearPath();
-        instructionPanel.instructionPanelInput.clearInstructions();
-        try {
-            int size = Integer.parseInt(sizeInput.getText());
-            if (size != mazeUI.length) {
-                mazeDisplay.removeAll();
-                mazeDisplay.repaint();
-//                this.paintAll(getGraphics());
-                mazeUI = new CellUI[size][size];
-                generateMaze();
-            } else {
-                mazeGame.startMazeGame();
-                title.setText("Maze: " + mazeGame.algorithmName);
-                refreshCells();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Input not valid");
-        }
-        paintAll(getGraphics());
-    }
-
     public void generateMaze() {
+        if (mazeGame != null) {
+            regenerateMaze();
+            return;
+        }
         mazeGame = new MazeGame(mazeUI.length, mazeUI[0].length);
         title.setText("Maze: " + mazeGame.algorithmName);
         Cell[][] maze = mazeGame.getMaze();
@@ -110,6 +90,27 @@ public class MazePanel extends JPanel {
                 maze[r][c].cellUI = mazeUI[r][c];
                 mazeDisplay.add(mazeUI[r][c]);
             }
+        }
+        paintAll(getGraphics());
+    }
+
+    private void regenerateMaze() {
+        instructionPanel.clearPath();
+        instructionPanel.instructionPanelInput.clearInstructions();
+        try {
+            int size = Integer.parseInt(sizeInput.getText());
+            if (size != mazeUI.length) {
+                mazeDisplay.removeAll();
+                mazeDisplay.repaint();
+                mazeUI = new CellUI[size][size];
+                generateMaze();
+            } else {
+                mazeGame.startMazeGame();
+                title.setText("Maze: " + mazeGame.algorithmName);
+                refreshCells();
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Input not valid");
         }
         paintAll(getGraphics());
     }

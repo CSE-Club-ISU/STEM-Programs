@@ -55,6 +55,7 @@ public class Frame extends JFrame {
         remove(startPanel);
         mazeGame = new MazePanel(this);
         add(mazeGame);
+        mazeGame.generateMaze();
         setVisible(true);
         paintAll(getGraphics());
     }
