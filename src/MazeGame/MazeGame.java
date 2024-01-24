@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class MazeGame {
-    Cell[][] maze;
+    Cell[][] grid;
     int pastVisitedValue;
     Cell startCell;
     Cell endCell;
@@ -18,10 +18,10 @@ public class MazeGame {
 
     public MazeGame(int rows, int columns) {
         pastVisitedValue = 0;
-        maze = new Cell[rows][columns];
-        for (int r = 0; r < maze.length; r++) {
-            for (int c = 0; c < maze[0].length; c++) {
-                maze[r][c] = new Cell(this, r, c);
+        grid = new Cell[rows][columns];
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                grid[r][c] = new Cell(this, r, c);
             }
         }
         algorithmName = "None";
@@ -42,29 +42,29 @@ public class MazeGame {
     }
 
     public void setAllWalls() {
-        for (int r = 0; r < maze.length; r++) {
-            for (int c = 0; c < maze[0].length; c++) {
-                maze[r][c].setAllWalls();
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                grid[r][c].setAllWalls();
             }
         }
     }
 
     public void generateStartPosition() {
         Random rand = new Random();
-        startCell = maze[rand.nextInt(maze.length)][rand.nextInt(maze[0].length)];
+        startCell = grid[rand.nextInt(grid.length)][rand.nextInt(grid[0].length)];
     }
 
     public void generateStartPositionOnSide() {
         Random rand = new Random();
         int side = rand.nextInt(4);
         if (side == 0)
-            startCell = maze[0][rand.nextInt(maze[0].length)];
+            startCell = grid[0][rand.nextInt(grid[0].length)];
         else if (side == 1)
-            startCell = maze[maze.length - 1][rand.nextInt(maze[0].length)];
+            startCell = grid[grid.length - 1][rand.nextInt(grid[0].length)];
         else if (side == 2)
-            startCell = maze[rand.nextInt(maze.length)][0];
+            startCell = grid[rand.nextInt(grid.length)][0];
         else
-            startCell = maze[rand.nextInt(maze.length)][maze[0].length - 1];
+            startCell = grid[rand.nextInt(grid.length)][grid[0].length - 1];
     }
 
 
@@ -79,14 +79,14 @@ public class MazeGame {
         pastVisitedValue++;
         MyQueue<Cell> queue = new MyQueue<>();
         MyQueue<Integer> queueDist = new MyQueue<>();
-        queue.add(maze[startR][startC]);
+        queue.add(grid[startR][startC]);
         queueDist.add(0);
         queue.peek().visited = pastVisitedValue;
         queue.peek().parent = null;
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
         ArrayList<Integer> endsDist = new ArrayList<>();
-        int maxEndSize = (int) Math.min(20, Math.max(1, 2 * maze.length / 5f));
+        int maxEndSize = (int) Math.min(20, Math.max(1, 2 * grid.length / 5f));
         while (queue.hasNext()) {
             currentCell = queue.remove();
             Integer dist = queueDist.remove();
@@ -146,7 +146,7 @@ public class MazeGame {
         pastVisitedValue++;
         setAllWalls();
         Stack<Cell> stack = new Stack<>();
-        stack.push(maze[startR][startC]);
+        stack.push(grid[startR][startC]);
         stack.peek().visited = pastVisitedValue;
         Cell currentCell = null;
         while (!stack.isEmpty()) {
@@ -188,7 +188,7 @@ public class MazeGame {
         endCell = null;
     }
 
-    public Cell[][] getMaze() {
-        return maze;
+    public Cell[][] getGrid() {
+        return grid;
     }
 }

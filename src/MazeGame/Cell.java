@@ -131,14 +131,14 @@ public class Cell {
      * @param dir 1=down, 2=right, -1=up, -2=left
      */
     Cell getCellInDir(int dir) {
-        if (dir == 1 && r != mazeGame.maze.length - 1) {
-            return mazeGame.maze[r+1][c];
-        } else if (dir == 2 && c != mazeGame.maze[0].length - 1) {
-            return mazeGame.maze[r][c+1];
+        if (dir == 1 && r != mazeGame.grid.length - 1) {
+            return mazeGame.grid[r+1][c];
+        } else if (dir == 2 && c != mazeGame.grid[0].length - 1) {
+            return mazeGame.grid[r][c+1];
         } else if (dir == -1 && r != 0) {
-            return mazeGame.maze[r-1][c];
+            return mazeGame.grid[r-1][c];
         } else if (dir == -2 && c != 0) {
-            return mazeGame.maze[r][c-1];
+            return mazeGame.grid[r][c-1];
         }
         return null;
     }
