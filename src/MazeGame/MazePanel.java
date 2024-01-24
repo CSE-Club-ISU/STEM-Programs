@@ -1,6 +1,7 @@
 package src.MazeGame;
 
 import src.Frame;
+import src.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +18,7 @@ public class MazePanel extends JPanel {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         mazeUI = new CellUI[10][10];
-        title = Frame.addTextToComp("Maze Game", this);
+        title = UIUtils.addTextToComp("Maze Game", this);
         Box top = Box.createHorizontalBox();
 
         JButton regenerateButton = new JButton("Regenerate");

@@ -9,13 +9,16 @@ import java.io.IOException;
 
 public class StartPanel extends JPanel {
 
+    /**
+     * This is the start screen to display first.
+     */
     public StartPanel(Frame frame) {
         super();
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         setSize(frame.getSize());
 
-        JLabel title = Frame.addTextToComp("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
+        JLabel title = UIUtils.addTextToComp("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
         title.setForeground(new Color(250, 180, 0));
 
         add(createBackgroundImage());

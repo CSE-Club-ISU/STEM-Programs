@@ -6,15 +6,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
+/**
+ * Frame a singleton and the main controller of the application.
+ * It manages what panel is displayed.
+ */
 public class Frame extends JFrame {
-    public static Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+    private static Frame singleton;
     StartPanel startPanel;
     MazePanel mazeGame;
+
     public static void main(String[] args) {
         Runnable r = new Runnable() {
             public void run() {
                 try {
-                    new Frame().create();
+                    new Frame();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -23,19 +28,27 @@ public class Frame extends JFrame {
         SwingUtilities.invokeLater(r);
     }
 
-    private void create() throws FileNotFoundException {
+    /**
+     * Sets up the settings for the entire window.
+     */
+    private Frame() throws FileNotFoundException {
+        singleton = this;
         setFocusable(true);
         setBackground(new Color(38,38,38));
-        startPanel = new StartPanel(this);
-        add(startPanel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1500, 800);
         setIconImage(new javax.swing.ImageIcon("CSEClubLogoNoTextBorder.png").getImage());
         setLocationRelativeTo(null);
         setTitle("CSE");
         setVisible(true);
-//        startMazeGame();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        startPanel = new StartPanel(this);
+        add(startPanel);
+    }
+
+    public static Frame getInstance() {
+        return singleton;
     }
 
     public void startMazeGame() {
@@ -44,19 +57,6 @@ public class Frame extends JFrame {
         add(mazeGame);
         setVisible(true);
         paintAll(getGraphics());
-    }
-
-    public static JLabel addTextToComp(String text, JComponent component) {
-        return addTextToComp(text, font, component);
-    }
-
-    public static JLabel addTextToComp(String text, Font font, JComponent component) {
-        JLabel newLabel = new JLabel();
-        newLabel.setFont(font);
-        newLabel.setText(text);
-        newLabel.setAlignmentX(CENTER_ALIGNMENT);
-        component.add(newLabel);
-        return newLabel;
     }
 
 }

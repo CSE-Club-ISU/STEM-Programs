@@ -1,7 +1,8 @@
 package src;
 
 /**
- * A regular Queue that can resize when necessary
+ * A regular Queue that can resize when necessary.
+ * Note that it can loop around the array to better support additions and deletions.
  */
 public class MyQueue<T> {
     Object[] queue;
@@ -46,6 +47,7 @@ public class MyQueue<T> {
         queue = new Object[oldArr.length * 2];
 
         if (startIndex + length >= oldArr.length) {
+            // We have a loop, so we need to copy both sections in order
             int backLength = startIndex + length - oldArr.length;
             System.arraycopy(oldArr, startIndex, queue, 0, length - backLength);
             System.arraycopy(oldArr, 0, queue, length - backLength, backLength);
