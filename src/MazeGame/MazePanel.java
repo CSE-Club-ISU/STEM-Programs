@@ -81,7 +81,6 @@ public class MazePanel extends JPanel {
         }
         mazeGame.startMazeGame();
         title.setText("Maze: " + mazeGame.algorithmName);
-        mazeUI.refreshCells();
-        mazeUI.regenerateMaze();
+        mazeUI.repaint();
     }
 }

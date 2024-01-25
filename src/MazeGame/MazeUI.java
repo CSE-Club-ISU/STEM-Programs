@@ -20,14 +20,6 @@ public class MazeUI extends JPanel {
         gridUI = new CellUI[rows][columns];
     }
 
-    public void refreshCells() {
-        for (int r = 0; r < getGridRows(); r++) {
-            for (int c = 0; c < getGridColumns(); c++) {
-                getCellAt(r,c).repaint();
-            }
-        }
-    }
-
     protected void generateMaze(Cell[][] grid) {
         GridLayout gridLayout = new GridLayout();
         gridLayout.setRows(grid.length);
@@ -41,11 +33,6 @@ public class MazeUI extends JPanel {
                 add(newCellUI);
             }
         }
-//        refreshCells();
-        paintAll(getGraphics());
-    }
-
-    protected void regenerateMaze() {
         paintAll(getGraphics());
     }
 
