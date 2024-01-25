@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class MazeGame {
-    Cell[][] grid;
+    private Cell[][] grid;
     int pastVisitedValue;
     Cell startCell;
     Cell endCell;

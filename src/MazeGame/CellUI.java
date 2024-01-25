@@ -4,15 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CellUI extends JPanel {
-    MazePanel mazePanel;
+    MazeUI mazeUI;
     Cell cell;
     int size;
     int inLineDir;
     int outLineDir;
     Color lineColor;
 
-    public CellUI(Cell cell, int size, MazePanel mazePanel) {
-        this.mazePanel = mazePanel;
+    public CellUI(Cell cell, int size, MazeUI mazeUI) {
+        this.mazeUI = mazeUI;
         setLayout(null);
         this.cell = cell;
 
@@ -31,7 +31,7 @@ public class CellUI extends JPanel {
             setBackground(Color.lightGray);
         g.setColor(Color.BLACK);
 
-        int thickness = Math.max(2, 50 / cell.mazeGame.grid.length);
+        int thickness = Math.max(2, 50 / mazeUI.getGridRows());
         // Walls
         if (cell.walls[0])
             g.fillRect(0, 0, thickness, getHeight()); //left
@@ -49,7 +49,7 @@ public class CellUI extends JPanel {
         g.fillRect(getWidth(), 0, 1, getHeight()); //right
         Graphics2D g2 = (Graphics2D) g;
         if (inLineDir != 0 || outLineDir != 0) {
-            g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / mazePanel.mazeUI.getGridRows())), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+            g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / mazeUI.getGridRows())), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
             drawLine(g2, inLineDir);
             drawLine(g2, outLineDir);
         }

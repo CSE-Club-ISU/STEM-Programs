@@ -62,7 +62,7 @@ public class MazePanel extends JPanel {
         }
         mazeGame = new MazeGame(mazeUI.getGridRows(), mazeUI.getGridColumns());
         title.setText("Maze: " + mazeGame.algorithmName);
-        mazeUI.generateMaze(mazeGame.grid);
+        mazeUI.generateMaze(mazeGame.getGrid());
     }
 
     private void regenerateMaze() {
