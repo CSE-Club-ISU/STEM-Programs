@@ -72,6 +72,7 @@ public class MazePanel extends JPanel {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
                 mazeUI.resizeMazeUI(newSize,newSize);
+                mazeGame = null;
                 generateMaze();
                 return;
             }

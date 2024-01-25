@@ -34,13 +34,14 @@ public class MazeUI extends JPanel {
         gridLayout.setColumns(grid[0].length);
         setLayout(gridLayout);
 
-        for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[r].length; c++) {
+        for (int r = 0; r < getGridRows(); r++) {
+            for (int c = 0; c < getGridColumns(); c++) {
                 CellUI newCellUI = setCellAt(r, c, new CellUI(grid[r][c], getMaximumSize().width / (grid.length + 2), mazePanel));
                 grid[r][c].cellUI = newCellUI;
                 add(newCellUI);
             }
         }
+//        refreshCells();
         paintAll(getGraphics());
     }
 
