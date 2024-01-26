@@ -29,7 +29,7 @@ public class Cell {
         }
     }
 
-    public Cell moveToUnvistedNeighbor(int visitedInt, boolean removeWalls) {
+    public Cell moveToUnvisitedNeighbor(int visitedInt, boolean removeWalls) {
         ArrayList<Cell> unvisited = new ArrayList(4);
         ArrayList<Integer> unvisitedDir = new ArrayList(4);
         for (int i = -2; i <= 2; i++) {

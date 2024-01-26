@@ -153,7 +153,7 @@ public class MazeGame {
             currentCell = stack.pop();
             if (currentCell.hasUnvisitedNeighbor(pastVisitedValue)) {
                 stack.push(currentCell);
-                currentCell = currentCell.moveToUnvistedNeighbor(pastVisitedValue, true);
+                currentCell = currentCell.moveToUnvisitedNeighbor(pastVisitedValue, true);
                 currentCell.visited = pastVisitedValue;
                 stack.push(currentCell);
             }
