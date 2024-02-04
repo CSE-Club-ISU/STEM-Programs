@@ -33,11 +33,12 @@ public class MazeGame {
         generateStartPosition();
         Random rand = new Random();
         int randMaze = rand.nextInt(4) + 1;
-        if (randMaze == 0) {
-            generateMazePrims();
-        } else {
-            generateMazeDFS();
-        }
+//        if (randMaze == 0) {
+//            generateMazePrims();
+//        } else {
+//            generateMazeDFS();
+//        }
+        generateMazeDFS2();
         generateEndPosition();
     }
 
@@ -79,8 +80,8 @@ public class MazeGame {
         pastVisitedValue++;
         MyQueue<Cell> queue = new MyQueue<>();
         MyQueue<Integer> queueDist = new MyQueue<>();
-        queue.add(grid[startR][startC]);
-        queueDist.add(0);
+        queue.addBack(grid[startR][startC]);
+        queueDist.addBack(0);
         queue.peek().visited = pastVisitedValue;
         queue.peek().parent = null;
         Cell currentCell = null;
@@ -94,9 +95,9 @@ public class MazeGame {
             for (int i = 0; i < neighbors.size(); i++) {
                 Cell neighborCell = neighbors.get(i);
                 neighborCell.visited = pastVisitedValue;
-                queue.add(neighborCell);
+                queue.addBack(neighborCell);
                 neighborCell.parent = currentCell;
-                queueDist.add(dist + 1);
+                queueDist.addBack(dist + 1);
             }
             if (currentCell.getNeighborCount() == 1 && currentCell != startCell) {
                 if (ends.size() >= maxEndSize && dist > endsDist.get(0)) {
@@ -120,7 +121,7 @@ public class MazeGame {
 
         solutionInstructions = new ArrayList<>(100);
         Cell currentNode = endCell;
-        while(currentNode.parent != null) {
+        while (currentNode.parent != null) {
             if (currentNode.getCellInDir(1) == currentNode.parent) {
                 currentNode = currentNode.getCellInDir(1);
                 solutionInstructions.add(-1);
@@ -130,7 +131,7 @@ public class MazeGame {
             } else if (currentNode.getCellInDir(-1) == currentNode.parent) {
                 currentNode = currentNode.getCellInDir(-1);
                 solutionInstructions.add(1);
-            }else if (currentNode.getCellInDir(-2) == currentNode.parent) {
+            } else if (currentNode.getCellInDir(-2) == currentNode.parent) {
                 currentNode = currentNode.getCellInDir(-2);
                 solutionInstructions.add(2);
             }
@@ -160,6 +161,37 @@ public class MazeGame {
         }
     }
 
+    public void generateMazeDFS2() {
+        algorithmName = "Depth-First-Search-2";
+        int startR = startCell.r;
+        int startC = startCell.c;
+        pastVisitedValue++;
+        setAllWalls();
+        MyQueue<Cell> stack = new MyQueue<>();
+        stack.addFront(grid[startR][startC]);
+        stack.peek().visited = pastVisitedValue;
+        Cell currentCell = null;
+        int currentPathLength = 0;
+        Random random = new Random();
+        while (!stack.isEmpty()) {
+            currentCell = stack.remove();
+            if (random.nextInt(grid.length / 2) + 2 < currentPathLength && !currentCell.equals(startCell)) {
+                stack.addBack(currentCell);
+                currentPathLength = 0;
+            }
+
+            if (currentCell.hasUnvisitedNeighbor(pastVisitedValue)) {
+                stack.addFront(currentCell);
+                currentCell = currentCell.moveToUnvisitedNeighbor(pastVisitedValue, true);
+                currentCell.visited = pastVisitedValue;
+                currentPathLength++;
+                stack.addFront(currentCell);
+            } else {
+                currentPathLength = 0;
+            }
+        }
+    }
+
     public void generateMazePrims() {
         algorithmName = "Prims";
         pastVisitedValue++;
@@ -169,14 +201,14 @@ public class MazeGame {
 
         Random rand = new Random();
         while (!toAdd.isEmpty()) {
-            int random = rand.nextInt(toAdd.size() / 2,toAdd.size());
+            int random = rand.nextInt(toAdd.size() / 2, toAdd.size());
             int nextIndex = random;
             Cell currentCell = toAdd.get(nextIndex);
             toAdd.remove(nextIndex);
             currentCell.moveToVisitedNeighbor(pastVisitedValue, true);
             ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(pastVisitedValue, true);
             for (int n = 0; n < neighbors.size(); n++) {
-                if(!neighbors.get(n).hasVisitedNeighbor(pastVisitedValue)) {
+                if (!neighbors.get(n).hasVisitedNeighbor(pastVisitedValue)) {
                     toAdd.add(neighbors.get(n));
                 }
             }
