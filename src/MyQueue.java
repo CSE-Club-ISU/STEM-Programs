@@ -15,7 +15,10 @@ public class MyQueue<T> {
         length = 0;
     }
 
-    public boolean add(T t) {
+    /**
+     * Places the new element at the back of the queue
+     */
+    public void addBack(T t) {
         if (length == queue.length) resize();
         if (startIndex + length >= queue.length) {
             queue[startIndex + length - queue.length] = t;
@@ -23,7 +26,21 @@ public class MyQueue<T> {
             queue[startIndex + length] = t;
         }
         length++;
-        return true;
+    }
+
+    /**
+     * Places the new element at the front of the queue
+     */
+    public void addFront(T t) {
+        if (length == queue.length) resize();
+        if (startIndex == 0) {
+            queue[queue.length - 1] = t;
+            startIndex = queue.length - 1;
+        } else {
+            startIndex--;
+            queue[startIndex] = t;
+        }
+        length++;
     }
 
     public T remove() {
@@ -55,5 +72,13 @@ public class MyQueue<T> {
             System.arraycopy(oldArr, startIndex, queue, 0, length);
         }
         startIndex = 0;
+    }
+
+    public int size() {
+        return length;
+    }
+
+    public boolean isEmpty() {
+        return length == 0;
     }
 }
