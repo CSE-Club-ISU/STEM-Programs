@@ -14,6 +14,12 @@ So our challenge to the kids is to give us a list of instructions to move a dot 
 
 ![MazeGame1](https://github.com/CSE-Club-ISU/STEM-Algorithms/assets/7538725/03e102ba-80a2-475a-a29d-aafb5ac64442)
 
+### Todo:
+* Create better maze algorithms
+* Improve the UI
+* Migrate to android studio?
+* Create other algorithm games:
+  * Higher or lower?
 
 Notes on compiling to jar file from intellij:
 * Add a .manifest.txt file to src and write :Main-Class: src/Frame" inside
