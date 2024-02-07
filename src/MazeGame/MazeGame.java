@@ -38,7 +38,8 @@ public class MazeGame {
         setAllWalls();
         startCell = startGen.generateMazeStart(grid);
         setAllWalls();
-        algorithmName = mazeGen.generateMaze(grid, startCell, pastVisitedValue);
+        pastVisitedValue = mazeGen.generateMaze(grid, startCell, pastVisitedValue);
+        algorithmName = mazeGen.getMazeGenerationName();
         solutionInstructions.clear();
         endCell = goalGen.generateMazeGoal(grid, startCell, pastVisitedValue, solutionInstructions);
     }

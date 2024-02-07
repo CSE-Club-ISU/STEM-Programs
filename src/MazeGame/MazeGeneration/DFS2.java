@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class DFS2 implements MazeGenAlgorithm {
     @Override
-    public String generateMaze(Cell[][] grid, Cell startCell, Integer visitedValue) {
+    public int generateMaze(Cell[][] grid, Cell startCell, int visitedValue) {
         int startR = startCell.getRow();
         int startC = startCell.getColumn();
         visitedValue++;
@@ -34,6 +34,11 @@ public class DFS2 implements MazeGenAlgorithm {
                 currentPathLength = 0;
             }
         }
+        return visitedValue;
+    }
+
+    @Override
+    public String getMazeGenerationName() {
         return "Depth-First-Search-2";
     }
 }

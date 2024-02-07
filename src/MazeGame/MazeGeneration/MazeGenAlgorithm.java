@@ -8,5 +8,7 @@ public interface MazeGenAlgorithm {
      * @param visitedValue the value of cells that haven't been visited yet.
      * @return the name of the algorithm to display.
      */
-    String generateMaze(Cell[][] grid, Cell startCell, Integer visitedValue);
+    int generateMaze(Cell[][] grid, Cell startCell, int visitedValue);
+
+    String getMazeGenerationName();
 }

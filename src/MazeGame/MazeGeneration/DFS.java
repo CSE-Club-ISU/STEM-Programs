@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class DFS implements MazeGenAlgorithm{
     @Override
-    public String generateMaze(Cell[][] grid, Cell startCell, Integer visitedValue) {
+    public int generateMaze(Cell[][] grid, Cell startCell, int visitedValue) {
         int startR = startCell.getRow();
         int startC = startCell.getColumn();
         visitedValue++;
@@ -23,6 +23,11 @@ public class DFS implements MazeGenAlgorithm{
                 stack.push(currentCell);
             }
         }
+        return visitedValue;
+    }
+
+    @Override
+    public String getMazeGenerationName() {
         return "Depth-First-Search";
     }
 }

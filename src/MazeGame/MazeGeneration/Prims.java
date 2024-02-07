@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Prims implements MazeGenAlgorithm {
     @Override
-    public String generateMaze(Cell[][] grid, Cell startCell, Integer visitedValue) {
+    public int generateMaze(Cell[][] grid, Cell startCell, int visitedValue) {
         visitedValue++;
         ArrayList<Cell> toAdd = new ArrayList<>();
         toAdd.add(startCell);
@@ -27,6 +27,11 @@ public class Prims implements MazeGenAlgorithm {
             }
             currentCell.visited = visitedValue;
         }
+        return visitedValue;
+    }
+
+    @Override
+    public String getMazeGenerationName() {
         return "Prims";
     }
 }
