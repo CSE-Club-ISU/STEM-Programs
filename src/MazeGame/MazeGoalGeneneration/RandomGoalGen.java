@@ -6,18 +6,19 @@ import src.MyQueue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RandomGoalGen implements MazeGoalGenAlgorithm {
     @Override
-    public Cell generateMazeGoal(Cell[][] grid, Cell startCell, Integer visitedValue, ArrayList<Integer> solutions) {
+    public Cell generateMazeGoal(Cell[][] grid, Cell startCell, AtomicInteger visitedValue, ArrayList<Integer> solutions) {
         int startR = startCell.getRow();
         int startC = startCell.getColumn();
-        visitedValue++;
+        visitedValue.incrementAndGet();
         MyQueue<Cell> queue = new MyQueue<>();
         MyQueue<Integer> queueDist = new MyQueue<>();
         queue.addBack(grid[startR][startC]);
         queueDist.addBack(0);
-        queue.peek().visited = visitedValue;
+        queue.peek().visited = visitedValue.get();
         queue.peek().setParent(null);
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
@@ -26,10 +27,10 @@ public class RandomGoalGen implements MazeGoalGenAlgorithm {
         while (queue.hasNext()) {
             currentCell = queue.remove();
             Integer dist = queueDist.remove();
-            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(visitedValue, false);
+            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(visitedValue.get(), false);
             for (int i = 0; i < neighbors.size(); i++) {
                 Cell neighborCell = neighbors.get(i);
-                neighborCell.visited = visitedValue;
+                neighborCell.visited = visitedValue.get();
                 queue.addBack(neighborCell);
                 neighborCell.setParent(currentCell);
                 queueDist.addBack(dist + 1);

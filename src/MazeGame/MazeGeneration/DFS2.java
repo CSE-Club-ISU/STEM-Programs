@@ -4,16 +4,17 @@ import src.MazeGame.Cell;
 import src.MyQueue;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DFS2 implements MazeGenAlgorithm {
     @Override
-    public int generateMaze(Cell[][] grid, Cell startCell, int visitedValue) {
+    public void generateMaze(Cell[][] grid, Cell startCell, AtomicInteger visitedValue) {
         int startR = startCell.getRow();
         int startC = startCell.getColumn();
-        visitedValue++;
+        visitedValue.incrementAndGet();
         MyQueue<Cell> stack = new MyQueue<>();
         stack.addFront(grid[startR][startC]);
-        stack.peek().visited = visitedValue;
+        stack.peek().visited = visitedValue.get();
         Cell currentCell = null;
         int currentPathLength = 0;
         Random random = new Random();
@@ -24,17 +25,16 @@ public class DFS2 implements MazeGenAlgorithm {
                 currentPathLength = 0;
             }
 
-            if (currentCell.hasUnvisitedNeighbor(visitedValue)) {
+            if (currentCell.hasUnvisitedNeighbor(visitedValue.get())) {
                 stack.addFront(currentCell);
-                currentCell = currentCell.moveToUnvisitedNeighbor(visitedValue, true);
-                currentCell.visited = visitedValue;
+                currentCell = currentCell.moveToUnvisitedNeighbor(visitedValue.get(), true);
+                currentCell.visited = visitedValue.get();
                 currentPathLength++;
                 stack.addFront(currentCell);
             } else {
                 currentPathLength = 0;
             }
         }
-        return visitedValue;
     }
 
     @Override

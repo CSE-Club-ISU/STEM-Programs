@@ -4,11 +4,12 @@ import src.MazeGame.Cell;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Prims implements MazeGenAlgorithm {
     @Override
-    public int generateMaze(Cell[][] grid, Cell startCell, int visitedValue) {
-        visitedValue++;
+    public void generateMaze(Cell[][] grid, Cell startCell, AtomicInteger visitedValue) {
+        visitedValue.incrementAndGet();
         ArrayList<Cell> toAdd = new ArrayList<>();
         toAdd.add(startCell);
 
@@ -18,16 +19,15 @@ public class Prims implements MazeGenAlgorithm {
             int nextIndex = random;
             Cell currentCell = toAdd.get(nextIndex);
             toAdd.remove(nextIndex);
-            currentCell.moveToVisitedNeighbor(visitedValue, true);
-            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(visitedValue, true);
+            currentCell.moveToVisitedNeighbor(visitedValue.get(), true);
+            ArrayList<Cell> neighbors = currentCell.getUnvisitedNeighborsWithWalls(visitedValue.get(), true);
             for (int n = 0; n < neighbors.size(); n++) {
-                if (!neighbors.get(n).hasVisitedNeighbor(visitedValue)) {
+                if (!neighbors.get(n).hasVisitedNeighbor(visitedValue.get())) {
                     toAdd.add(neighbors.get(n));
                 }
             }
-            currentCell.visited = visitedValue;
+            currentCell.visited = visitedValue.get();
         }
-        return visitedValue;
     }
 
     @Override

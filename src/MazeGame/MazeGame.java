@@ -11,10 +11,14 @@ import src.MazeGame.MazeStartGeneration.RandomStartGen;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MazeGame {
     private Cell[][] grid;
-    Integer pastVisitedValue;
+    /** pastVisitedValue relates to [cell.visited] and helps us determine if we have seen a cell before.
+     * It is an AtomicInteger so that we can pass in a reference to it and modify it in the generation algorithms.
+     */
+    AtomicInteger pastVisitedValue;
     Cell startCell;
     Cell endCell;
     String algorithmName;
@@ -39,7 +43,7 @@ public class MazeGame {
      * @param columns the number of columns in the grid
      */
     public MazeGame(int rows, int columns, MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
-        pastVisitedValue = 0;
+        pastVisitedValue = new AtomicInteger(0);
         grid = new Cell[rows][columns];
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
@@ -65,7 +69,7 @@ public class MazeGame {
     public void startMazeGame(MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         setAllWalls();
         startCell = startGen.generateMazeStart(grid);
-        pastVisitedValue = mazeGen.generateMaze(grid, startCell, pastVisitedValue);
+        mazeGen.generateMaze(grid, startCell, pastVisitedValue);
         algorithmName = mazeGen.getMazeGenerationName();
         solutionInstructions.clear();
         endCell = goalGen.generateMazeGoal(grid, startCell, pastVisitedValue, solutionInstructions);
