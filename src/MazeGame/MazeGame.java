@@ -30,7 +30,11 @@ public class MazeGame {
     }
 
     /**
-     * Initializes the maze game with the given generation parameters
+     * Initializes the maze game with the given generation parameters using dependency injection.
+     * We are employing the strategy pattern in order to determine the type of generation to use.
+     * @param startGen the algorithm that determines the start cell
+     * @param mazeGen the maze generation algorithm that remove the walls
+     * @param goalGen the algorithm that determines the end cell
      * @param rows the number of rows in the grid
      * @param columns the number of columns in the grid
      */
@@ -61,11 +65,11 @@ public class MazeGame {
     public void startMazeGame(MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         setAllWalls();
         startCell = startGen.generateMazeStart(grid);
-        setAllWalls();
         pastVisitedValue = mazeGen.generateMaze(grid, startCell, pastVisitedValue);
         algorithmName = mazeGen.getMazeGenerationName();
         solutionInstructions.clear();
         endCell = goalGen.generateMazeGoal(grid, startCell, pastVisitedValue, solutionInstructions);
+        System.out.println("Distance from start to end: " + solutionInstructions.size());
     }
 
     public void setAllWalls() {

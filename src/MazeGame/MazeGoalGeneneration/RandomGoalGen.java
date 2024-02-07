@@ -70,7 +70,6 @@ public class RandomGoalGen implements MazeGoalGenAlgorithm {
         }
 
         Collections.reverse(solutions);
-        System.out.println("Distance from start to end: " + solutions.size());
         return endCell;
     }
 }
