@@ -1,6 +1,9 @@
 package src.MazeGame;
 
 import src.Frame;
+import src.MazeGame.MazeGeneration.DFS;
+import src.MazeGame.MazeGoalGeneneration.RandomGoalGen;
+import src.MazeGame.MazeStartGeneration.RandomStartGen;
 import src.UIUtils;
 
 import javax.swing.*;
@@ -79,7 +82,7 @@ public class MazePanel extends JPanel {
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
-        mazeGame.startMazeGame();
+        mazeGame.startMazeGame(new RandomStartGen(), new DFS(), new RandomGoalGen());
         title.setText("Maze: " + mazeGame.algorithmName);
         mazeUI.repaint();
     }

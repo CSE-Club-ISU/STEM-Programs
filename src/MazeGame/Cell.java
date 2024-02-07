@@ -9,8 +9,8 @@ public class Cell {
     boolean[] walls; //Left, Up, Down, Right
     boolean[] visitedSides;
     public int visited;
-    int r, c;
-    Cell parent;
+    private final int r, c;
+    private Cell parent;
 
     public Cell(MazeGame mazeGame, int r, int c) {
         this.mazeGame = mazeGame;
@@ -130,7 +130,7 @@ public class Cell {
     /**
      * @param dir 1=down, 2=right, -1=up, -2=left
      */
-    Cell getCellInDir(int dir) {
+    public Cell getCellInDir(int dir) {
         Cell[][] grid = mazeGame.getGrid();
         if (dir == 1 && r != grid.length - 1) {
             return grid[r+1][c];
@@ -164,4 +164,10 @@ public class Cell {
     public boolean isEndCell() {
         return mazeGame.endCell == this;
     }
+
+    public int getRow() { return r; }
+    public int getColumn() { return c; }
+
+    public Cell getParent() { return parent; }
+    public void setParent(Cell parent) { this.parent = parent; }
 }

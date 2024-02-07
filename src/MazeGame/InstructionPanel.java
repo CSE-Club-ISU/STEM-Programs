@@ -66,7 +66,7 @@ public class InstructionPanel extends JPanel {
 
     public int generatePath(ArrayList<Integer> directions) {
         clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.r,mazePanel.mazeGame.startCell.c);
+        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(),mazePanel.mazeGame.startCell.getColumn());
         previousPath.add(currentCell);
         for (int i = 0; i < directions.size(); i++) {
             if (currentCell == null) break;
