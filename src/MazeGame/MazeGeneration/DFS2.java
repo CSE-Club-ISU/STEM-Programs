@@ -26,7 +26,8 @@ public class DFS2 implements MazeGenAlgorithm {
             }
 
             if (currentCell.hasUnvisitedNeighbor(visitedValue.get())) {
-                stack.addFront(currentCell);
+                if (!currentCell.isStartCell())
+                    stack.addBack(currentCell);
                 currentCell = currentCell.moveToUnvisitedNeighbor(visitedValue.get(), true);
                 currentCell.visited = visitedValue.get();
                 currentPathLength++;

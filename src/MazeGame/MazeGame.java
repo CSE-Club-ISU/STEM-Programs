@@ -56,7 +56,7 @@ public class MazeGame {
     }
 
     private static MazeGenAlgorithm getRandomMazeGenerationAlgorithm() {
-        int algorithm = new Random().nextInt(5);
+        int algorithm = new Random().nextInt(10);
         if (algorithm == 0) {
             return new Prims();
         } else if (algorithm <= 2) {
