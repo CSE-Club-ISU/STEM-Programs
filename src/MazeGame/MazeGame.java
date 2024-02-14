@@ -66,6 +66,10 @@ public class MazeGame {
         }
     }
 
+    public void startMazeGame() {
+        startMazeGame(new RandomStartGen(), getRandomMazeGenerationAlgorithm(), new RandomGoalGen());
+    }
+
     public void startMazeGame(MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         setAllWalls();
         startCell = startGen.generateMazeStart(grid);

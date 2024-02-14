@@ -82,7 +82,7 @@ public class MazePanel extends JPanel {
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
-        mazeGame.startMazeGame(new RandomStartGen(), new DFS(), new RandomGoalGen());
+        mazeGame.startMazeGame();
         title.setText("Maze: " + mazeGame.algorithmName);
         mazeUI.repaint();
     }
