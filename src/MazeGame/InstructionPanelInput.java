@@ -30,10 +30,12 @@ public class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             removeFirstInstruction();
             instructionPanel.visualisePath(instructions);
-        }else if (keyCode == KeyEvent.VK_ENTER) {
+        } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.clearPath();
 //            clearInstructions();
             instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+        } else if (keyCode == KeyEvent.VK_R) {
+            instructionPanel.mazePanel.generateMaze();
         }
     }
 
@@ -72,7 +74,7 @@ public class InstructionPanelInput extends KeyAdapter {
     int getStartIndexOfSecondToLastLine(String text) {
         int index = instructionPanel.instructionInput.getText().lastIndexOf(':') - 1;
         if (index == -1) return -1;
-        while(index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
+        while (index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
             index--;
         }
         return index;
@@ -81,7 +83,7 @@ public class InstructionPanelInput extends KeyAdapter {
     String getTextMinusLastLine(String text) {
         int lastIndex = getStartIndexOfSecondToLastLine(text);
         if (lastIndex > 0) {
-            return instructionPanel.instructionInput.getText().substring(0, lastIndex+1);
+            return instructionPanel.instructionInput.getText().substring(0, lastIndex + 1);
         } else return "";
 
     }
