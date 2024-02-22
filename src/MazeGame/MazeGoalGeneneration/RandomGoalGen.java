@@ -23,7 +23,7 @@ public class RandomGoalGen implements MazeGoalGenAlgorithm {
         Cell currentCell = null;
         ArrayList<Cell> ends = new ArrayList<>();
         ArrayList<Integer> endsDist = new ArrayList<>();
-        int maxEndSize = (int) Math.min(20, Math.max(1, 2 * grid.length / 5f));
+        int maxEndSize = (int) Math.min(8, Math.max(1, Math.sqrt(grid.length / 2f)));
         while (queue.hasNext()) {
             currentCell = queue.remove();
             Integer dist = queueDist.remove();
