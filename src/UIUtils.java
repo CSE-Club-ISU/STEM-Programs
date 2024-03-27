@@ -12,6 +12,15 @@ public  class UIUtils {
         return addTextToComp(text, font, component);
     }
 
+    public static JLabel addTextToComp(String text, int size, JComponent component) {
+        JLabel newLabel = new JLabel();
+        newLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, size));
+        newLabel.setText(text);
+        newLabel.setAlignmentX(CENTER_ALIGNMENT);
+        component.add(newLabel);
+        return newLabel;
+    }
+
     public static JLabel addTextToComp(String text, Font font, JComponent component) {
         JLabel newLabel = new JLabel();
         newLabel.setFont(font);
