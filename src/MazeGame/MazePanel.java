@@ -16,7 +16,7 @@ public class MazePanel extends JPanel {
     public MazePanel(Frame frame) {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
-        title = UIUtils.addTextToComp("Maze Game", this);
+        title = UIUtils.addTitle("Maze Game", this);
         mazeUI = new MazeUI(this, 10, 10);
 
         Box top = Box.createHorizontalBox();

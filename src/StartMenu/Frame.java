@@ -1,7 +1,5 @@
 package src.StartMenu;
 
-import src.MazeGame.MazePanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -51,10 +49,17 @@ public class Frame extends JFrame {
         return singleton;
     }
 
-    public void startMazeGame() {
+    public void showGameList() {
         remove(startPanel);
         gameListPanel = new GameListPanel(this);
         getContentPane().add(gameListPanel);
+        setVisible(true);
+        paintAll(getGraphics());
+    }
+
+    public void startProgram(JPanel programPanel) {
+        remove(gameListPanel);
+        getContentPane().add(programPanel);
         setVisible(true);
         paintAll(getGraphics());
     }

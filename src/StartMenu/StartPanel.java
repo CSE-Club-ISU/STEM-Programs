@@ -20,7 +20,7 @@ public class StartPanel extends JPanel {
         setLayout(boxLayout);
         setSize(frame.getSize());
 
-        JLabel title = UIUtils.addTextToComp("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
+        JLabel title = UIUtils.addTitle("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
         title.setForeground(new Color(250, 180, 0));
 
         add(createBackgroundImage());
@@ -46,7 +46,7 @@ public class StartPanel extends JPanel {
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         startButton.setAlignmentY(BOTTOM_ALIGNMENT);
-        startButton.addActionListener((l) -> frame.startMazeGame());
+        startButton.addActionListener((l) -> frame.showGameList());
         startButton.setForeground(Color.white);
         startButton.setBackground(new Color(140, 0, 0));
         startButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
