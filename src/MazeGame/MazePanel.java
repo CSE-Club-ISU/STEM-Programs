@@ -1,9 +1,6 @@
 package src.MazeGame;
 
-import src.Frame;
-import src.MazeGame.MazeGeneration.DFS;
-import src.MazeGame.MazeGoalGeneneration.RandomGoalGen;
-import src.MazeGame.MazeStartGeneration.RandomStartGen;
+import src.StartMenu.Frame;
 import src.UIUtils;
 
 import javax.swing.*;

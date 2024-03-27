@@ -1,4 +1,6 @@
-package src;
+package src.StartMenu;
+
+import src.UIUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,7 +42,7 @@ public class StartPanel extends JPanel {
     }
 
     private JButton createStartButton(Frame frame) {
-        JButton startButton = new JButton("Start game");
+        JButton startButton = new JButton("Start Program");
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         startButton.setAlignmentY(BOTTOM_ALIGNMENT);

@@ -1,4 +1,4 @@
-package src;
+package src.StartMenu;
 
 import src.MazeGame.MazePanel;
 
@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 public class Frame extends JFrame {
     private static Frame singleton;
     StartPanel startPanel;
-    MazePanel mazeGame;
+    GameListPanel gameListPanel;
 
     public static void main(String[] args) {
         Runnable r = new Runnable() {
@@ -53,9 +53,8 @@ public class Frame extends JFrame {
 
     public void startMazeGame() {
         remove(startPanel);
-        mazeGame = new MazePanel(this);
-        add(mazeGame);
-        mazeGame.generateMaze();
+        gameListPanel = new GameListPanel(this);
+        getContentPane().add(gameListPanel);
         setVisible(true);
         paintAll(getGraphics());
     }
