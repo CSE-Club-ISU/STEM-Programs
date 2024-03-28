@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 public class Frame extends JFrame {
     private static Frame singleton;
     StartPanel startPanel;
-    GameListPanel gameListPanel;
+    ProgramListPanel programListPanel;
 
     public static void main(String[] args) {
         Runnable r = new Runnable() {
@@ -51,14 +51,14 @@ public class Frame extends JFrame {
 
     public void showGameList() {
         remove(startPanel);
-        gameListPanel = new GameListPanel(this);
-        getContentPane().add(gameListPanel);
+        programListPanel = new ProgramListPanel(this);
+        getContentPane().add(programListPanel);
         setVisible(true);
         paintAll(getGraphics());
     }
 
     public void startProgram(JPanel programPanel) {
-        remove(gameListPanel);
+        remove(programListPanel);
         getContentPane().add(programPanel);
         setVisible(true);
         paintAll(getGraphics());

@@ -12,12 +12,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameListPanel extends JPanel {
+public class ProgramListPanel extends JPanel {
 
     JScrollPane programList;
     JPanel programListContainer;
 
-    public GameListPanel(Frame frame) {
+    public ProgramListPanel(Frame frame) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(frame.getSize());

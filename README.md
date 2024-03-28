@@ -30,5 +30,5 @@ Part of this project is to provide a learning experience for those interested in
 
 Notes on compiling to jar file from intellij:
 * Add a .manifest.txt file to src and write :Main-Class: src/Frame" inside
-* cd to STEM-Algorithms outside of src and run the "jar cfm STEM-Algorithms.jar src/manifest.txt *" in the terminal
+* cd to the built version of STEM-Algorithms outside of src and run the "jar cfm STEM-Algorithms.jar src/manifest.txt *" in the terminal.
 * A jar file named STEM-Algorithms should now be created
