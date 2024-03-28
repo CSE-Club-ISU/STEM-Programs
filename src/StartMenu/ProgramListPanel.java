@@ -2,6 +2,7 @@ package src.StartMenu;
 
 
 import src.Programs.MazeGame.MazePanel;
+import src.Programs.ProgramTemplate.ProgramTemplatePanel;
 import src.UIUtils;
 
 import javax.swing.*;
@@ -62,11 +63,13 @@ public class ProgramListPanel extends JPanel {
 
     private static List<Program> getPrograms() {
         //Basic functionality for now, replace later
-        Program mazeProgram = new Program("Maze", "Solve a maze! Try to get from the green square to the red square!");
+        Program mazeProgram = new Program("Maze", "Solve a maze! Try to get from the green square to the red square!", (e) -> Frame.getInstance().startProgram(new MazePanel(Frame.getInstance())));
+        Program demoProgram = new Program("Demo", "Here is a template of a program with example elements", (e) -> Frame.getInstance().startProgram(new ProgramTemplatePanel(Frame.getInstance())));
+
         ArrayList<Program> programs = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-            programs.add(mazeProgram);
-//        }
+        programs.add(mazeProgram);
+        programs.add(demoProgram);
+
         return programs;
     }
 
@@ -76,10 +79,10 @@ public class ProgramListPanel extends JPanel {
 
         private ActionListener action;
 
-        public Program(String name, String description) {
+        public Program(String name, String description, ActionListener action) {
             this.name = name;
             this.description = description;
-            action = (e) -> Frame.getInstance().startProgram(new MazePanel(Frame.getInstance()));
+            this.action = action;
         }
     }
 }

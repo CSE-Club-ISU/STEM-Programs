@@ -17,6 +17,7 @@ public  class UIUtils {
         newLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, size));
         newLabel.setText(text);
         newLabel.setAlignmentX(CENTER_ALIGNMENT);
+        newLabel.setFocusable(false);
         component.add(newLabel);
         return newLabel;
     }

@@ -32,7 +32,7 @@ public class Frame extends JFrame {
     private Frame() throws FileNotFoundException {
         singleton = this;
         setFocusable(true);
-        setBackground(new Color(38,38,38));
+        setBackground(new Color(38, 38, 38));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1500, 800);
         setIconImage(new javax.swing.ImageIcon("CSEClubLogoNoTextBorder.png").getImage());
@@ -50,18 +50,21 @@ public class Frame extends JFrame {
     }
 
     public void showGameList() {
-        remove(startPanel);
-        programListPanel = new ProgramListPanel(this);
-        getContentPane().add(programListPanel);
-        setVisible(true);
-        paintAll(getGraphics());
+        endProgram(startPanel);
     }
 
     public void startProgram(JPanel programPanel) {
         remove(programListPanel);
         getContentPane().add(programPanel);
         setVisible(true);
+        programPanel.requestFocusInWindow();
         paintAll(getGraphics());
+    }
+
+    public void endProgram(JPanel programPanel) {
+        remove(programPanel);
+        programListPanel = new ProgramListPanel(this);
+        startProgram(programListPanel);
     }
 
 }
