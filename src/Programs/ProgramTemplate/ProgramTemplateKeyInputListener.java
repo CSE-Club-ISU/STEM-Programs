@@ -27,9 +27,10 @@ public class ProgramTemplateKeyInputListener extends KeyAdapter {
         System.out.println(event);
         if (keyCode == KeyEvent.VK_ESCAPE) {
             if (frame.hasFocus() || programTemplatePanel.hasFocus()) {
-                // return to instruction list
+                // Return to instruction list
                 frame.endProgram(programTemplatePanel);
             } else {
+                // Stop focusing the text input
                 programTemplatePanel.requestFocusInWindow();
             }
         } else if (keyCode == KeyEvent.VK_ENTER) {

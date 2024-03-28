@@ -6,6 +6,7 @@ import src.UIUtils;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.font.TextLayout;
 
 public class ProgramTemplatePanel extends JPanel {
     private final Frame frame;
@@ -22,20 +23,24 @@ public class ProgramTemplatePanel extends JPanel {
 
 
         //Button
-        JButton button = new JButton("Regenerate");
+        JButton button = new JButton("Go Back to program list");
         button.setVerticalTextPosition(AbstractButton.CENTER);
         button.setAlignmentX(CENTER_ALIGNMENT);
-        button.setBackground(Color.BLUE);
-        button.setForeground(Color.white);
+        button.setBackground(Color.RED);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setFocusable(false);
         button.setBorder(new EmptyBorder(10, 10, 10, 10));
+        button.addActionListener((e) -> frame.endProgram(this));
+        add(button);
 
         //Input Field
-        JTextField inputField = new JTextField("Input text here");
+        JTextField inputField = new JTextField("Input text here.");
         inputField.setSize(new Dimension(100, 30));
+        inputField.setMaximumSize(new Dimension(500, 300));
         inputField.setBorder(new EmptyBorder(10, 10, 10, 10));
-
+        inputField.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        add(inputField);
 
         //Keyboard Input Listener
         inputListener = new ProgramTemplateKeyInputListener(frame, this, inputField);
