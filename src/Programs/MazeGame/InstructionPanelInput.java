@@ -1,5 +1,7 @@
 package src.Programs.MazeGame;
 
+import src.StartMenu.Frame;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class InstructionPanelInput extends KeyAdapter {
             instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
+        } else if (keyCode == KeyEvent.VK_ESCAPE) {
+            Frame.getInstance().endProgram(instructionPanel.mazePanel);
         }
     }
 
