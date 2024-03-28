@@ -1,13 +1,13 @@
-package src.MazeGame;
+package src.Programs.MazeGame;
 
-import src.MazeGame.MazeGeneration.DFS;
-import src.MazeGame.MazeGeneration.DFS2;
-import src.MazeGame.MazeGeneration.MazeGenAlgorithm;
-import src.MazeGame.MazeGeneration.Prims;
-import src.MazeGame.MazeGoalGeneneration.RandomGoalGen;
-import src.MazeGame.MazeGoalGeneneration.MazeGoalGenAlgorithm;
-import src.MazeGame.MazeStartGeneration.MazeStartGenAlgorithm;
-import src.MazeGame.MazeStartGeneration.RandomStartGen;
+import src.Programs.MazeGame.MazeGeneration.DFS;
+import src.Programs.MazeGame.MazeGeneration.DFS2;
+import src.Programs.MazeGame.MazeGeneration.MazeGenAlgorithm;
+import src.Programs.MazeGame.MazeGeneration.Prims;
+import src.Programs.MazeGame.MazeGoalGeneneration.RandomGoalGen;
+import src.Programs.MazeGame.MazeGoalGeneneration.MazeGoalGenAlgorithm;
+import src.Programs.MazeGame.MazeStartGeneration.MazeStartGenAlgorithm;
+import src.Programs.MazeGame.MazeStartGeneration.RandomStartGen;
 
 import java.util.ArrayList;
 import java.util.Random;

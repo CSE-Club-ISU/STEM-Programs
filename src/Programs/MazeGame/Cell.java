@@ -1,4 +1,4 @@
-package src.MazeGame;
+package src.Programs.MazeGame;
 
 import java.util.ArrayList;
 import java.util.Random;

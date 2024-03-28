@@ -1,4 +1,4 @@
-package src.MazeGame;
+package src.Programs.MazeGame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

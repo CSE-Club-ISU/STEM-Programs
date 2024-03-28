@@ -1,6 +1,6 @@
-package src.MazeGame.MazeGoalGeneneration;
+package src.Programs.MazeGame.MazeGoalGeneneration;
 
-import src.MazeGame.Cell;
+import src.Programs.MazeGame.Cell;
 import src.MyQueue;
 
 import java.util.ArrayList;

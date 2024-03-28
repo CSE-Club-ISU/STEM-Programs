@@ -1,7 +1,7 @@
 package src.StartMenu;
 
 
-import src.MazeGame.MazePanel;
+import src.Programs.MazeGame.MazePanel;
 import src.UIUtils;
 
 import javax.swing.*;

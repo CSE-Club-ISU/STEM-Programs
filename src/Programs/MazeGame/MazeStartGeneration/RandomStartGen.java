@@ -1,6 +1,6 @@
-package src.MazeGame.MazeStartGeneration;
+package src.Programs.MazeGame.MazeStartGeneration;
 
-import src.MazeGame.Cell;
+import src.Programs.MazeGame.Cell;
 
 import java.util.Random;
 
