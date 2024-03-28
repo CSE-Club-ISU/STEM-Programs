@@ -3,6 +3,7 @@ package src.StartMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 /**
  * Frame a singleton and the main controller of the application.

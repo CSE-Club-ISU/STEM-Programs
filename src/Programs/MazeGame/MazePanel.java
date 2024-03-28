@@ -37,7 +37,7 @@ public class MazePanel extends JPanel {
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
         regenerateButton.addActionListener((l) -> {
-            Frame.getInstance().requestFocusInWindow();
+            this.requestFocusInWindow();
             generateMaze();
         });
         regenerateButton.setBackground(Color.BLUE);

@@ -18,6 +18,13 @@ public class InstructionPanelInput extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
+        if (keyCode == KeyEvent.VK_ESCAPE) {
+            Frame.getInstance().endProgram(instructionPanel.mazePanel);
+        } else if (keyCode == KeyEvent.VK_R) {
+            instructionPanel.mazePanel.generateMaze();
+        }
+        if (instructionPanel.mazePanel.mazeGame == null) return;
+
         if (keyCode == KeyEvent.VK_UP) {
             doInstruction(-1);
         } else if (keyCode == KeyEvent.VK_DOWN) {
@@ -36,10 +43,6 @@ public class InstructionPanelInput extends KeyAdapter {
             instructionPanel.clearPath();
 //            clearInstructions();
             instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
-        } else if (keyCode == KeyEvent.VK_R) {
-            instructionPanel.mazePanel.generateMaze();
-        } else if (keyCode == KeyEvent.VK_ESCAPE) {
-            Frame.getInstance().endProgram(instructionPanel.mazePanel);
         }
     }
 

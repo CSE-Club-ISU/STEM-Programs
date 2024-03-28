@@ -16,7 +16,6 @@ public class ProgramTemplateKeyInputListener extends KeyAdapter {
         this.programTemplatePanel = programTemplatePanel;
         this.inputField = inputField;
 
-        frame.addKeyListener(this);
         programTemplatePanel.addKeyListener(this);
         inputField.addKeyListener(this);
     }

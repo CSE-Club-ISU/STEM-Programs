@@ -34,8 +34,9 @@ public class InstructionPanel extends JPanel {
         setBorder(new EmptyBorder(0, 20, 0, 0));
         instructionInput.setBackground(Color.lightGray);
         instructionInput.isCursorSet();
+
         instructionPanelInput = new InstructionPanelInput(this);
-        frame.addKeyListener(instructionPanelInput);
+        mazePanel.addKeyListener(instructionPanelInput);
 
         scrollPane = new JScrollPane(instructionInput);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
