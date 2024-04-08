@@ -1,4 +1,4 @@
-# STEM-Algorithms
+# STEM-Programs
 This is a project to help teach students in elementary school the basics of problem-solving.
 
 ### Relevance to STEM
@@ -12,7 +12,7 @@ To solve this we need to create an algorithm to search all possibilities in a ma
 When creating an algorithm, the logic has to be determined before trying to solve the maze. 
 So our challenge to the kids is to give us a list of instructions to move a dot through a maze.
 
-![MazeGame1](https://github.com/CSE-Club-ISU/STEM-Algorithms/assets/7538725/03e102ba-80a2-475a-a29d-aafb5ac64442)
+![MazeGame1](https://github.com/CSE-Club-ISU/STEM-Programs/assets/7538725/03e102ba-80a2-475a-a29d-aafb5ac64442)
 
 ### How can I contribute?
 
