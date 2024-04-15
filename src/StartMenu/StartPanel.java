@@ -1,6 +1,6 @@
 package src.StartMenu;
 
-import src.UIUtils;
+import src.UI.UIUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

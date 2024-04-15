@@ -3,11 +3,11 @@ package src.StartMenu;
 
 import src.Programs.MazeGame.MazePanel;
 import src.Programs.ProgramTemplate.ProgramTemplatePanel;
-import src.UIUtils;
+import src.UI.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ public class ProgramListPanel extends JPanel {
 
         JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
         title.setForeground(Color.white);
+        add(Box.createVerticalStrut(10));
+
         // Create a JPanel to hold a list of labels.
         programListContainer = new JPanel();
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));
@@ -46,13 +48,14 @@ public class ProgramListPanel extends JPanel {
 
             newProgramPanel.setMaximumSize(new Dimension(600,180));
             programListContainer.add(newProgramPanel);
+            programListContainer.add(Box.createVerticalStrut(10));
         }
 
         // Create a JScrollPane and set the panel as its viewport.
         programList = new JScrollPane(programListContainer);
         programList.setMaximumSize(new Dimension(800, 1000));
-        programList.setBorder(new EmptyBorder(10,10,10,10));
-        programList.setBackground(Color.lightGray);
+        programList.setBorder(new LineBorder(Color.LIGHT_GRAY, 10, true));
+        programList.setBackground(Color.darkGray);
         programListContainer.setBackground(Color.darkGray);
         programList.getVerticalScrollBar().setUnitIncrement(20);
         // Add the JScrollPane to the frame.

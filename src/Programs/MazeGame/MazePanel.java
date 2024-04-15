@@ -1,7 +1,7 @@
 package src.Programs.MazeGame;
 
 import src.StartMenu.Frame;
-import src.UIUtils;
+import src.UI.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +21,7 @@ public class MazePanel extends JPanel {
 
         Box top = Box.createHorizontalBox();
         top.add(createRegenerateMazeButton());
+        UIUtils.addSpace(10,10, top);
         top.add(createSizeInputField());
         add(top);
 
