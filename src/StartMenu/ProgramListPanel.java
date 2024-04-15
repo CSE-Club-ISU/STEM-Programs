@@ -7,7 +7,6 @@ import src.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -35,7 +34,7 @@ public class ProgramListPanel extends JPanel {
             JButton newProgramPanel = new JButton();
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
-            newProgramPanel.setBorder(new LineBorder(Color.black, 5, true));
+            newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
             newProgramPanel.addActionListener(newProgram.action);
             newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -47,6 +46,7 @@ public class ProgramListPanel extends JPanel {
 
             newProgramPanel.setMaximumSize(new Dimension(600,180));
             programListContainer.add(newProgramPanel);
+            programListContainer.add(Box.createVerticalStrut(10));
         }
 
         // Create a JScrollPane and set the panel as its viewport.
