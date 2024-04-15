@@ -42,4 +42,12 @@ public  class UIUtils {
         }
         return jTextArea;
     }
+
+    public static JPanel addSpace(int width, int height, JComponent component) {
+        JPanel space = new JPanel();
+        space.setOpaque(false);
+        space.setMaximumSize(new Dimension(width, height));
+        component.add(space);
+        return space;
+    }
 }
