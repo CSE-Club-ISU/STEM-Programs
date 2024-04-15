@@ -26,6 +26,8 @@ public class ProgramListPanel extends JPanel {
 
         JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
         title.setForeground(Color.white);
+        add(Box.createVerticalStrut(10));
+
         // Create a JPanel to hold a list of labels.
         programListContainer = new JPanel();
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));

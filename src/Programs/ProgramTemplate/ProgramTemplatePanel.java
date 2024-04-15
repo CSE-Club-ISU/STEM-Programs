@@ -21,6 +21,7 @@ public class ProgramTemplatePanel extends JPanel {
         //Title
         UIUtils.addTitle("Program Template", this);
 
+        add(Box.createVerticalStrut(10));
 
         //Button
         JButton button = new JButton("Go Back to program list");
@@ -33,6 +34,8 @@ public class ProgramTemplatePanel extends JPanel {
         button.setBorder(new EmptyBorder(10, 10, 10, 10));
         button.addActionListener((e) -> frame.endProgram(this));
         add(button);
+
+        add(Box.createVerticalStrut(10));
 
         //Input Field
         JTextField inputField = new JTextField("Input text here.");
