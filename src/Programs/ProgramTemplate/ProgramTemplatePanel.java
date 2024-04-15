@@ -1,12 +1,11 @@
 package src.Programs.ProgramTemplate;
 
 import src.StartMenu.Frame;
-import src.UIUtils;
+import src.UI.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.font.TextLayout;
 
 public class ProgramTemplatePanel extends JPanel {
     private final Frame frame;

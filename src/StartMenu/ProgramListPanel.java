@@ -3,7 +3,7 @@ package src.StartMenu;
 
 import src.Programs.MazeGame.MazePanel;
 import src.Programs.ProgramTemplate.ProgramTemplatePanel;
-import src.UIUtils;
+import src.UI.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
