@@ -1,3 +1,5 @@
+package Utils;
+
 /**
  * A regular Queue that can resize when necessary.
  * Note that it can loop around the array to better support additions and deletions.

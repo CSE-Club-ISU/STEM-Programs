@@ -1,4 +1,4 @@
-package src.Programs.MazeGame;
+package Programs.MazeGame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

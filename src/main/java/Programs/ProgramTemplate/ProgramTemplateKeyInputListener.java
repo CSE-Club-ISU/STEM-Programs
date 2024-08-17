@@ -1,6 +1,6 @@
-package src.Programs.ProgramTemplate;
+package Programs.ProgramTemplate;
 
-import src.StartMenu.Frame;
+import StartMenu.Frame;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;

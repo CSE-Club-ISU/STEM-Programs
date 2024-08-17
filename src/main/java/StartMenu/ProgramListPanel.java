@@ -1,15 +1,14 @@
 package StartMenu;
 
 
-import src.Programs.MazeGame.MazePanel;
-import src.Programs.ProgramTemplate.ProgramTemplatePanel;
-import src.UI.UIUtils;
+import Programs.MazeGame.MazePanel;
+import Programs.ProgramTemplate.ProgramTemplatePanel;
+import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class ProgramListPanel extends JPanel {
     JScrollPane programList;
     JPanel programListContainer;
 
-    public ProgramListPanel(java.awt.Frame frame) {
+    public ProgramListPanel(Frame frame) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(frame.getSize());
@@ -67,8 +66,8 @@ public class ProgramListPanel extends JPanel {
 
     private static List<Program> getPrograms() {
         //Basic functionality for now, replace later
-        Program mazeProgram = new Program("Maze", "Solve a maze! Try to get from the green square to the red square!", (e) -> java.awt.Frame.getInstance().startProgram(new MazePanel(java.awt.Frame.getInstance())));
-        Program demoProgram = new Program("Demo", "Here is a template of a program with example elements", (e) -> java.awt.Frame.getInstance().startProgram(new ProgramTemplatePanel(Frame.getInstance())));
+        Program mazeProgram = new Program("Maze", "Solve a maze! Try to get from the green square to the red square!", (e) -> Frame.getInstance().startProgram(new MazePanel(Frame.getInstance())));
+        Program demoProgram = new Program("Demo", "Here is a template of a program with example elements", (e) -> Frame.getInstance().startProgram(new ProgramTemplatePanel(Frame.getInstance())));
 
         ArrayList<Program> programs = new ArrayList<>();
         programs.add(mazeProgram);

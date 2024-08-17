@@ -1,7 +1,7 @@
-package src.Programs.MazeGame.MazeGeneration;
+package Programs.MazeGame.MazeGeneration;
 
-import src.Programs.MazeGame.Cell;
-import src.MyQueue;
+import Programs.MazeGame.Cell;
+import Utils.MyQueue;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;

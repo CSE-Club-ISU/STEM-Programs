@@ -1,6 +1,6 @@
-package src.Programs.MazeGame.MazeGoalGeneneration;
+package Programs.MazeGame.MazeGoalGeneneration;
 
-import src.Programs.MazeGame.Cell;
+import Programs.MazeGame.Cell;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,7 +1,7 @@
-package src.Programs.MazeGame;
+package Programs.MazeGame;
 
-import src.StartMenu.Frame;
-import src.UI.UIUtils;
+import StartMenu.Frame;
+import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

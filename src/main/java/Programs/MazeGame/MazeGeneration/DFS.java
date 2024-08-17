@@ -1,6 +1,6 @@
-package src.Programs.MazeGame.MazeGeneration;
+package Programs.MazeGame.MazeGeneration;
 
-import src.Programs.MazeGame.Cell;
+import Programs.MazeGame.Cell;
 
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;

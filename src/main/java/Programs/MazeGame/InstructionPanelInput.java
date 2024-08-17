@@ -1,6 +1,6 @@
-package src.Programs.MazeGame;
+package Programs.MazeGame;
 
-import src.StartMenu.Frame;
+import StartMenu.Frame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

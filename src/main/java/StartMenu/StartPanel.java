@@ -1,11 +1,10 @@
 package StartMenu;
 
-import src.UI.UIUtils;
+import Utils.UIUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +14,7 @@ public class StartPanel extends JPanel {
     /**
      * This is the start screen to display first.
      */
-    public StartPanel(java.awt.Frame frame) {
+    public StartPanel(Frame frame) {
         super();
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
