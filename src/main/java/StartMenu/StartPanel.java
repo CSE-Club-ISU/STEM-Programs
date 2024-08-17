@@ -32,7 +32,7 @@ public class StartPanel extends JPanel {
     private JLabel createBackgroundImage() {
         BufferedImage imageResource;
         try {
-            imageResource = ImageIO.read(new File("CSEClubLogo.png"));
+            imageResource = ImageIO.read(new File("src/main/resources/CSEClubLogo.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
