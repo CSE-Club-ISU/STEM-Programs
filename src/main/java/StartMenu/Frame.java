@@ -1,4 +1,4 @@
-package src.StartMenu;
+package StartMenu;
 
 import javax.swing.*;
 import java.awt.*;
