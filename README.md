@@ -28,7 +28,7 @@ Part of this project is to provide a learning experience for those interested in
   * Simple Programming games
   * Puzzle games
 
-Notes on compiling to jar file from intellij:
-* Add a .manifest.txt file to src and write :Main-Class: src/Frame" inside
-* cd to the built version of STEM-Algorithms outside of src and run the "jar cfm STEM-Algorithms.jar src/manifest.txt *" in the terminal.
-* A jar file named STEM-Algorithms should now be created
+Running the program with a .jar File:
+* Run `./gradlew jar`
+* The jar should be in the `build/libs` directory
+* Run `java -jar build/libs/<Name>.jar` or right click and run in intellij
