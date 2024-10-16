@@ -23,7 +23,7 @@ public class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
         }
-        if (instructionPanel.mazePanel.mazeGame == null) return;
+        if (instructionPanel.mazePanel.maze == null) return;
 
         if (keyCode == KeyEvent.VK_UP) {
             doInstruction(-1);
@@ -42,7 +42,7 @@ public class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.clearPath();
 //            clearInstructions();
-            instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+            instructionPanel.visualisePath(instructionPanel.mazePanel.maze.solutionInstructions);
         }
     }
 

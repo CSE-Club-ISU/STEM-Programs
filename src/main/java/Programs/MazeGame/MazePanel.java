@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class MazePanel extends JPanel {
     JLabel title;
-    MazeGame mazeGame;
+    Maze maze;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
@@ -57,13 +57,13 @@ public class MazePanel extends JPanel {
     }
 
     public void generateMaze() {
-        if (mazeGame != null) {
+        if (maze != null) {
             regenerateMaze();
             return;
         }
-        mazeGame = new MazeGame(mazeUI.getGridRows(), mazeUI.getGridColumns());
-        title.setText("Maze: " + mazeGame.algorithmName);
-        mazeUI.generateMaze(mazeGame.getGrid());
+        maze = new Maze(mazeUI.getGridRows(), mazeUI.getGridColumns());
+        title.setText("Maze: " + maze.algorithmName);
+        mazeUI.generateMaze(maze.getGrid());
     }
 
     private void regenerateMaze() {
@@ -73,15 +73,15 @@ public class MazePanel extends JPanel {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
                 mazeUI.resizeMazeUI(newSize,newSize);
-                mazeGame = null;
+                maze = null;
                 generateMaze();
                 return;
             }
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
-        mazeGame.startMazeGame();
-        title.setText("Maze: " + mazeGame.algorithmName);
+        maze.startMazeGame();
+        title.setText("Maze: " + maze.algorithmName);
         mazeUI.repaint();
     }
 }

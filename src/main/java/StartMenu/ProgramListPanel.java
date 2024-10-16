@@ -10,7 +10,11 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProgramListPanel extends JPanel {
@@ -37,12 +41,12 @@ public class ProgramListPanel extends JPanel {
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-            newProgramPanel.addActionListener(newProgram.action);
+            newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram.startProgram(frame)));
             newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
             //Add the text
-            UIUtils.addTitle(newProgram.name, newProgramPanel);
-            JTextArea text = UIUtils.addTextArea(newProgram.description,20,null);
+            UIUtils.addTitle(newProgram.getProgramName(), newProgramPanel);
+            JTextArea text = UIUtils.addTextArea(newProgram.getProgramDescription(),20,null);
             JScrollPane scrollPane = new JScrollPane(text);
             newProgramPanel.add(scrollPane);
 
@@ -65,27 +69,33 @@ public class ProgramListPanel extends JPanel {
     }
 
     private static List<Program> getPrograms() {
-        //Basic functionality for now, replace later
-        Program mazeProgram = new Program("Maze", "Solve a maze! Try to get from the green square to the red square!", (e) -> Frame.getInstance().startProgram(new MazePanel(Frame.getInstance())));
-        Program demoProgram = new Program("Demo", "Here is a template of a program with example elements", (e) -> Frame.getInstance().startProgram(new ProgramTemplatePanel(Frame.getInstance())));
-
         ArrayList<Program> programs = new ArrayList<>();
-        programs.add(mazeProgram);
-        programs.add(demoProgram);
 
-        return programs;
-    }
-
-    private static class Program {
-        private String name;
-        private String description;
-
-        private ActionListener action;
-
-        public Program(String name, String description, ActionListener action) {
-            this.name = name;
-            this.description = description;
-            this.action = action;
+        File file = new File("src/main/java/Programs");
+        try {
+            List<String> programNames = Arrays.stream(file.listFiles()).filter(f -> f.isDirectory()).map(d -> d.getName()).toList();
+            programNames.forEach(n -> {
+                try {
+                    programs.add((Program)ClassLoader.getSystemClassLoader().loadClass("Programs." + n + "." + n).getMethod("programFactory").invoke(null));
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Failed to load program: " + n + ". It is missing a class of the name " + n + " that can be used to create a program.");
+                } catch (NoSuchMethodException e) {
+                    System.err.println("Failed to find corresponding factory function in: " + n);
+                } catch (InvocationTargetException e) {
+                    System.err.println("The static method programFactory() in the program " + n + " does not exist.");
+                } catch (IllegalAccessException e) {
+                    System.err.println("The static method programFactory() in the program " + n + " was not public.");
+                } catch (NullPointerException e) {
+                    System.err.println("The static method programFactory() in the program " + n + " was not static.");
+                } catch (ClassCastException e) {
+                    System.err.println("The static method programFactory() in the program " + n + " returned an object that does not extend from Program.");
+                }
+            });
+            System.out.println(programNames.toString());
+        } catch (Exception e) {
+            System.out.println("Failed to load programs!");
         }
+        System.out.println(Paths.get("").toAbsolutePath().toString());
+        return programs;
     }
 }
