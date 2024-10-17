@@ -3,8 +3,19 @@ package StartMenu;
 import javax.swing.*;
 
 public abstract class Program {
-    Frame frame = null;
-    JPanel panel = null;
+    private Frame frame = null;
+    private JPanel panel = null;
+
+
+    /**
+     * Initializes the programs frame and panel values and starts the program.
+     * This should be called by the Frame class itself.
+     */
+    JPanel initializeAndStartProgram(Frame frame) {
+        this.frame = frame;
+        panel = startProgram(frame);
+        return panel;
+    }
 
     /**
      * Called when the program should be loaded on top of the frame.
@@ -26,11 +37,6 @@ public abstract class Program {
 
     public void endProgram() {
         frame.endProgram(this);
-    }
-
-    void setFrameAndPanel(Frame frame, JPanel panel) {
-        this.panel = panel;
-        this.frame = frame;
     }
 
     JPanel getPanel() {

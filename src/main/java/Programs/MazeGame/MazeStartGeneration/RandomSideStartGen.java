@@ -4,7 +4,7 @@ import Programs.MazeGame.Cell;
 
 import java.util.Random;
 
-public class RandomSideStartGen implements MazeStartGenAlgorithm {
+class RandomSideStartGen implements MazeStartGenAlgorithm {
     @Override
     public Cell generateMazeStart(Cell[][] grid) {
         Random rand = new Random();

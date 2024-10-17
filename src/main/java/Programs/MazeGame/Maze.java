@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Maze {
+ class Maze {
     private Cell[][] grid;
     /** pastVisitedValue relates to [cell.visited] and helps us determine if we have seen a cell before.
      * It is an AtomicInteger so that we can pass in a reference to it and modify it in the generation algorithms.
@@ -29,7 +29,7 @@ public class Maze {
      * @param rows the number of rows in the grid
      * @param columns the number of columns in the grid
      */
-    public Maze(int rows, int columns) {
+     Maze(int rows, int columns) {
         this(rows,columns, new RandomStartGen(), getRandomMazeGenerationAlgorithm(), new RandomGoalGen());
     }
 
@@ -42,7 +42,7 @@ public class Maze {
      * @param rows the number of rows in the grid
      * @param columns the number of columns in the grid
      */
-    public Maze(int rows, int columns, MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
+     Maze(int rows, int columns, MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         pastVisitedValue = new AtomicInteger(0);
         grid = new Cell[rows][columns];
         for (int r = 0; r < grid.length; r++) {
@@ -66,11 +66,11 @@ public class Maze {
         }
     }
 
-    public void startMazeGame() {
+     void startMazeGame() {
         startMazeGame(new RandomStartGen(), getRandomMazeGenerationAlgorithm(), new RandomGoalGen());
     }
 
-    public void startMazeGame(MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
+     void startMazeGame(MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         setAllWalls();
         startCell = startGen.generateMazeStart(grid);
         mazeGen.generateMaze(grid, startCell, pastVisitedValue);
@@ -80,7 +80,7 @@ public class Maze {
         System.out.println("Distance from start to end: " + solutionInstructions.size());
     }
 
-    public void setAllWalls() {
+     void setAllWalls() {
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
                 grid[r][c].setAllWalls();
@@ -88,7 +88,7 @@ public class Maze {
         }
     }
 
-    public Cell[][] getGrid() {
+     Cell[][] getGrid() {
         return grid;
     }
 }

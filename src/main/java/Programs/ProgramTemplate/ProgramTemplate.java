@@ -1,6 +1,5 @@
 package Programs.ProgramTemplate;
 
-import Programs.MazeGame.MazePanel;
 import StartMenu.Frame;
 import StartMenu.Program;
 

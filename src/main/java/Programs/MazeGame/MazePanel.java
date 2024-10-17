@@ -8,14 +8,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MazePanel extends JPanel {
+ class MazePanel extends JPanel {
     Program program;
     JLabel title;
     Maze maze;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
-    public MazePanel(Frame frame, Program program) {
+     MazePanel(Frame frame, Program program) {
         this.program = program;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
@@ -59,7 +59,7 @@ public class MazePanel extends JPanel {
         return sizeInput;
     }
 
-    public void generateMaze() {
+     void generateMaze() {
         if (maze != null) {
             regenerateMaze();
             return;

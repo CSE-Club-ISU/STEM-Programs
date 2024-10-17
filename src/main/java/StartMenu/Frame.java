@@ -59,8 +59,7 @@ public class Frame extends JFrame {
     public void startProgram(Program program) {
         if (currentProgram != null) remove(currentProgram.getPanel());
         currentProgram = program;
-        JPanel programPanel = program.startProgram(this);
-        program.setFrameAndPanel(this, programPanel);
+        JPanel programPanel = program.initializeAndStartProgram(this);
         getContentPane().add(programPanel);
         setVisible(true);
         programPanel.requestFocusInWindow();
