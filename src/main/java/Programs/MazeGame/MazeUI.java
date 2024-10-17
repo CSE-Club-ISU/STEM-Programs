@@ -6,13 +6,13 @@ import java.awt.*;
 /**
  * MazeUI is a panel that holds the grid
  */
-public class MazeUI extends JPanel {
+ class MazeUI extends JPanel {
     /** first array is the rows, the second is columns */
     private CellUI[][] gridUI;
 
     private MazePanel mazePanel;
 
-    public MazeUI(MazePanel mazePanel,int rows, int columns) {
+     MazeUI(MazePanel mazePanel,int rows, int columns) {
         this.mazePanel = mazePanel;
         setBackground(Color.LIGHT_GRAY);
         setMaximumSize(new Dimension(700, 700));
@@ -42,20 +42,20 @@ public class MazeUI extends JPanel {
         gridUI = new CellUI[rows][columns];
     }
 
-    public CellUI getCellAt(int row, int column) {
+     CellUI getCellAt(int row, int column) {
         return gridUI[row][column];
     }
 
-    public CellUI setCellAt(int row, int column, CellUI newCellUI) {
+     CellUI setCellAt(int row, int column, CellUI newCellUI) {
         gridUI[row][column] = newCellUI;
         return newCellUI;
     }
 
-    public int getGridRows() {
+     int getGridRows() {
         return gridUI.length;
     }
 
-    public int getGridColumns() {
+     int getGridColumns() {
         return gridUI[0].length;
     }
 }

@@ -1,29 +1,31 @@
 package Programs.MazeGame;
 
-import StartMenu.Frame;
+import StartMenu.Program;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class InstructionPanelInput extends KeyAdapter {
+ class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
     ArrayList<Integer> instructions;
+    Program program;
 
-    public InstructionPanelInput(InstructionPanel instructionPanel) {
+     InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
+        this.program = program;
         instructions = new ArrayList<>(100);
     }
 
     @Override
-    public void keyPressed(KeyEvent event) {
+     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
-            Frame.getInstance().endProgram(instructionPanel.mazePanel);
+            program.endProgram();
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
         }
-        if (instructionPanel.mazePanel.mazeGame == null) return;
+        if (instructionPanel.mazePanel.maze == null) return;
 
         if (keyCode == KeyEvent.VK_UP) {
             doInstruction(-1);
@@ -42,7 +44,7 @@ public class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.clearPath();
 //            clearInstructions();
-            instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+            instructionPanel.visualisePath(instructionPanel.mazePanel.maze.solutionInstructions);
         }
     }
 
@@ -95,7 +97,7 @@ public class InstructionPanelInput extends KeyAdapter {
 
     }
 
-    public void clearInstructions() {
+     void clearInstructions() {
         instructionPanel.instructionInput.setText("");
         instructions.clear();
     }

@@ -3,7 +3,8 @@ package StartMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+
+import static StartMenu.ProgramListPanel.createStartMenuProgram;
 
 /**
  * Frame a singleton and the main controller of the application.
@@ -12,7 +13,7 @@ import java.util.Arrays;
 public class Frame extends JFrame {
     private static Frame singleton;
     StartPanel startPanel;
-    ProgramListPanel programListPanel;
+    Program currentProgram;
 
     public static void main(String[] args) {
         Runnable r = new Runnable() {
@@ -51,21 +52,25 @@ public class Frame extends JFrame {
     }
 
     public void showGameList() {
-        endProgram(startPanel);
+        remove(startPanel);
+        startProgram(createStartMenuProgram());
     }
 
-    public void startProgram(JPanel programPanel) {
-        remove(programListPanel);
+    public void startProgram(Program program) {
+        if (currentProgram != null) remove(currentProgram.getPanel());
+        currentProgram = program;
+        JPanel programPanel = program.initializeAndStartProgram(this);
         getContentPane().add(programPanel);
         setVisible(true);
         programPanel.requestFocusInWindow();
         paintAll(getGraphics());
     }
 
-    public void endProgram(JPanel programPanel) {
-        remove(programPanel);
-        programListPanel = new ProgramListPanel(this);
-        startProgram(programListPanel);
+    public void endProgram(Program program) {
+        remove(program.getPanel());
+        if (currentProgram == program) {
+            startProgram(createStartMenuProgram());
+        }
     }
 
 }
