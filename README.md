@@ -19,10 +19,20 @@ So our challenge to the kids is to give us a list of instructions to move a dot 
 You are welcome to contribute in any way you see fit.
 Part of this project is to provide a learning experience for those interested in programming.
 
+
+### Creating your own program
+1. Create a new directory under src/main/java/programs with your program name.
+2. Create a new class in your package with the same name as your package name.
+3. Create a `public static Program programFactory()` method in that class.
+You can customize the name and description of the program in your Program object.
+See `ProgramTemplate.java` for a good example.
+4. Create a new class that will be your Program's main panel and have the `startProgram()` method in the program 
+object create a new instance of it.
+5. Now you should be able to run the program and see your program on the start menu.
+
 ### Todo:
 * Create better maze algorithms
 * Improve the UI
-* Migrate to android studio?
 * Create other algorithm games:
   * Higher or lower?
   * Simple Programming games
