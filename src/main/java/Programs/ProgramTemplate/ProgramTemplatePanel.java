@@ -1,6 +1,7 @@
 package Programs.ProgramTemplate;
 
 import StartMenu.Frame;
+import StartMenu.Program;
 import Utils.UIUtils;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ public class ProgramTemplatePanel extends JPanel {
     private final Frame frame;
     private final ProgramTemplateKeyInputListener inputListener;
 
-    public ProgramTemplatePanel(Frame frame) {
+    public ProgramTemplatePanel(Frame frame, Program program) {
         this.frame = frame;
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
@@ -31,7 +32,7 @@ public class ProgramTemplatePanel extends JPanel {
         button.setFocusPainted(false);
         button.setFocusable(false);
         button.setBorder(new EmptyBorder(10, 10, 10, 10));
-        button.addActionListener((e) -> frame.endProgram(this));
+        button.addActionListener((e) -> program.endProgram());
         add(button);
 
         add(Box.createVerticalStrut(10));
@@ -45,7 +46,7 @@ public class ProgramTemplatePanel extends JPanel {
         add(inputField);
 
         //Keyboard Input Listener
-        inputListener = new ProgramTemplateKeyInputListener(frame, this, inputField);
+        inputListener = new ProgramTemplateKeyInputListener(frame, program, this, inputField);
     }
 
 

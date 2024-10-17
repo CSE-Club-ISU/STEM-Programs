@@ -11,7 +11,7 @@ public class ProgramTemplate {
         return new Program() {
             @Override
             public JPanel startProgram(Frame frame) {
-                return new ProgramTemplatePanel(frame);
+                return new ProgramTemplatePanel(frame, this);
             }
 
             @Override

@@ -41,7 +41,7 @@ public class ProgramListPanel extends JPanel {
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-            newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram.startProgram(frame)));
+            newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));
             newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
             //Add the text
@@ -97,5 +97,24 @@ public class ProgramListPanel extends JPanel {
         }
         System.out.println(Paths.get("").toAbsolutePath().toString());
         return programs;
+    }
+
+    static Program createStartMenuProgram() {
+        return new Program() {
+            @Override
+            public JPanel startProgram(Frame frame) {
+                return new ProgramListPanel(frame);
+            }
+
+            @Override
+            public String getProgramName() {
+                return "Start Menu";
+            }
+
+            @Override
+            public String getProgramDescription() {
+                return null;
+            }
+        };
     }
 }

@@ -1,6 +1,7 @@
 package Programs.MazeGame;
 
 import StartMenu.Frame;
+import StartMenu.Program;
 import Utils.UIUtils;
 
 import javax.swing.*;
@@ -8,12 +9,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MazePanel extends JPanel {
+    Program program;
     JLabel title;
     Maze maze;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
-    public MazePanel(Frame frame) {
+    public MazePanel(Frame frame, Program program) {
+        this.program = program;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         title = UIUtils.addTitle("Maze Game", this);

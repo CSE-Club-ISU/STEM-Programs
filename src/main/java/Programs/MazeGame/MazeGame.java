@@ -10,7 +10,7 @@ public class MazeGame {
         return new Program() {
             @Override
             public JPanel startProgram(Frame frame) {
-                return new MazePanel(frame);
+                return new MazePanel(frame, this);
             }
 
             @Override

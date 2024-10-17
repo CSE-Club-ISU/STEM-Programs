@@ -1,6 +1,7 @@
 package Programs.ProgramTemplate;
 
 import StartMenu.Frame;
+import StartMenu.Program;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -8,11 +9,13 @@ import java.awt.event.KeyEvent;
 
 public class ProgramTemplateKeyInputListener extends KeyAdapter {
     Frame frame;
+    Program program;
     ProgramTemplatePanel programTemplatePanel;
     JTextField inputField;
 
-    public ProgramTemplateKeyInputListener(Frame frame, ProgramTemplatePanel programTemplatePanel, JTextField inputField) {
+    public ProgramTemplateKeyInputListener(Frame frame, Program program, ProgramTemplatePanel programTemplatePanel, JTextField inputField) {
         this.frame = frame;
+        this.program = program;
         this.programTemplatePanel = programTemplatePanel;
         this.inputField = inputField;
 
@@ -27,7 +30,7 @@ public class ProgramTemplateKeyInputListener extends KeyAdapter {
         if (keyCode == KeyEvent.VK_ESCAPE) {
             if (frame.hasFocus() || programTemplatePanel.hasFocus()) {
                 // Return to instruction list
-                frame.endProgram(programTemplatePanel);
+                program.endProgram();
             } else {
                 // Stop focusing the text input
                 programTemplatePanel.requestFocusInWindow();

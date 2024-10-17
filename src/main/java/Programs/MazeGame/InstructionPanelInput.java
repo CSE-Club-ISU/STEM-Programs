@@ -1,6 +1,7 @@
 package Programs.MazeGame;
 
 import StartMenu.Frame;
+import StartMenu.Program;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,9 +10,11 @@ import java.util.ArrayList;
 public class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
     ArrayList<Integer> instructions;
+    Program program;
 
-    public InstructionPanelInput(InstructionPanel instructionPanel) {
+    public InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
+        this.program = program;
         instructions = new ArrayList<>(100);
     }
 
@@ -19,7 +22,7 @@ public class InstructionPanelInput extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
-            Frame.getInstance().endProgram(instructionPanel.mazePanel);
+            program.endProgram();
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
         }

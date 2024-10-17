@@ -35,7 +35,7 @@ public class InstructionPanel extends JPanel {
         instructionInput.setBackground(Color.lightGray);
         instructionInput.isCursorSet();
 
-        instructionPanelInput = new InstructionPanelInput(this);
+        instructionPanelInput = new InstructionPanelInput(this, mazePanel.program);
         mazePanel.addKeyListener(instructionPanelInput);
 
         scrollPane = new JScrollPane(instructionInput);
