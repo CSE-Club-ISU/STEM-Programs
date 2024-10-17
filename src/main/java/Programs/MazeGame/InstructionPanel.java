@@ -5,7 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class InstructionPanel extends JPanel {
+ class InstructionPanel extends JPanel {
 
     JScrollPane scrollPane;
     JTextArea instructionInput;
@@ -13,7 +13,7 @@ public class InstructionPanel extends JPanel {
     InstructionPanelInput instructionPanelInput;
     ArrayList<CellUI> previousPath;
 
-    public InstructionPanel(MazePanel mazePanel, Frame frame) {
+     InstructionPanel(MazePanel mazePanel, Frame frame) {
         this.mazePanel = mazePanel;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
@@ -35,7 +35,7 @@ public class InstructionPanel extends JPanel {
         instructionInput.setBackground(Color.lightGray);
         instructionInput.isCursorSet();
 
-        instructionPanelInput = new InstructionPanelInput(this);
+        instructionPanelInput = new InstructionPanelInput(this, mazePanel.program);
         mazePanel.addKeyListener(instructionPanelInput);
 
         scrollPane = new JScrollPane(instructionInput);
@@ -49,7 +49,7 @@ public class InstructionPanel extends JPanel {
         previousPath = new ArrayList<>();
     }
 
-    public int visualisePath(ArrayList<Integer> directions) {
+     int visualisePath(ArrayList<Integer> directions) {
         int returnValue = generatePath(directions);
         Color lineColor = Color.BLUE;
         if (returnValue == -1) {
@@ -65,9 +65,9 @@ public class InstructionPanel extends JPanel {
         return returnValue;
     }
 
-    public int generatePath(ArrayList<Integer> directions) {
+     int generatePath(ArrayList<Integer> directions) {
         clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(),mazePanel.mazeGame.startCell.getColumn());
+        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.maze.startCell.getRow(),mazePanel.maze.startCell.getColumn());
         previousPath.add(currentCell);
         for (int i = 0; i < directions.size(); i++) {
             if (currentCell == null) break;
@@ -88,7 +88,7 @@ public class InstructionPanel extends JPanel {
         return -3;
     }
 
-    public void clearPath() {
+     void clearPath() {
         for (int i = previousPath.size() - 1; i >= 0; i--) {
             previousPath.get(i).inLineDir = 0;
             previousPath.get(i).outLineDir = 0;

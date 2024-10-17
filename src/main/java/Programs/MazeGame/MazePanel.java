@@ -1,19 +1,22 @@
 package Programs.MazeGame;
 
 import StartMenu.Frame;
+import StartMenu.Program;
 import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MazePanel extends JPanel {
+ class MazePanel extends JPanel {
+    Program program;
     JLabel title;
-    MazeGame mazeGame;
+    Maze maze;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
-    public MazePanel(Frame frame) {
+     MazePanel(Frame frame, Program program) {
+        this.program = program;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         title = UIUtils.addTitle("Maze Game", this);
@@ -56,14 +59,14 @@ public class MazePanel extends JPanel {
         return sizeInput;
     }
 
-    public void generateMaze() {
-        if (mazeGame != null) {
+     void generateMaze() {
+        if (maze != null) {
             regenerateMaze();
             return;
         }
-        mazeGame = new MazeGame(mazeUI.getGridRows(), mazeUI.getGridColumns());
-        title.setText("Maze: " + mazeGame.algorithmName);
-        mazeUI.generateMaze(mazeGame.getGrid());
+        maze = new Maze(mazeUI.getGridRows(), mazeUI.getGridColumns());
+        title.setText("Maze: " + maze.algorithmName);
+        mazeUI.generateMaze(maze.getGrid());
     }
 
     private void regenerateMaze() {
@@ -73,15 +76,15 @@ public class MazePanel extends JPanel {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
                 mazeUI.resizeMazeUI(newSize,newSize);
-                mazeGame = null;
+                maze = null;
                 generateMaze();
                 return;
             }
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
-        mazeGame.startMazeGame();
-        title.setText("Maze: " + mazeGame.algorithmName);
+        maze.startMazeGame();
+        title.setText("Maze: " + maze.algorithmName);
         mazeUI.repaint();
     }
 }
