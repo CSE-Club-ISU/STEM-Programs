@@ -40,14 +40,19 @@ public class ProgramListPanel extends JPanel {
             JButton newProgramPanel = new RoundButton("",Color.WHITE,10, 20);
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
-            newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
             newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));
             newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
             //Add the text
             UIUtils.addTitle(newProgram.getProgramName(), newProgramPanel);
             JTextArea text = UIUtils.addTextArea(newProgram.getProgramDescription(), 20, null);
+            text.setHighlighter(null);
+            text.setOpaque(false);
+            text.setFocusable(false);
             JScrollPane scrollPane = new JScrollPane(text);
+            scrollPane.setOpaque(false);
+            scrollPane.getViewport().setOpaque(false);
+            scrollPane.setBorder(new EmptyBorder(0,0,0,0));
             newProgramPanel.add(scrollPane);
 
             newProgramPanel.setMaximumSize(new Dimension(600, 180));

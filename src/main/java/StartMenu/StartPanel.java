@@ -1,5 +1,6 @@
 package StartMenu;
 
+import Utils.RoundButton;
 import Utils.RoundPanel;
 import Utils.UIUtils;
 
@@ -28,7 +29,7 @@ public class StartPanel extends JPanel {
         add(createBackgroundImage());
         setAlignmentX(CENTER_ALIGNMENT);
 
-        createStartButton(frame, this);
+        add(createStartButton(frame));
     }
 
     private JLabel createBackgroundImage() {
@@ -43,14 +44,13 @@ public class StartPanel extends JPanel {
         return image;
     }
 
-    private JButton createStartButton(Frame frame, JPanel parent) {
-        JButton startButton = UIUtils.addButton("Start Program", 20, 10, parent);
+    private JButton createStartButton(Frame frame) {
+        JButton startButton = new RoundButton("Start Program", new Color(140, 0, 0), 20, 10);
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         startButton.setAlignmentY(BOTTOM_ALIGNMENT);
         startButton.addActionListener((l) -> frame.showGameList());
         startButton.setForeground(Color.white);
-        startButton.setBackground(new Color(140, 0, 0));
         startButton.setFocusPainted(false);
         startButton.setForeground(new Color(255, 255, 200));
         return startButton;

@@ -47,12 +47,6 @@ public class UIUtils {
         return jTextArea;
     }
 
-    public static JButton addButton(String text, int textSize, int borderRadius, JComponent component) {
-        JButton newButton = new RoundButton(text, Color.BLACK, textSize, borderRadius);
-        component.add(newButton);
-        return newButton;
-    }
-
     public static JPanel addSpace(int width, int height, JComponent component) {
         JPanel space = new JPanel();
         space.setOpaque(false);
