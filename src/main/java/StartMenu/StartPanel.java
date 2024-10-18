@@ -1,9 +1,11 @@
 package StartMenu;
 
+import Utils.RoundPanel;
 import Utils.UIUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,7 +28,7 @@ public class StartPanel extends JPanel {
         add(createBackgroundImage());
         setAlignmentX(CENTER_ALIGNMENT);
 
-        add(createStartButton(frame));
+        createStartButton(frame, this);
     }
 
     private JLabel createBackgroundImage() {
@@ -41,17 +43,15 @@ public class StartPanel extends JPanel {
         return image;
     }
 
-    private JButton createStartButton(Frame frame) {
-        JButton startButton = new JButton("Start Program");
+    private JButton createStartButton(Frame frame, JPanel parent) {
+        JButton startButton = UIUtils.addButton("Start Program", 20, 10, parent);
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         startButton.setAlignmentY(BOTTOM_ALIGNMENT);
         startButton.addActionListener((l) -> frame.showGameList());
         startButton.setForeground(Color.white);
         startButton.setBackground(new Color(140, 0, 0));
-        startButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         startButton.setFocusPainted(false);
-        startButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         startButton.setForeground(new Color(255, 255, 200));
         return startButton;
     }

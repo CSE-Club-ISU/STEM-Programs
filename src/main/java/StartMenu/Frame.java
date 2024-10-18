@@ -42,7 +42,6 @@ public class Frame extends JFrame {
         setTitle("CSE");
         setVisible(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         startPanel = new StartPanel(this);
         add(startPanel);
     }

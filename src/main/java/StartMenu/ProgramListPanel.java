@@ -1,11 +1,12 @@
 package StartMenu;
 
 
+import Utils.RoundPanel;
 import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -26,10 +27,10 @@ public class ProgramListPanel extends JPanel {
 
         JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
         title.setForeground(Color.white);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(20));
 
         // Create a JPanel to hold a list of labels.
-        programListContainer = new JPanel();
+        programListContainer = new RoundPanel(Color.LIGHT_GRAY, 50);
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));
         // Add a large number of labels to the panel.
         for (Program newProgram : getPrograms()) {
@@ -54,9 +55,9 @@ public class ProgramListPanel extends JPanel {
         // Create a JScrollPane and set the panel as its viewport.
         programList = new JScrollPane(programListContainer);
         programList.setMaximumSize(new Dimension(800, 1000));
-        programList.setBorder(new LineBorder(Color.LIGHT_GRAY, 10, true));
-        programList.setBackground(Color.darkGray);
-        programListContainer.setBackground(Color.darkGray);
+        programList.setOpaque(false);
+        programList.getViewport().setOpaque(false);
+        programList.setBorder(new EmptyBorder(0,0,0,0));
         programList.getVerticalScrollBar().setUnitIncrement(20);
         // Add the JScrollPane to the frame.
         this.add(programList);
