@@ -21,7 +21,9 @@ import java.util.ArrayList;
      public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
-            program.endProgram();
+            if (!instructionPanel.mazePanel.sizeInput.hasFocus()) {
+                program.endProgram();
+            }
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
         }

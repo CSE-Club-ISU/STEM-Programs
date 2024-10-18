@@ -2,13 +2,16 @@ package Programs.MazeGame;
 
 import StartMenu.Frame;
 import StartMenu.Program;
+import Utils.RoundButton;
 import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
- class MazePanel extends JPanel {
+class MazePanel extends JPanel {
     Program program;
     JLabel title;
     Maze maze;
@@ -37,18 +40,16 @@ import java.awt.*;
     }
 
     private JButton createRegenerateMazeButton() {
-        JButton regenerateButton = new JButton("Regenerate");
+        JButton regenerateButton = new RoundButton("Regenerate", Color.BLUE, 20, 10);
         regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
         regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
         regenerateButton.addActionListener((l) -> {
             this.requestFocusInWindow();
             generateMaze();
         });
-        regenerateButton.setBackground(Color.BLUE);
         regenerateButton.setForeground(Color.white);
         regenerateButton.setFocusPainted(false);
         regenerateButton.setFocusable(false);
-        regenerateButton.setBorder(new EmptyBorder(10, 10, 10, 10));
         return regenerateButton;
     }
 
@@ -56,6 +57,24 @@ import java.awt.*;
         sizeInput = new JTextField(Integer.toString(mazeUI.getGridRows()));
         sizeInput.setMaximumSize(new Dimension(100, 30));
         sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));
+        MazePanel mazePanel = this;
+        // In order to escape the input field we need to bind a key listener to request the focus back to the main panel
+        sizeInput.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    mazePanel.requestFocusInWindow();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
         return sizeInput;
     }
 
