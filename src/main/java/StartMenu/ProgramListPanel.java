@@ -1,6 +1,7 @@
 package StartMenu;
 
 
+import Utils.RoundButton;
 import Utils.RoundPanel;
 import Utils.UIUtils;
 
@@ -24,7 +25,7 @@ public class ProgramListPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(frame.getSize());
         setBackground(Color.darkGray);
-
+        add(Box.createVerticalStrut(10));
         JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
         title.setForeground(Color.white);
         add(Box.createVerticalStrut(20));
@@ -32,9 +33,11 @@ public class ProgramListPanel extends JPanel {
         // Create a JPanel to hold a list of labels.
         programListContainer = new RoundPanel(Color.LIGHT_GRAY, 50);
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));
+        programListContainer.add(Box.createVerticalStrut(10));
+
         // Add a large number of labels to the panel.
         for (Program newProgram : getPrograms()) {
-            JButton newProgramPanel = new JButton();
+            JButton newProgramPanel = new RoundButton("",Color.WHITE,10, 20);
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
