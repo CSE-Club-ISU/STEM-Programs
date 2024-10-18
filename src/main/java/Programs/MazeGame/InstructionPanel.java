@@ -1,11 +1,13 @@
 package Programs.MazeGame;
 
+import Utils.RoundPanel;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
- class InstructionPanel extends JPanel {
+class InstructionPanel extends RoundPanel {
 
     JScrollPane scrollPane;
     JTextArea instructionInput;
@@ -13,8 +15,10 @@ import java.util.ArrayList;
     InstructionPanelInput instructionPanelInput;
     ArrayList<CellUI> previousPath;
 
-     InstructionPanel(MazePanel mazePanel, Frame frame) {
+    InstructionPanel(MazePanel mazePanel, Frame frame) {
+        super(Color.LIGHT_GRAY, 20);
         this.mazePanel = mazePanel;
+        setMaximumSize(new Dimension(200, 1000));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         JLabel instructionTitle = new JLabel("Instructions");
@@ -22,11 +26,10 @@ import java.util.ArrayList;
         instructionTitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
         instructionTitle.setAlignmentX(CENTER_ALIGNMENT);
         add(instructionTitle);
+        add(Box.createVerticalStrut(10));
 
 
         instructionInput = new JTextArea("");
-        instructionInput.setMaximumSize(new Dimension(200, 600));
-        instructionInput.setMinimumSize(new Dimension(200, 600));
         instructionInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 24));
         instructionInput.setForeground(Color.BLACK);
         instructionInput.setDisabledTextColor(Color.black);
@@ -41,15 +44,17 @@ import java.util.ArrayList;
         scrollPane = new JScrollPane(instructionInput);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setMaximumSize(new Dimension(200, 600));
-        scrollPane.setMinimumSize(new Dimension(200, 600));
+        scrollPane.setOpaque(false);
+        scrollPane.setBorder(new EmptyBorder(0, 20, 0, 0));
+        scrollPane.getViewport().setOpaque(false);
         add(scrollPane);
+        add(Box.createVerticalStrut(10));
 
         setFocusable(true);
         previousPath = new ArrayList<>();
     }
 
-     int visualisePath(ArrayList<Integer> directions) {
+    int visualisePath(ArrayList<Integer> directions) {
         int returnValue = generatePath(directions);
         Color lineColor = Color.BLUE;
         if (returnValue == -1) {
@@ -65,9 +70,9 @@ import java.util.ArrayList;
         return returnValue;
     }
 
-     int generatePath(ArrayList<Integer> directions) {
+    int generatePath(ArrayList<Integer> directions) {
         clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.maze.startCell.getRow(),mazePanel.maze.startCell.getColumn());
+        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.maze.startCell.getRow(), mazePanel.maze.startCell.getColumn());
         previousPath.add(currentCell);
         for (int i = 0; i < directions.size(); i++) {
             if (currentCell == null) break;
@@ -88,7 +93,7 @@ import java.util.ArrayList;
         return -3;
     }
 
-     void clearPath() {
+    void clearPath() {
         for (int i = previousPath.size() - 1; i >= 0; i--) {
             previousPath.get(i).inLineDir = 0;
             previousPath.get(i).outLineDir = 0;

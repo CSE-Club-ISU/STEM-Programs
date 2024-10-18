@@ -34,6 +34,7 @@ class MazePanel extends JPanel {
         Box mazeAndInstructionHolder = Box.createHorizontalBox();
         mazeAndInstructionHolder.setBorder(new EmptyBorder(10, 10, 10, 10));
         mazeAndInstructionHolder.add(mazeUI);
+        mazeAndInstructionHolder.add(Box.createHorizontalStrut(10));
         instructionPanel = new InstructionPanel(this, frame);
         mazeAndInstructionHolder.add(instructionPanel);
         add(mazeAndInstructionHolder);

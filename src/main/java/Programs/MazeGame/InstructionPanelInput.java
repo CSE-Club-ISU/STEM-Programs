@@ -72,12 +72,12 @@ import java.util.ArrayList;
     boolean isBackWardsInstruction(int direction) {
         if (instructions.isEmpty())
             return false;
-        return instructions.get(instructions.size() - 1) == -direction;
+        return instructions.getLast() == -direction;
     }
 
     void removeFirstInstruction() {
         if (instructions.isEmpty()) return;
-        instructions.remove(instructions.size() - 1);
+        instructions.removeLast();
         instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
         instructionPanel.visualisePath(instructions);
     }
