@@ -12,7 +12,8 @@ To solve this we need to create an algorithm to search all possibilities in a ma
 When creating an algorithm, the logic has to be determined before trying to solve the maze. 
 So our challenge to the kids is to give us a list of instructions to move a dot through a maze.
 
-![MazeGame1](https://github.com/CSE-Club-ISU/STEM-Programs/assets/7538725/03e102ba-80a2-475a-a29d-aafb5ac64442)
+<img src="https://github.com/user-attachments/assets/ec7b4873-07bf-4fa6-b492-2c47effaee7a" width="40%"/> <img src="https://github.com/user-attachments/assets/4c9ce856-3117-4116-afd8-8ed7204ee87d" width="40%"/> 
+<img src="https://github.com/user-attachments/assets/56377cee-94c8-4456-8634-fe44885826f9" width="40%"/> <img src="https://github.com/user-attachments/assets/1488af03-a2a8-4735-be03-d8a7c354ea69" width="40%"/>
 
 ### How can I contribute?
 
