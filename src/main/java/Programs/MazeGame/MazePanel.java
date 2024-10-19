@@ -26,7 +26,7 @@ class MazePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(10));
         title = UIUtils.addTitle("Maze",  this);
-        mazeUI = new MazeUI(this, 10, 10);
+        mazeUI = new MazeUI(frame, 10, 10);
 
         JPanel top = new JPanel();
         top.setOpaque(false);
@@ -46,11 +46,11 @@ class MazePanel extends JPanel {
         instructionPanel = new InstructionPanel(this, frame);
         mazeAndInstructionHolder.add(instructionPanel);
         add(mazeAndInstructionHolder);
+        generateMaze();
     }
 
     private JButton createBackButton() {
         JButton backButton = new RoundButton("Back", Color.WHITE, 20, Color.RED, 10);
-//        backButton.setMinimumSize(new Dimension(120, 40));
         backButton.setFocusPainted(false);
         backButton.setFocusable(false);
         backButton.addActionListener((e) -> program.endProgram());
@@ -59,7 +59,6 @@ class MazePanel extends JPanel {
 
     private JButton createRegenerateMazeButton() {
         JButton regenerateButton = new RoundButton("Regenerate", Color.WHITE, 20, Color.BLUE, 10);
-//        regenerateButton.setMinimumSize(new Dimension(100, 40));
         regenerateButton.addActionListener((l) -> {
             this.requestFocusInWindow();
             generateMaze();

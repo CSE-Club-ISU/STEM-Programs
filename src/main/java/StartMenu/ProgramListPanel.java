@@ -68,6 +68,7 @@ public class ProgramListPanel extends JPanel {
         programList.getVerticalScrollBar().setUnitIncrement(20);
         // Add the JScrollPane to the frame.
         this.add(programList);
+        this.add(Box.createVerticalStrut(10));
         frame.setVisible(true);
 
     }
