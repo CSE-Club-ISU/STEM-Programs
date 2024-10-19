@@ -27,11 +27,8 @@ public class ProgramTemplatePanel extends JPanel {
 
         //Button
         JButton button = new RoundButton("Back", Color.WHITE, 20, Color.RED, 10);
-        button.setVerticalTextPosition(AbstractButton.CENTER);
-        button.setAlignmentX(CENTER_ALIGNMENT);
         button.setFocusPainted(false);
         button.setFocusable(false);
-        button.setBorder(new EmptyBorder(10, 10, 10, 10));
         button.addActionListener((e) -> program.endProgram());
         add(button);
 

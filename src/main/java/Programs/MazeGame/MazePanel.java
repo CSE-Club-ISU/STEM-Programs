@@ -23,7 +23,7 @@ class MazePanel extends JPanel {
         this.program = program;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(10));
-        title = UIUtils.addTitle("Maze", 40, this);
+        title = UIUtils.addTitle("Maze",  this);
         mazeUI = new MazeUI(this, 10, 10);
 
         JPanel top = new JPanel();
@@ -48,21 +48,16 @@ class MazePanel extends JPanel {
 
     private JButton createBackButton() {
         JButton backButton = new RoundButton("Back", Color.WHITE, 20, Color.RED, 10);
-        backButton.setPreferredSize(new Dimension(120, 30));
-        backButton.setVerticalTextPosition(AbstractButton.CENTER);
-        backButton.setAlignmentX(CENTER_ALIGNMENT);
+//        backButton.setMinimumSize(new Dimension(120, 40));
         backButton.setFocusPainted(false);
         backButton.setFocusable(false);
-        backButton.setBorder(new EmptyBorder(10, 10, 10, 10));
         backButton.addActionListener((e) -> program.endProgram());
         return backButton;
     }
 
     private JButton createRegenerateMazeButton() {
         JButton regenerateButton = new RoundButton("Regenerate", Color.WHITE, 20, Color.BLUE, 10);
-        regenerateButton.setPreferredSize(new Dimension(100, 30));
-        regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
-        regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
+//        regenerateButton.setMinimumSize(new Dimension(100, 40));
         regenerateButton.addActionListener((l) -> {
             this.requestFocusInWindow();
             generateMaze();
@@ -74,7 +69,8 @@ class MazePanel extends JPanel {
 
     private JTextField createSizeInputField() {
         sizeInput = new JTextField(Integer.toString(mazeUI.getGridRows()));
-        sizeInput.setMaximumSize(new Dimension(100, 30));
+        sizeInput.setMaximumSize(new Dimension(100, 38));
+        sizeInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));
         MazePanel mazePanel = this;
         // In order to escape the input field we need to bind a key listener to request the focus back to the main panel

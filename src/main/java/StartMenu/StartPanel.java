@@ -45,10 +45,8 @@ public class StartPanel extends JPanel {
     }
 
     private JButton createStartButton(Frame frame) {
-        JButton startButton = new RoundButton("Start Program", Color.WHITE, 20, new Color(140, 0, 0), 10);
+        JButton startButton = new RoundButton("Start Program", Color.WHITE, 24, new Color(140, 0, 0), 10);
         startButton.setVerticalTextPosition(AbstractButton.CENTER);
-        startButton.setAlignmentX(CENTER_ALIGNMENT);
-        startButton.setAlignmentY(BOTTOM_ALIGNMENT);
         startButton.addActionListener((l) -> frame.showGameList());
         startButton.setFocusPainted(false);
         startButton.setForeground(new Color(255, 255, 200));

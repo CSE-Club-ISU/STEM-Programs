@@ -26,7 +26,7 @@ public class ProgramListPanel extends JPanel {
         setSize(frame.getSize());
         setBackground(Color.darkGray);
         add(Box.createVerticalStrut(10));
-        JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
+        JLabel title = UIUtils.addTitle("Program List", this);
         title.setForeground(Color.white);
         add(Box.createVerticalStrut(20));
 
@@ -41,10 +41,9 @@ public class ProgramListPanel extends JPanel {
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));
-            newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
             //Add the text
-            UIUtils.addTitle(newProgram.getProgramName(), newProgramPanel);
+            UIUtils.addTitle(newProgram.getProgramName(), 30, newProgramPanel);
             JTextArea text = UIUtils.addTextArea(newProgram.getProgramDescription(), 20, null);
             text.setHighlighter(null);
             text.setOpaque(false);

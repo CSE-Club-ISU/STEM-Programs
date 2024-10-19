@@ -10,7 +10,7 @@ import java.awt.geom.RoundRectangle2D;
 import static java.awt.Component.CENTER_ALIGNMENT;
 
 public class UIUtils {
-    public static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+    public static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 40);
 
     public static JLabel addTitle(String text, JComponent component) {
         return addTitle(text, titleFont, component);

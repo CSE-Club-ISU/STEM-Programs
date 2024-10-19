@@ -19,6 +19,8 @@ public class RoundButton extends JButton {
         this.armedColor = armedColor;
         setForeground(textColor);
         setFont(new Font(Font.SANS_SERIF, Font.BOLD, textSize));
+        setVerticalTextPosition(AbstractButton.CENTER);
+        setAlignmentX(CENTER_ALIGNMENT);
         this.borderRadius = borderRadius;
     }
 
