@@ -3,6 +3,8 @@ package Programs.MazeGame;
 import StartMenu.Frame;
 import StartMenu.Program;
 import Utils.RoundButton;
+import Utils.RoundInputField;
+import Utils.RoundTextField;
 import Utils.UIUtils;
 
 import javax.swing.*;
@@ -68,7 +70,7 @@ class MazePanel extends JPanel {
     }
 
     private JTextField createSizeInputField() {
-        sizeInput = new JTextField(Integer.toString(mazeUI.getGridRows()));
+        sizeInput = new RoundTextField(Integer.toString(mazeUI.getGridRows()), 10);
         sizeInput.setMaximumSize(new Dimension(100, 38));
         sizeInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));

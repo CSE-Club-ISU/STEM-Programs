@@ -36,7 +36,7 @@ public class UIUtils {
     }
 
     public static JTextArea addTextArea(String text, int textSize, JComponent component) {
-        JTextArea jTextArea = new JTextArea(text, 0, 0);
+        JTextArea jTextArea = new RoundInputField(text, 10);
         jTextArea.setEditable(false);
         jTextArea.setLineWrap(true);
         jTextArea.setWrapStyleWord(true);
@@ -48,7 +48,7 @@ public class UIUtils {
     }
 
     public static JTextArea addTextInputField(String text, int textSize, JComponent component) {
-        JTextArea jTextArea = new JTextArea(text, 0, 0);
+        JTextArea jTextArea = new RoundInputField(text, 10);
         jTextArea.setLineWrap(true);
         jTextArea.setWrapStyleWord(true);
         jTextArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, textSize));
