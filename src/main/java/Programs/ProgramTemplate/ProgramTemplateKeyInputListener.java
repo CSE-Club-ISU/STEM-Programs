@@ -11,9 +11,9 @@ public class ProgramTemplateKeyInputListener extends KeyAdapter {
     Frame frame;
     Program program;
     ProgramTemplatePanel programTemplatePanel;
-    JTextField inputField;
+    JTextArea inputField;
 
-    public ProgramTemplateKeyInputListener(Frame frame, Program program, ProgramTemplatePanel programTemplatePanel, JTextField inputField) {
+    public ProgramTemplateKeyInputListener(Frame frame, Program program, ProgramTemplatePanel programTemplatePanel, JTextArea inputField) {
         this.frame = frame;
         this.program = program;
         this.programTemplatePanel = programTemplatePanel;
@@ -33,10 +33,6 @@ public class ProgramTemplateKeyInputListener extends KeyAdapter {
                 program.endProgram();
             } else {
                 // Stop focusing the text input
-                programTemplatePanel.requestFocusInWindow();
-            }
-        } else if (keyCode == KeyEvent.VK_ENTER) {
-            if (inputField.hasFocus()) {
                 programTemplatePanel.requestFocusInWindow();
             }
         }

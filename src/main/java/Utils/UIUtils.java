@@ -47,6 +47,17 @@ public class UIUtils {
         return jTextArea;
     }
 
+    public static JTextArea addTextInputField(String text, int textSize, JComponent component) {
+        JTextArea jTextArea = new JTextArea(text, 0, 0);
+        jTextArea.setLineWrap(true);
+        jTextArea.setWrapStyleWord(true);
+        jTextArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, textSize));
+        if (component != null) {
+            component.add(jTextArea);
+        }
+        return jTextArea;
+    }
+
     public static JPanel addSpace(int width, int height, JComponent component) {
         JPanel space = new JPanel();
         space.setOpaque(false);

@@ -35,12 +35,11 @@ public class ProgramTemplatePanel extends JPanel {
         add(Box.createVerticalStrut(10));
 
         //Input Field
-        JTextField inputField = new JTextField("Input text here.");
+        JTextArea inputField = UIUtils.addTextInputField("Input text here.", 20, this);
         inputField.setSize(new Dimension(100, 30));
         inputField.setMaximumSize(new Dimension(500, 300));
         inputField.setBorder(new EmptyBorder(10, 10, 10, 10));
         inputField.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-        add(inputField);
 
         //Keyboard Input Listener
         inputListener = new ProgramTemplateKeyInputListener(frame, program, this, inputField);
