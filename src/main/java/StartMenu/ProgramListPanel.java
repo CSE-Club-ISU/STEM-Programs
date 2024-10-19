@@ -37,7 +37,7 @@ public class ProgramListPanel extends JPanel {
 
         // Add a large number of labels to the panel.
         for (Program newProgram : getPrograms()) {
-            JButton newProgramPanel = new RoundButton("",Color.WHITE,10, 20);
+            JButton newProgramPanel = new RoundButton("", Color.WHITE, 10,Color.WHITE, 20);
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));

@@ -2,6 +2,7 @@ package Programs.ProgramTemplate;
 
 import StartMenu.Frame;
 import StartMenu.Program;
+import Utils.RoundButton;
 import Utils.UIUtils;
 
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class ProgramTemplatePanel extends JPanel {
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
+        add(Box.createVerticalStrut(10));
 
         //Title
         UIUtils.addTitle("Program Template", this);
@@ -24,11 +26,9 @@ public class ProgramTemplatePanel extends JPanel {
         add(Box.createVerticalStrut(10));
 
         //Button
-        JButton button = new JButton("Go Back to program list");
+        JButton button = new RoundButton("Back", Color.WHITE, 20, Color.RED, 10);
         button.setVerticalTextPosition(AbstractButton.CENTER);
         button.setAlignmentX(CENTER_ALIGNMENT);
-        button.setBackground(Color.RED);
-        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setFocusable(false);
         button.setBorder(new EmptyBorder(10, 10, 10, 10));

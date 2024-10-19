@@ -11,18 +11,27 @@ public class RoundButton extends JButton {
 
     private int borderRadius;
 
-    public RoundButton(String text, Color color, Color armedColor, int textSize, int borderRadius) {
+    public RoundButton(String text, Color textColor, int textSize, Color color, Color armedColor, int borderRadius) {
         super(text);
         setContentAreaFilled(false);
         this.text = text;
         this.color = color;
         this.armedColor = armedColor;
+        setForeground(textColor);
         setFont(new Font(Font.SANS_SERIF, Font.BOLD, textSize));
         this.borderRadius = borderRadius;
     }
 
-    public RoundButton(String text, Color color, int textSize, int borderRadius) {
-        this(text, color, new Color(Math.max(0, color.getRed() - 20), Math.max(0, color.getGreen() - 20), Math.max(0, color.getBlue() - 20)), textSize, borderRadius);
+    public RoundButton(String text, Color textColor, int textSize, Color color, int borderRadius) {
+        this(text, textColor, textSize, color, new Color(Math.max(0, color.getRed() - 20), Math.max(0, color.getGreen() - 20), Math.max(0, color.getBlue() - 20)), borderRadius);
+    }
+
+    public RoundButton(Color color, Color armedColor, int borderRadius) {
+        this("", Color.WHITE, 20, color, armedColor, borderRadius);
+    }
+
+    public RoundButton(Color color, int borderRadius) {
+        this(color, new Color(Math.max(0, color.getRed() - 20), Math.max(0, color.getGreen() - 20), Math.max(0, color.getBlue() - 20)), borderRadius);
     }
 
     @Override
