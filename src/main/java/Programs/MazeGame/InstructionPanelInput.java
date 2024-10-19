@@ -21,7 +21,9 @@ import java.util.ArrayList;
      public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
-            program.endProgram();
+            if (!instructionPanel.mazePanel.sizeInput.hasFocus()) {
+                program.endProgram();
+            }
         } else if (keyCode == KeyEvent.VK_R) {
             instructionPanel.mazePanel.generateMaze();
         }
@@ -70,12 +72,12 @@ import java.util.ArrayList;
     boolean isBackWardsInstruction(int direction) {
         if (instructions.isEmpty())
             return false;
-        return instructions.get(instructions.size() - 1) == -direction;
+        return instructions.getLast() == -direction;
     }
 
     void removeFirstInstruction() {
         if (instructions.isEmpty()) return;
-        instructions.remove(instructions.size() - 1);
+        instructions.removeLast();
         instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
         instructionPanel.visualisePath(instructions);
     }

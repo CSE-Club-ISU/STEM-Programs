@@ -2,64 +2,103 @@ package Programs.MazeGame;
 
 import StartMenu.Frame;
 import StartMenu.Program;
+import Utils.RoundButton;
+import Utils.RoundInputField;
+import Utils.RoundTextField;
 import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
- class MazePanel extends JPanel {
+class MazePanel extends JPanel {
     Program program;
     JLabel title;
     Maze maze;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
-     MazePanel(Frame frame, Program program) {
+
+    MazePanel(Frame frame, Program program) {
         this.program = program;
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(boxLayout);
-        title = UIUtils.addTitle("Maze Game", this);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(Box.createVerticalStrut(10));
+        title = UIUtils.addTitle("Maze",  this);
         mazeUI = new MazeUI(this, 10, 10);
 
-        Box top = Box.createHorizontalBox();
+        JPanel top = new JPanel();
+        top.setOpaque(false);
+        top.setBorder(new EmptyBorder(0,0,0,0));
+        top.setLayout(new BoxLayout(top, BoxLayout.LINE_AXIS));
+        top.add(createBackButton());
+        UIUtils.addSpace(10,10,top);
         top.add(createRegenerateMazeButton());
-        UIUtils.addSpace(10,10, top);
+        UIUtils.addSpace(10,10,top);
         top.add(createSizeInputField());
         add(top);
+        add(Box.createVerticalStrut(10));
 
         Box mazeAndInstructionHolder = Box.createHorizontalBox();
-        mazeAndInstructionHolder.setBorder(new EmptyBorder(10, 10, 10, 10));
         mazeAndInstructionHolder.add(mazeUI);
+        mazeAndInstructionHolder.add(Box.createHorizontalStrut(10));
         instructionPanel = new InstructionPanel(this, frame);
         mazeAndInstructionHolder.add(instructionPanel);
         add(mazeAndInstructionHolder);
     }
 
+    private JButton createBackButton() {
+        JButton backButton = new RoundButton("Back", Color.WHITE, 20, Color.RED, 10);
+//        backButton.setMinimumSize(new Dimension(120, 40));
+        backButton.setFocusPainted(false);
+        backButton.setFocusable(false);
+        backButton.addActionListener((e) -> program.endProgram());
+        return backButton;
+    }
+
     private JButton createRegenerateMazeButton() {
-        JButton regenerateButton = new JButton("Regenerate");
-        regenerateButton.setVerticalTextPosition(AbstractButton.CENTER);
-        regenerateButton.setAlignmentX(CENTER_ALIGNMENT);
+        JButton regenerateButton = new RoundButton("Regenerate", Color.WHITE, 20, Color.BLUE, 10);
+//        regenerateButton.setMinimumSize(new Dimension(100, 40));
         regenerateButton.addActionListener((l) -> {
             this.requestFocusInWindow();
             generateMaze();
         });
-        regenerateButton.setBackground(Color.BLUE);
-        regenerateButton.setForeground(Color.white);
         regenerateButton.setFocusPainted(false);
         regenerateButton.setFocusable(false);
-        regenerateButton.setBorder(new EmptyBorder(10, 10, 10, 10));
         return regenerateButton;
     }
 
     private JTextField createSizeInputField() {
-        sizeInput = new JTextField(Integer.toString(mazeUI.getGridRows()));
-        sizeInput.setMaximumSize(new Dimension(100, 30));
+        sizeInput = new RoundTextField(Integer.toString(mazeUI.getGridRows()), 10);
+        sizeInput.setMaximumSize(new Dimension(100, 38));
+        sizeInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         sizeInput.setBorder(new EmptyBorder(10, 10, 10, 10));
+        MazePanel mazePanel = this;
+        // In order to escape the input field we need to bind a key listener to request the focus back to the main panel
+        sizeInput.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    mazePanel.requestFocusInWindow();
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    generateMaze();
+                    mazePanel.requestFocusInWindow();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
         return sizeInput;
     }
 
-     void generateMaze() {
+    void generateMaze() {
         if (maze != null) {
             regenerateMaze();
             return;
@@ -75,7 +114,7 @@ import java.awt.*;
         try {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
-                mazeUI.resizeMazeUI(newSize,newSize);
+                mazeUI.resizeMazeUI(newSize, newSize);
                 maze = null;
                 generateMaze();
                 return;

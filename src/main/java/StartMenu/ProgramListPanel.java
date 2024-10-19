@@ -1,11 +1,13 @@
 package StartMenu;
 
 
+import Utils.RoundButton;
+import Utils.RoundPanel;
 import Utils.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -23,27 +25,33 @@ public class ProgramListPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(frame.getSize());
         setBackground(Color.darkGray);
-
-        JLabel title = UIUtils.addTitle("Program List", new Font(Font.SANS_SERIF, Font.BOLD, 30), this);
-        title.setForeground(Color.white);
         add(Box.createVerticalStrut(10));
+        JLabel title = UIUtils.addTitle("Program List", this);
+        title.setForeground(Color.white);
+        add(Box.createVerticalStrut(20));
 
         // Create a JPanel to hold a list of labels.
-        programListContainer = new JPanel();
+        programListContainer = new RoundPanel(Color.LIGHT_GRAY, 50);
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));
+        programListContainer.add(Box.createVerticalStrut(10));
+
         // Add a large number of labels to the panel.
         for (Program newProgram : getPrograms()) {
-            JButton newProgramPanel = new JButton();
+            JButton newProgramPanel = new RoundButton("", Color.WHITE, 10,Color.WHITE, 20);
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
-            newProgramPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
             newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));
-            newProgramPanel.setAlignmentX(CENTER_ALIGNMENT);
 
             //Add the text
-            UIUtils.addTitle(newProgram.getProgramName(), newProgramPanel);
+            UIUtils.addTitle(newProgram.getProgramName(), 30, newProgramPanel);
             JTextArea text = UIUtils.addTextArea(newProgram.getProgramDescription(), 20, null);
+            text.setHighlighter(null);
+            text.setOpaque(false);
+            text.setFocusable(false);
             JScrollPane scrollPane = new JScrollPane(text);
+            scrollPane.setOpaque(false);
+            scrollPane.getViewport().setOpaque(false);
+            scrollPane.setBorder(new EmptyBorder(0,0,0,0));
             newProgramPanel.add(scrollPane);
 
             newProgramPanel.setMaximumSize(new Dimension(600, 180));
@@ -54,9 +62,9 @@ public class ProgramListPanel extends JPanel {
         // Create a JScrollPane and set the panel as its viewport.
         programList = new JScrollPane(programListContainer);
         programList.setMaximumSize(new Dimension(800, 1000));
-        programList.setBorder(new LineBorder(Color.LIGHT_GRAY, 10, true));
-        programList.setBackground(Color.darkGray);
-        programListContainer.setBackground(Color.darkGray);
+        programList.setOpaque(false);
+        programList.getViewport().setOpaque(false);
+        programList.setBorder(new EmptyBorder(0,0,0,0));
         programList.getVerticalScrollBar().setUnitIncrement(20);
         // Add the JScrollPane to the frame.
         this.add(programList);
