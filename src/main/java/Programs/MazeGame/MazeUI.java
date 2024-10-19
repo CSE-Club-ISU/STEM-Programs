@@ -2,6 +2,8 @@ package Programs.MazeGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * MazeUI is a panel that holds the grid
@@ -10,12 +12,12 @@ import java.awt.*;
     /** first array is the rows, the second is columns */
     private CellUI[][] gridUI;
 
-    private MazePanel mazePanel;
+    private Frame frame;
 
-     MazeUI(MazePanel mazePanel,int rows, int columns) {
-        this.mazePanel = mazePanel;
+     MazeUI(Frame frame,int rows, int columns) {
+        this.frame = frame;
         setBackground(Color.LIGHT_GRAY);
-        setMaximumSize(new Dimension(700, 700));
+        setMaximumSize(new Dimension(1000, 1000));
         setMinimumSize(new Dimension(700, 700));
         gridUI = new CellUI[rows][columns];
     }
@@ -57,5 +59,12 @@ import java.awt.*;
 
      int getGridColumns() {
         return gridUI[0].length;
+    }
+
+
+    @Override
+    public Dimension getMaximumSize(){
+         int maxSize = frame.getBounds().height - getParent().getY();
+        return new Dimension(maxSize, maxSize);
     }
 }
