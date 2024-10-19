@@ -69,6 +69,9 @@ class MazePanel extends JPanel {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     mazePanel.requestFocusInWindow();
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    generateMaze();
+                    mazePanel.requestFocusInWindow();
                 }
             }
 
