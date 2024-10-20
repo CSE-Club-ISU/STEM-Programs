@@ -5,12 +5,12 @@ This is a project to help teach students in elementary school the basics of prob
 Computer science is about solving problems, some important topics are optimization and counting possibilities. 
 One of the most common ways to solve complex problems is through reduction.
 Reduction is when we take in input of the problem and rewrite it so that we can plug it into another already solved problem. 
-We commonly reduce optimization and counting problems to a problem to a form of special graph, and a mazeGame can be thought of as a restricted graph. 
+We commonly reduce optimization and counting problems to a problem to a form of special graph, and a maze can be thought of as a restricted graph. 
 In a way, teaching kids about mazes is an introduction to solving some of these complex problems.
-A common problem is to give the instructions on how to get from point A to point B in a mazeGame. 
-To solve this we need to create an algorithm to search all possibilities in a mazeGame. 
-When creating an algorithm, the logic has to be determined before trying to solve the mazeGame. 
-So our challenge to the kids is to give us a list of instructions to move a dot through a mazeGame.
+A common problem is to give the instructions on how to get from point A to point B in a maze. 
+To solve this we need to create an algorithm to search all possibilities in a maze. 
+When creating an algorithm, the logic has to be determined before trying to solve the maze. 
+So our challenge to the kids is to give us a list of instructions to move a dot through a maze.
 
 <img src="https://github.com/user-attachments/assets/ec7b4873-07bf-4fa6-b492-2c47effaee7a" width="40%"/> <img src="https://github.com/user-attachments/assets/4c9ce856-3117-4116-afd8-8ed7204ee87d" width="40%"/> 
 <img src="https://github.com/user-attachments/assets/56377cee-94c8-4456-8634-fe44885826f9" width="40%"/> <img src="https://github.com/user-attachments/assets/1488af03-a2a8-4735-be03-d8a7c354ea69" width="40%"/>
@@ -32,7 +32,7 @@ object create a new instance of it.
 5. Now you should be able to run the program and see your program on the start menu.
 
 ### Todo:
-* Create better mazeGame algorithms
+* Create better maze algorithms
 * Improve the UI
 * Create other algorithm games:
   * Higher or lower?
