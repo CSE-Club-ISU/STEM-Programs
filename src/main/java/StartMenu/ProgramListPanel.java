@@ -78,7 +78,7 @@ public class ProgramListPanel extends JPanel {
 
         File file = new File("src/main/java/Programs");
         try {
-            List<String> programNames = Arrays.stream(file.listFiles()).filter(f -> f.isDirectory()).map(d -> d.getName()).toList();
+            List<String> programNames = Arrays.stream(file.listFiles()).filter(File::isDirectory).map(File::getName).toList();
             programNames.forEach(n -> {
                 try {
                     programs.add((Program) ClassLoader.getSystemClassLoader().loadClass("Programs." + n + "." + n).getMethod("programFactory").invoke(null));
