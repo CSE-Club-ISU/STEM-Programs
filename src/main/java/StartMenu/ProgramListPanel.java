@@ -13,6 +13,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProgramListPanel extends JPanel {
@@ -99,7 +100,7 @@ public class ProgramListPanel extends JPanel {
         } catch (Exception e) {
             System.out.println("Failed to load programs!");
         }
-        return programs;
+        return programs.stream().sorted(Comparator.comparingInt(Program::getProgramPriority)).toList();
     }
 
     static Program createStartMenuProgram() {
@@ -117,6 +118,11 @@ public class ProgramListPanel extends JPanel {
             @Override
             public String getProgramDescription() {
                 return null;
+            }
+
+            @Override
+            public int getProgramPriority() {
+                return 0;
             }
         };
     }

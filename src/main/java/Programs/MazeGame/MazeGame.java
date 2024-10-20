@@ -22,6 +22,11 @@ public class MazeGame {
             public String getProgramDescription() {
                 return "Solve a maze! Try to get from the green square to the red square!";
             }
+
+            @Override
+            public int getProgramPriority() {
+                return 0;
+            }
         };
     }
 }

@@ -35,6 +35,11 @@ public abstract class Program {
      */
     public abstract String getProgramDescription();
 
+    /**
+     * @return the desired priority of the program in the program list sorted in ascending order.
+     */
+    public abstract int getProgramPriority();
+
     public void endProgram() {
         frame.endProgram(this);
     }

@@ -23,6 +23,11 @@ public class BlockEscape {
             public String getProgramDescription() {
                 return "Move blocks around to try and get the special block out of the grid.";
             }
+
+            @Override
+            public int getProgramPriority() {
+                return 5;
+            }
         };
     }
 }

@@ -22,6 +22,11 @@ public class ProgramTemplate {
             public String getProgramDescription() {
                 return "Here is a template of a program with example elements to use";
             }
+
+            @Override
+            public int getProgramPriority() {
+                return 1000;
+            }
         };
     }
 }
