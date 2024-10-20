@@ -1,6 +1,6 @@
-package Programs.MazeGame.MazeStartGeneration;
+package Programs.Maze.MazeStartGeneration;
 
-import Programs.MazeGame.Cell;
+import Programs.Maze.Cell;
 
 public interface MazeStartGenAlgorithm {
     /**

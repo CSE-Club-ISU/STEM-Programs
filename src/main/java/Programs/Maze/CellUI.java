@@ -1,9 +1,9 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import javax.swing.*;
 import java.awt.*;
 
- class CellUI extends JPanel {
+class CellUI extends JPanel {
     MazeUI mazeUI;
     Cell cell;
     int size;
@@ -11,7 +11,7 @@ import java.awt.*;
     int outLineDir;
     Color lineColor;
 
-     CellUI(Cell cell, int size, MazeUI mazeUI) {
+    CellUI(Cell cell, int size, MazeUI mazeUI) {
         this.mazeUI = mazeUI;
         setLayout(null);
         this.cell = cell;

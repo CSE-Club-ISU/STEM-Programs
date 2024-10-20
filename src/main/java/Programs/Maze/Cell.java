@@ -1,10 +1,10 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Cell {
-    Maze maze;
+    MazeGame mazeGame;
     CellUI cellUI;
     boolean[] walls; //Left, Up, Down, Right
     boolean[] visitedSides;
@@ -12,8 +12,8 @@ public class Cell {
     private final int r, c;
     private Cell parent;
 
-    public Cell(Maze maze, int r, int c) {
-        this.maze = maze;
+    public Cell(MazeGame mazeGame, int r, int c) {
+        this.mazeGame = mazeGame;
         this.r = r;
         this.c = c;
         walls = new boolean[4];
@@ -131,7 +131,7 @@ public class Cell {
      * @param dir 1=down, 2=right, -1=up, -2=left
      */
     public Cell getCellInDir(int dir) {
-        Cell[][] grid = maze.getGrid();
+        Cell[][] grid = mazeGame.getGrid();
         if (dir == 1 && r != grid.length - 1) {
             return grid[r+1][c];
         } else if (dir == 2 && c != grid[0].length - 1) {
@@ -158,11 +158,11 @@ public class Cell {
     }
 
     public boolean isStartCell() {
-        return maze.startCell == this;
+        return mazeGame.startCell == this;
     }
 
     public boolean isEndCell() {
-        return maze.endCell == this;
+        return mazeGame.endCell == this;
     }
 
     public int getRow() { return r; }

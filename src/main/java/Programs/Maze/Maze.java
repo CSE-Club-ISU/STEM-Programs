@@ -1,11 +1,11 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import StartMenu.Frame;
 import StartMenu.Program;
 
 import javax.swing.*;
 
-public class MazeGame {
+public class Maze {
     public static Program programFactory() {
         return new Program() {
             @Override
@@ -21,6 +21,11 @@ public class MazeGame {
             @Override
             public String getProgramDescription() {
                 return "Solve a maze! Try to get from the green square to the red square!";
+            }
+
+            @Override
+            public int getProgramPriority() {
+                return 0;
             }
         };
     }
