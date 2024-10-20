@@ -1,9 +1,8 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import StartMenu.Frame;
 import StartMenu.Program;
 import Utils.RoundButton;
-import Utils.RoundInputField;
 import Utils.RoundTextField;
 import Utils.UIUtils;
 
@@ -16,7 +15,7 @@ import java.awt.event.KeyListener;
 class MazePanel extends JPanel {
     Program program;
     JLabel title;
-    Maze maze;
+    MazeGame mazeGame;
     InstructionPanel instructionPanel;
     MazeUI mazeUI;
     JTextField sizeInput;
@@ -98,13 +97,13 @@ class MazePanel extends JPanel {
     }
 
     void generateMaze() {
-        if (maze != null) {
+        if (mazeGame != null) {
             regenerateMaze();
             return;
         }
-        maze = new Maze(mazeUI.getGridRows(), mazeUI.getGridColumns());
-        title.setText("Maze: " + maze.algorithmName);
-        mazeUI.generateMaze(maze.getGrid());
+        mazeGame = new MazeGame(mazeUI.getGridRows(), mazeUI.getGridColumns());
+        title.setText("Maze: " + mazeGame.algorithmName);
+        mazeUI.generateMaze(mazeGame.getGrid());
     }
 
     private void regenerateMaze() {
@@ -114,15 +113,15 @@ class MazePanel extends JPanel {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
                 mazeUI.resizeMazeUI(newSize, newSize);
-                maze = null;
+                mazeGame = null;
                 generateMaze();
                 return;
             }
         } catch (NumberFormatException e) {
             System.out.println("Input not valid");
         }
-        maze.startMazeGame();
-        title.setText("Maze: " + maze.algorithmName);
+        mazeGame.startMazeGame();
+        title.setText("Maze: " + mazeGame.algorithmName);
         mazeUI.repaint();
     }
 }

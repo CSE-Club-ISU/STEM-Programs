@@ -1,6 +1,6 @@
-package Programs.MazeGame.MazeGeneration;
+package Programs.Maze.MazeGeneration;
 
-import Programs.MazeGame.Cell;
+import Programs.Maze.Cell;
 import Utils.MyQueue;
 
 import java.util.Random;

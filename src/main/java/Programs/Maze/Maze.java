@@ -1,11 +1,11 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import StartMenu.Frame;
 import StartMenu.Program;
 
 import javax.swing.*;
 
-public class MazeGame {
+public class Maze {
     public static Program programFactory() {
         return new Program() {
             @Override

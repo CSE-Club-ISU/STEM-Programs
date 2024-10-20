@@ -1,4 +1,4 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import Utils.RoundPanel;
 
@@ -72,7 +72,7 @@ class InstructionPanel extends RoundPanel {
 
     int generatePath(ArrayList<Integer> directions) {
         clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.maze.startCell.getRow(), mazePanel.maze.startCell.getColumn());
+        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(), mazePanel.mazeGame.startCell.getColumn());
         previousPath.add(currentCell);
         for (int i = 0; i < directions.size(); i++) {
             if (currentCell == null) break;

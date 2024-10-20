@@ -1,19 +1,19 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
-import Programs.MazeGame.MazeGeneration.DFS;
-import Programs.MazeGame.MazeGeneration.DFS2;
-import Programs.MazeGame.MazeGeneration.MazeGenAlgorithm;
-import Programs.MazeGame.MazeGeneration.Prims;
-import Programs.MazeGame.MazeGoalGeneneration.RandomGoalGen;
-import Programs.MazeGame.MazeGoalGeneneration.MazeGoalGenAlgorithm;
-import Programs.MazeGame.MazeStartGeneration.MazeStartGenAlgorithm;
-import Programs.MazeGame.MazeStartGeneration.RandomStartGen;
+import Programs.Maze.MazeGeneration.DFS;
+import Programs.Maze.MazeGeneration.DFS2;
+import Programs.Maze.MazeGeneration.MazeGenAlgorithm;
+import Programs.Maze.MazeGeneration.Prims;
+import Programs.Maze.MazeGoalGeneneration.RandomGoalGen;
+import Programs.Maze.MazeGoalGeneneration.MazeGoalGenAlgorithm;
+import Programs.Maze.MazeStartGeneration.MazeStartGenAlgorithm;
+import Programs.Maze.MazeStartGeneration.RandomStartGen;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
- class Maze {
+ class MazeGame {
     private Cell[][] grid;
     /** pastVisitedValue relates to [cell.visited] and helps us determine if we have seen a cell before.
      * It is an AtomicInteger so that we can pass in a reference to it and modify it in the generation algorithms.
@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
      * @param rows the number of rows in the grid
      * @param columns the number of columns in the grid
      */
-     Maze(int rows, int columns) {
+     MazeGame(int rows, int columns) {
         this(rows,columns, new RandomStartGen(), getRandomMazeGenerationAlgorithm(), new RandomGoalGen());
     }
 
@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
      * @param rows the number of rows in the grid
      * @param columns the number of columns in the grid
      */
-     Maze(int rows, int columns, MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
+     MazeGame(int rows, int columns, MazeStartGenAlgorithm startGen, MazeGenAlgorithm mazeGen, MazeGoalGenAlgorithm goalGen) {
         pastVisitedValue = new AtomicInteger(0);
         grid = new Cell[rows][columns];
         for (int r = 0; r < grid.length; r++) {

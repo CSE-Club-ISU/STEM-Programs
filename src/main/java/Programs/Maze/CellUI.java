@@ -1,6 +1,4 @@
-package Programs.MazeGame;
-
-import Programs.MazeGame.MazeStartGeneration.RandomStartGen;
+package Programs.Maze;
 
 import javax.swing.*;
 import java.awt.*;

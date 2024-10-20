@@ -1,9 +1,7 @@
-package Programs.MazeGame;
+package Programs.Maze;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 /**
  * MazeUI is a panel that holds the grid
