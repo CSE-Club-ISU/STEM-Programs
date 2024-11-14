@@ -67,21 +67,27 @@ class BoardPanel extends JPanel {
                 if (row == selectedRow && column == selectedColumn) return;
                 if (blockEscapeGame.getBlockAtCell(selectedColumn, selectedRow) == null) return;
 
-                BlockEscapeGame.Direction direction;
-                if (row > selectedRow) {
-                    direction = BlockEscapeGame.Direction.Down;
-                } else if (row < selectedRow) {
-                    direction = BlockEscapeGame.Direction.Up;
-                } else if (column > selectedColumn) {
-                    direction = BlockEscapeGame.Direction.Right;
-                } else if (column < selectedColumn) {
-                    direction = BlockEscapeGame.Direction.Left;
+                Block selectedBlock = blockEscapeGame.getBlockAtCell(selectedColumn, selectedRow);
+                BlockEscapeGame.Direction blockDirection = selectedBlock.getDirection();
+                if (blockDirection == BlockEscapeGame.Direction.Up || blockDirection == BlockEscapeGame.Direction.Down) {
+                    for (int i = 0; i < Math.abs(row - selectedRow); i++) {
+                        if (row - selectedRow > 0) {
+                            blockEscapeGame.moveBlockInDirection(selectedBlock, BlockEscapeGame.Direction.Down);
+                        } else {
+                            blockEscapeGame.moveBlockInDirection(selectedBlock, BlockEscapeGame.Direction.Up);
+                        }
+                    }
+                    selectedRow = row;
                 } else {
-                    return;
+                    for (int i = 0; i < Math.abs(column - selectedColumn); i++) {
+                        if (column - selectedColumn > 0) {
+                            blockEscapeGame.moveBlockInDirection(selectedBlock, BlockEscapeGame.Direction.Right);
+                        } else {
+                            blockEscapeGame.moveBlockInDirection(selectedBlock, BlockEscapeGame.Direction.Left);
+                        }
+                    }
+                    selectedColumn = column;
                 }
-                blockEscapeGame.moveBlockInDirection(blockEscapeGame.getBlockAtCell(selectedColumn, selectedRow), direction);
-                selectedRow = row;
-                selectedColumn = column;
                 repaint();
             }
 
