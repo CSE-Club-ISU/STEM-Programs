@@ -1,6 +1,7 @@
 package Programs.BlockEscape;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 class BlockEscapeGame {
     public enum Direction {
@@ -15,15 +16,29 @@ class BlockEscapeGame {
     private final int columns;
     private final int escapeX;
     private final int escapeY;
+    Consumer<Integer> onwin;
 
-    BlockEscapeGame(int rows, int columns) {
+
+    BlockEscapeGame(int rows, int columns, Consumer<Integer> onWin) {
         blocks = new ArrayList<>();
         blocks.add(new Block(1,4, Direction.Left, 2));
-        blocks.add(new Block(4,1, Direction.Up, 3));
+        blocks.add(new Block(4,2, Direction.Up, 3));
+        blocks.add(new Block(2,1, Direction.Left, 3));
+        blocks.add(new Block(1,1, Direction.Up, 3));
+        blocks.add(new Block(3,2, Direction.Up, 3));
+        blocks.add(new Block(6,1, Direction.Left, 3));
+        blocks.add(new Block(7,6, Direction.Up, 2));
+        blocks.add(new Block(4,7, Direction.Up, 2));
+        blocks.add(new Block(5,2, Direction.Left, 2));
+        blocks.add(new Block(1,5, Direction.Left, 4));
+        blocks.add(new Block(1,7, Direction.Left, 3));
+        blocks.add(new Block(5,6, Direction.Up, 3));
+        blocks.add(new Block(8,2, Direction.Up, 2));
         escapeX = rows - 1;
         escapeY = 4;
         this.rows = rows;
         this.columns = columns;
+        this.onwin = onWin;
     }
 
 
@@ -52,7 +67,7 @@ class BlockEscapeGame {
             return;
         } else if (x == escapeX && y == escapeY) {
             //Game won!
-
+            onwin.accept(1);
         } else if (x < 1 || y < 1 || x >= columns - 1 || y >= rows - 1) {
             return;
         }

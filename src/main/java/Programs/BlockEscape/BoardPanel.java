@@ -126,9 +126,9 @@ class BoardPanel extends JPanel {
             int xPos = block.getX() * getWidth() / cols;
             int yPos = block.getY() * getHeight() / rows;
             if (block.getDirection() == BlockEscapeGame.Direction.Up || block.getDirection() == BlockEscapeGame.Direction.Down) {
-                g2.fillRoundRect(xPos, yPos, blockSize, blockSize * block.getLength(), 10, 10);
+                g2.fillRoundRect(xPos + 4, yPos + 4, blockSize - 8, blockSize * block.getLength() - 8, 10, 10);
             } else {
-                g2.fillRoundRect(xPos, yPos, blockSize * block.getLength(), blockSize, 10, 10);
+                g2.fillRoundRect(xPos + 4, yPos + 4, blockSize * block.getLength() - 8, blockSize - 8, 10, 10);
             }
         }
     }

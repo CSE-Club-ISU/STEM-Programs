@@ -12,13 +12,14 @@ import java.awt.event.KeyEvent;
 
 public class BlockEscapePanel extends JPanel {
     BoardPanel boardPanel;
+    JLabel title;
 
     public BlockEscapePanel(Frame frame, Program program) {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         add(Box.createVerticalStrut(10));
 
-        UIUtils.addTitle("Block Escape", this);
+        title = UIUtils.addTitle("Block Escape", this);
 
         add(Box.createVerticalStrut(10));
 
@@ -35,7 +36,7 @@ public class BlockEscapePanel extends JPanel {
         JPanel boardHolder = new JPanel();
         boardHolder.setMaximumSize(new Dimension(1000, 1000));
         boardPanel = new BoardPanel(frame);
-        boardPanel.setGame(new BlockEscapeGame(10, 10));
+        boardPanel.setGame(new BlockEscapeGame(10, 10, (a) -> title.setText("You Win!")));
         boardHolder.add(boardPanel);
         add(boardHolder);
     }
