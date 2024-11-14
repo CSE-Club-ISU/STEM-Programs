@@ -38,8 +38,24 @@ class BlockEscapeGame {
         if ((direction == Direction.Left || direction == Direction.Right) && (block.getDirection() == Direction.Up || block.getDirection() == Direction.Down))
             return;
 
-        //TODO: Add bounds checking
-        //TODO: Check for block collision
+        int x = block.getX();
+        int y = block.getY();
+
+        switch (direction) {
+            case Up -> y--;
+            case Down -> y += block.getLength();
+            case Left -> x--;
+            case Right -> x += block.getLength();
+        }
+
+        if (getBlockAtCell(x, y) != null) {
+            return;
+        } else if (x == escapeX && y == escapeY) {
+            //Game won!
+
+        } else if (x < 1 || y < 1 || x >= columns - 1 || y >= rows - 1) {
+            return;
+        }
 
         switch (direction) {
             case Up -> block.setY(block.getY() - 1);
