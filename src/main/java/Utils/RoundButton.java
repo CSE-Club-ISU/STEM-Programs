@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * RoundButton is a nicer button with round edges that looks better than the regular JButton
+ */
 public class RoundButton extends JButton {
     private String text;
     private Color color;
@@ -39,7 +42,7 @@ public class RoundButton extends JButton {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         if (getModel().isArmed()) {
             g2.setColor(armedColor);
         } else {
