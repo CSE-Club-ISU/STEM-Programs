@@ -9,6 +9,9 @@ import java.awt.geom.RoundRectangle2D;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
 
+/**
+ * UIUtils holds pre-made elements that minimizes the amount of code needed to make a generic UI element.
+ */
 public class UIUtils {
     public static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 40);
 

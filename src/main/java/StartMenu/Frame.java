@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import static StartMenu.ProgramListPanel.createStartMenuProgram;
 
 /**
- * Frame a singleton and the main controller of the application.
- * It manages what panel is displayed.
+ * Frame uses the singleton pattern and is main window of the application.
+ * Any UI element such as a panel, button or text will be attached to this frame.
  */
 public class Frame extends JFrame {
     private static Frame singleton;
@@ -29,7 +29,7 @@ public class Frame extends JFrame {
     }
 
     /**
-     * Sets up the settings for the entire window.
+     * Sets up the settings for the entire window and shows the initial screen.
      */
     private Frame() throws FileNotFoundException {
         singleton = this;
@@ -55,6 +55,9 @@ public class Frame extends JFrame {
         startProgram(createStartMenuProgram());
     }
 
+    /**
+     * Displays and starts the given program and adds it to the frame.
+     */
     public void startProgram(Program program) {
         if (currentProgram != null) remove(currentProgram.getPanel());
         currentProgram = program;
@@ -65,6 +68,9 @@ public class Frame extends JFrame {
         paintAll(getGraphics());
     }
 
+    /**
+     * Hides the program and returns to the start menu if the program was active.
+     */
     public void endProgram(Program program) {
         remove(program.getPanel());
         if (currentProgram == program) {

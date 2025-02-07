@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * MazePanel is the main UI panel for the maze game, it doesn't hold any logic of the game which is done in MazeGame
+ */
 class MazePanel extends JPanel {
     Program program;
     JLabel title;
