@@ -2,10 +2,13 @@ package StartMenu;
 
 import javax.swing.*;
 
+/**
+ * Program defines abstract functionality that each concrete program needs to implement in order to display
+ * them on the list and to initialize and start them.
+ */
 public abstract class Program {
     private Frame frame = null;
     private JPanel panel = null;
-
 
     /**
      * Initializes the programs frame and panel values and starts the program.

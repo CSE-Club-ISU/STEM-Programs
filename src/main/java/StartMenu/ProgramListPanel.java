@@ -16,8 +16,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * ProgramListPanel manages finding the various programs under the Programs directory
+ * and manages a panel in which the user can select the program that they want.
+ */
 public class ProgramListPanel extends JPanel {
-
     JScrollPane programList;
     JPanel programListContainer;
 
@@ -36,25 +39,30 @@ public class ProgramListPanel extends JPanel {
         programListContainer.setLayout(new BoxLayout(programListContainer, BoxLayout.Y_AXIS));
         programListContainer.add(Box.createVerticalStrut(10));
 
-        // Add a large number of labels to the panel.
+        // Add each program to the panel.
         for (Program newProgram : getPrograms()) {
             JButton newProgramPanel = new RoundButton("", Color.WHITE, 10,Color.WHITE, 20);
             newProgramPanel.setLayout(new BoxLayout(newProgramPanel, BoxLayout.Y_AXIS));
 
             newProgramPanel.addActionListener((l) -> frame.startProgram(newProgram));
 
-            //Add the text
+            // Add the text of the program
             UIUtils.addTitle(newProgram.getProgramName(), 30, newProgramPanel);
             JTextArea text = UIUtils.addTextArea(newProgram.getProgramDescription(), 20, null);
             text.setHighlighter(null);
             text.setOpaque(false);
             text.setFocusable(false);
+            text.setBackground(new Color(0,0,0,0));
+
+            // Add a scroll pane around the text in case it gets too big
             JScrollPane scrollPane = new JScrollPane(text);
             scrollPane.setOpaque(false);
             scrollPane.getViewport().setOpaque(false);
+            scrollPane.setFocusable(false);
+            scrollPane.setEnabled(false);
             scrollPane.setBorder(new EmptyBorder(0,0,0,0));
-            newProgramPanel.add(scrollPane);
 
+            newProgramPanel.add(scrollPane);
             newProgramPanel.setMaximumSize(new Dimension(600, 180));
             programListContainer.add(newProgramPanel);
             programListContainer.add(Box.createVerticalStrut(10));
@@ -74,19 +82,33 @@ public class ProgramListPanel extends JPanel {
 
     }
 
+    /**
+     * Scans the Programs directory for all subdirectories, parses them and returns them in a list.
+     */
     private static List<Program> getPrograms() {
         ArrayList<Program> programs = new ArrayList<>();
 
         File file = new File("src/main/java/Programs");
         try {
-            List<String> programNames = Arrays.stream(file.listFiles()).filter(File::isDirectory).map(File::getName).toList();
+            // Find all directories/folders in the Program directory
+            List<String> programNames = Arrays.stream(file.listFiles())
+                    .filter(File::isDirectory)
+                    .map(File::getName).toList();
+            // Each directory name will match a file with a class that has a method called programFactory()
+            // which will return the program
             programNames.forEach(n -> {
                 try {
-                    programs.add((Program) ClassLoader.getSystemClassLoader().loadClass("Programs." + n + "." + n).getMethod("programFactory").invoke(null));
+                    // Now we use Java reflection to find the programFactory() method.
+                    // There are many ways in which this could fail, so we try and give the best help we can.
+                    programs.add((Program) ClassLoader
+                            .getSystemClassLoader()
+                            .loadClass("Programs." + n + "." + n)
+                            .getMethod("programFactory")
+                            .invoke(null));
                 } catch (ClassNotFoundException e) {
                     System.err.println("Failed to load program: " + n + ". It is missing a class of the name " + n + " that can be used to create a program.");
                 } catch (NoSuchMethodException e) {
-                    System.err.println("Failed to find corresponding factory function in: " + n);
+                    System.err.println("Failed to find corresponding programFactory() function in: " + n);
                 } catch (InvocationTargetException e) {
                     System.err.println("The static method programFactory() in the program " + n + " does not exist.");
                 } catch (IllegalAccessException e) {
@@ -100,6 +122,7 @@ public class ProgramListPanel extends JPanel {
         } catch (Exception e) {
             System.out.println("Failed to load programs!");
         }
+        // Now we sort each of the programs based on their priority and return them in a list.
         return programs.stream().sorted(Comparator.comparingInt(Program::getProgramPriority)).toList();
     }
 
