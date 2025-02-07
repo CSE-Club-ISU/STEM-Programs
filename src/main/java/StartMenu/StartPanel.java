@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * StartPanel is the first screen that the user will see, all it shows is the CSE logo.
+ */
 public class StartPanel extends JPanel {
 
     /**
@@ -22,12 +25,14 @@ public class StartPanel extends JPanel {
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
         setSize(frame.getSize());
-
-        JLabel title = UIUtils.addTitle("Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
-        title.setForeground(new Color(250, 180, 0));
+        setAlignmentX(CENTER_ALIGNMENT);
 
         add(createBackgroundImage());
-        setAlignmentX(CENTER_ALIGNMENT);
+
+        JLabel title = UIUtils.addTitle("At Iowa State University", new Font(Font.SANS_SERIF, Font.BOLD, 50),this);
+        title.setForeground(new Color(250, 180, 0));
+
+        add(Box.createVerticalStrut(20));
 
         add(createStartButton(frame));
     }
