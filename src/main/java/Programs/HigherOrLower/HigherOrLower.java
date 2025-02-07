@@ -5,6 +5,10 @@ import StartMenu.Program;
 
 import javax.swing.*;
 
+/**
+ * Here is an unimplemented game of Higher or Lower, only the basic UI has been added since it can be more difficult to set up.
+ * The player can either choose a number and have the computer guess it or try and guess the computer's number.
+ */
 public class HigherOrLower {
     public static Program programFactory() {
         return new Program() {

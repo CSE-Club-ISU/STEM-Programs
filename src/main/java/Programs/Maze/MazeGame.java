@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Holds the logic for the maze game.
+ */
  class MazeGame {
     private Cell[][] grid;
     /** pastVisitedValue relates to [cell.visited] and helps us determine if we have seen a cell before.
@@ -55,6 +58,9 @@ import java.util.concurrent.atomic.AtomicInteger;
         startMazeGame(startGen, mazeGen, goalGen);
     }
 
+     /**
+      * Randomly returns one of the maze generation algorithms weighted by which one is the best
+      */
     private static MazeGenAlgorithm getRandomMazeGenerationAlgorithm() {
         int algorithm = new Random().nextInt(8);
         if (algorithm == 0) {
@@ -80,6 +86,9 @@ import java.util.concurrent.atomic.AtomicInteger;
         System.out.println("Distance from start to end: " + solutionInstructions.size());
     }
 
+     /**
+      * Resets the maze by putting all walls back in every cell
+      */
      void setAllWalls() {
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
