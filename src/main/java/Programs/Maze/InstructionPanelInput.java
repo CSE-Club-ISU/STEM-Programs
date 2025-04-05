@@ -10,6 +10,7 @@ import java.util.ArrayList;
     InstructionPanel instructionPanel;
     ArrayList<Integer> instructions;
     Program program;
+    boolean outOfBounds = false;
 
      InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
@@ -55,6 +56,9 @@ import java.util.ArrayList;
             removeFirstInstruction();
             return;
         }
+        if (outOfBounds) {
+            return;
+        }
         instructions.add(direction);
         if (direction == 1) {
             instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Down\n");
@@ -65,7 +69,13 @@ import java.util.ArrayList;
         } else if (direction == -2) {
             instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Left\n");
         }
+
+        // if out of bounds, disable forward movement
         int errorLine = instructionPanel.visualisePath(instructions);
+        if (errorLine == -1) {
+            this.outOfBounds = true;
+        }
+
         //TODO: Add text signal to error line
     }
 
@@ -77,6 +87,10 @@ import java.util.ArrayList;
 
     void removeFirstInstruction() {
         if (instructions.isEmpty()) return;
+
+        // on removal, should never be out of bounds
+        this.outOfBounds = false;
+
         instructions.removeLast();
         instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
         instructionPanel.visualisePath(instructions);
