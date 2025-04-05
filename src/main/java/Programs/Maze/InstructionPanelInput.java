@@ -72,7 +72,7 @@ import java.util.ArrayList;
 
         // if out of bounds, disable forward movement
         int errorLine = instructionPanel.visualisePath(instructions);
-        if (errorLine == -1) {
+        if (errorLine == -1 || errorLine == -2) {
             this.outOfBounds = true;
         }
 
