@@ -116,5 +116,6 @@ import java.util.ArrayList;
      void clearInstructions() {
         instructionPanel.instructionInput.setText("");
         instructions.clear();
+        this.outOfBounds = false;
     }
 }
