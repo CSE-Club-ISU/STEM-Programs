@@ -72,24 +72,24 @@ class InstructionPanel extends RoundPanel {
 
     int generatePath(ArrayList<Integer> directions) {
         clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(), mazePanel.mazeGame.startCell.getColumn());
-        previousPath.add(currentCell);
-        for (int i = 0; i < directions.size(); i++) {
-            if (currentCell == null) break;
-            Cell nextGameCell = currentCell.cell.getCellInDir(directions.get(i));
-            currentCell.outLineDir = directions.get(i);
-            if (currentCell.cell.hasWallInDirection(directions.get(i)) || nextGameCell == null) {
-                return -1;
-            }
-            CellUI nextCell = nextGameCell.cellUI;
-            nextCell.inLineDir = -directions.get(i);
-            currentCell = nextCell;
-            previousPath.add(currentCell);
-        }
-        if (currentCell != null && currentCell.cell.isEndCell()) {
-            System.out.println("You Won!");
-            return -2;
-        }
+//        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(), mazePanel.mazeGame.startCell.getColumn());
+//        previousPath.add(currentCell);
+//        for (int i = 0; i < directions.size(); i++) {
+//            if (currentCell == null) break;
+//            Cell nextGameCell = currentCell.cell.getCellInDir(directions.get(i));
+//            currentCell.outLineDir = directions.get(i);
+//            if (currentCell.cell.hasWallInDirection(directions.get(i)) || nextGameCell == null) {
+//                return -1;
+//            }
+//            CellUI nextCell = nextGameCell.cellUI;
+//            nextCell.inLineDir = -directions.get(i);
+//            currentCell = nextCell;
+//            previousPath.add(currentCell);
+//        }
+//        if (currentCell != null && currentCell.cell.isEndCell()) {
+//            System.out.println("You Won!");
+//            return -2;
+//        }
         return -3;
     }
 

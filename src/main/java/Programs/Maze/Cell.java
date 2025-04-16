@@ -158,11 +158,11 @@ public class Cell {
     }
 
     public boolean isStartCell() {
-        return mazeGame.startCell == this;
+        return mazeGame.getStartCell() == this;
     }
 
     public boolean isEndCell() {
-        return mazeGame.endCell == this;
+        return mazeGame.getEndCell() == this;
     }
 
     public int getRow() { return r; }

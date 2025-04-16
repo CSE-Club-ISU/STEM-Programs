@@ -22,8 +22,8 @@ import java.util.concurrent.atomic.AtomicInteger;
      * It is an AtomicInteger so that we can pass in a reference to it and modify it in the generation algorithms.
      */
     AtomicInteger pastVisitedValue;
-    Cell startCell;
-    Cell endCell;
+    private Cell startCell;
+    private Cell endCell;
     String algorithmName;
     ArrayList<Integer> solutionInstructions;
 
@@ -99,5 +99,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
      Cell[][] getGrid() {
         return grid;
+    }
+
+    public Cell getStartCell() {
+        return startCell;
+    }
+
+    public Cell getEndCell() {
+        return endCell;
     }
 }
