@@ -42,9 +42,7 @@ class InstructionPanelInput extends KeyAdapter {
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             removeFirstInstruction();
         } else if (keyCode == KeyEvent.VK_ENTER) {
-            instructionPanel.clearPath();
-            instructionPanel.instructions.addAll(instructionPanel.mazePanel.mazeGame.solutionInstructions);
-            instructionPanel.updatePath();
+            instructionPanel.visualizeSolution();
         }
     }
 
@@ -53,7 +51,7 @@ class InstructionPanelInput extends KeyAdapter {
             removeFirstInstruction();
             return;
         }
-        if (instructionPanel.pathState == InstructionPanel.PathState.Invalid) return;
+        if (instructionPanel.mazePanel.mazeUI.pathState == MazeUI.PathState.Invalid) return;
 
         instructionPanel.instructions.add(direction);
         if (direction == 1) {

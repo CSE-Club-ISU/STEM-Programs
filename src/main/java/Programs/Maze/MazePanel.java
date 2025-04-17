@@ -28,7 +28,7 @@ class MazePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(10));
         title = UIUtils.addTitle("Maze",  this);
-        mazeUI = new MazeUI(frame, this, 10, 10);
+        mazeUI = new MazeUI(frame, 10, 10);
 
         JPanel top = new JPanel();
         top.setOpaque(false);

@@ -14,19 +14,11 @@ class InstructionPanel extends RoundPanel {
     MazePanel mazePanel;
     InstructionPanelInput instructionPanelInput;
     ArrayList<Integer> instructions;
-    PathState pathState;
-
-    enum PathState {
-        Normal,
-        Finished,
-        Invalid,
-    }
 
     InstructionPanel(MazePanel mazePanel, Frame frame) {
         super(Color.LIGHT_GRAY, 20);
         this.mazePanel = mazePanel;
         instructions = new ArrayList<>();
-        pathState = PathState.Normal;
         setMaximumSize(new Dimension(200, 1000));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
@@ -63,23 +55,31 @@ class InstructionPanel extends RoundPanel {
     }
 
     void updatePath() {
-        pathState = validatePath();
+        mazePanel.mazeUI.path = instructions;
+        mazePanel.mazeUI.pathState = validatePath();
         mazePanel.mazeUI.repaint();
     }
 
-    PathState validatePath() {
+    void visualizeSolution() {
+        mazePanel.mazeUI.path = mazePanel.mazeGame.solutionInstructions;
+        mazePanel.mazeUI.pathState = MazeUI.PathState.Solution;
+        mazePanel.mazeUI.repaint();
+    }
+
+    MazeUI.PathState validatePath() {
         Cell currentCell = mazePanel.mazeGame.getStartCell();
         for (Integer instruction : instructions) {
-            if (currentCell.hasWallInDirection(instruction)) return PathState.Invalid;
+            if (currentCell.hasWallInDirection(instruction)) return MazeUI.PathState.Invalid;
             currentCell = currentCell.getCellInDir(instruction);
         }
-        if (currentCell.isEndCell()) return PathState.Finished;
-        return PathState.Normal;
+        if (currentCell.isEndCell()) return MazeUI.PathState.Finished;
+        return MazeUI.PathState.Normal;
     }
 
     void clearPath() {
         instructions.clear();
-        pathState = PathState.Normal;
+        mazePanel.mazeUI.path = instructions;
+        mazePanel.mazeUI.pathState = MazeUI.PathState.Normal;
         mazePanel.mazeUI.repaint();
     }
 }
