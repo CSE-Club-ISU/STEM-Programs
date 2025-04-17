@@ -125,9 +125,7 @@ public class Cell {
         return unvisitedNeighbors;
     }
 
-    /**
-     * @param dir 1=down, 2=right, -1=up, -2=left
-     */
+
     public Cell getCellInDir(Direction dir) {
         Cell[][] grid = mazeGame.getGrid();
         switch (dir) {
@@ -155,11 +153,6 @@ public class Cell {
         return walls[dir.ordinal()];
     }
 
-    int convertDirectionToIndex(int dir) {
-        if (dir < 0) dir += 2;
-        else dir += 1;
-        return dir;
-    }
 
     public static Direction getOppositeDir(Direction direction) {
         return switch (direction) {
