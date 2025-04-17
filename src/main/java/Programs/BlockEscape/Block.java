@@ -5,12 +5,14 @@ class Block {
     private int y;
     private final BlockEscapeGame.Direction direction;
     private final int length;
+    private boolean finalBlock;
 
-    public Block(int x, int y, BlockEscapeGame.Direction direction, int length) {
+    public Block(int x, int y, BlockEscapeGame.Direction direction, int length, boolean finalBlock) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.length = length;
+        this.finalBlock = finalBlock;
     }
 
     public int getX() {
@@ -35,6 +37,10 @@ class Block {
 
     public int getLength() {
         return length;
+    }
+
+    public boolean isFinalBlock() {
+        return finalBlock;
     }
 
     public boolean contains(int x, int y) {

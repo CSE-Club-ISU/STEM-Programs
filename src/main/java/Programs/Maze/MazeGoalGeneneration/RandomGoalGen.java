@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RandomGoalGen implements MazeGoalGenAlgorithm {
     @Override
-    public Cell generateMazeGoal(Cell[][] grid, Cell startCell, AtomicInteger visitedValue, ArrayList<Integer> solutions) {
+    public Cell generateMazeGoal(Cell[][] grid, Cell startCell, AtomicInteger visitedValue, ArrayList<Cell.Direction> solutions) {
         int startR = startCell.getRow();
         int startC = startCell.getColumn();
         visitedValue.incrementAndGet();
@@ -55,18 +55,12 @@ public class RandomGoalGen implements MazeGoalGenAlgorithm {
 
         Cell currentNode = endCell;
         while (currentNode.getParent() != null) {
-            if (currentNode.getCellInDir(1) == currentNode.getParent()) {
-                currentNode = currentNode.getCellInDir(1);
-                solutions.add(-1);
-            } else if (currentNode.getCellInDir(2) == currentNode.getParent()) {
-                currentNode = currentNode.getCellInDir(2);
-                solutions.add(-2);
-            } else if (currentNode.getCellInDir(-1) == currentNode.getParent()) {
-                currentNode = currentNode.getCellInDir(-1);
-                solutions.add(1);
-            } else if (currentNode.getCellInDir(-2) == currentNode.getParent()) {
-                currentNode = currentNode.getCellInDir(-2);
-                solutions.add(2);
+            for (Cell.Direction dir : Cell.Direction.values()) {
+                if (currentNode.getCellInDir(dir) == currentNode.getParent()) {
+                    currentNode = currentNode.getParent();
+                    solutions.add(Cell.getOppositeDir(dir));
+                    break;
+                }
             }
         }
 

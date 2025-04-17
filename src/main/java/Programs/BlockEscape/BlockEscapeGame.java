@@ -21,19 +21,19 @@ class BlockEscapeGame {
 
     BlockEscapeGame(int rows, int columns, Consumer<Integer> onWin) {
         blocks = new ArrayList<>();
-        blocks.add(new Block(1,4, Direction.Left, 2));
-        blocks.add(new Block(4,2, Direction.Up, 3));
-        blocks.add(new Block(2,1, Direction.Left, 3));
-        blocks.add(new Block(1,1, Direction.Up, 3));
-        blocks.add(new Block(3,2, Direction.Up, 3));
-        blocks.add(new Block(6,1, Direction.Left, 3));
-        blocks.add(new Block(7,6, Direction.Up, 2));
-        blocks.add(new Block(4,7, Direction.Up, 2));
-        blocks.add(new Block(5,2, Direction.Left, 2));
-        blocks.add(new Block(1,5, Direction.Left, 4));
-        blocks.add(new Block(1,7, Direction.Left, 3));
-        blocks.add(new Block(5,6, Direction.Up, 3));
-        blocks.add(new Block(8,2, Direction.Up, 2));
+        blocks.add(new Block(1,4, Direction.Left, 2, true));
+        blocks.add(new Block(4,2, Direction.Up, 3, false));
+        blocks.add(new Block(2,1, Direction.Left, 3, false));
+        blocks.add(new Block(1,1, Direction.Up, 3, false));
+        blocks.add(new Block(3,2, Direction.Up, 3, false));
+        blocks.add(new Block(6,1, Direction.Left, 3, false));
+        blocks.add(new Block(7,6, Direction.Up, 2, false));
+        blocks.add(new Block(4,7, Direction.Up, 2, false));
+        blocks.add(new Block(5,2, Direction.Left, 2, false));
+        blocks.add(new Block(1,5, Direction.Left, 4, false));
+        blocks.add(new Block(1,7, Direction.Left, 3, false));
+        blocks.add(new Block(5,6, Direction.Up, 3, false));
+        blocks.add(new Block(8,2, Direction.Up, 2, false));
         escapeX = rows - 1;
         escapeY = 4;
         this.rows = rows;

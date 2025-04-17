@@ -7,17 +7,21 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Handles validating the list of instructions and managing the list of user instructions.
+ */
 class InstructionPanel extends RoundPanel {
 
     JScrollPane scrollPane;
     JTextArea instructionInput;
     MazePanel mazePanel;
     InstructionPanelInput instructionPanelInput;
-    ArrayList<CellUI> previousPath;
+    ArrayList<Cell.Direction> instructions;
 
     InstructionPanel(MazePanel mazePanel, Frame frame) {
         super(Color.LIGHT_GRAY, 20);
         this.mazePanel = mazePanel;
+        instructions = new ArrayList<>();
         setMaximumSize(new Dimension(200, 1000));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
@@ -51,67 +55,65 @@ class InstructionPanel extends RoundPanel {
         add(Box.createVerticalStrut(10));
 
         setFocusable(true);
-        previousPath = new ArrayList<>();
     }
 
-    int visualisePath(ArrayList<Integer> directions) {
-        int returnValue = generatePath(directions);
-        Color lineColor = Color.BLUE;
-        if (returnValue == -1) {
-            lineColor = Color.RED;
-        } else if (returnValue == -2) {
-            lineColor = Color.GREEN;
-        }
-        for (CellUI cellUI : previousPath) {
-            cellUI.lineColor = lineColor;
-            cellUI.paintComponent(cellUI.getGraphics());
-        }
-//        mazePanel.paintAll(mazePanel.getGraphics());
-        return returnValue;
+    void updatePath() {
+        mazePanel.mazeUI.path = instructions;
+        mazePanel.mazeUI.pathState = validatePath();
+        mazePanel.mazeUI.repaint();
     }
 
-    int generatePath(ArrayList<Integer> directions) {
-        clearPath();
-        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(), mazePanel.mazeGame.startCell.getColumn());
-        previousPath.add(currentCell);
-        for (int i = 0; i < directions.size(); i++) {
-            if (currentCell == null) break;
-            Cell nextGameCell = currentCell.cell.getCellInDir(directions.get(i));
-            currentCell.outLineDir = directions.get(i);
-            if (currentCell.cell.hasWallInDirection(directions.get(i)) || nextGameCell == null) {
-                return -1;
-            }
-            CellUI nextCell = nextGameCell.cellUI;
-            nextCell.inLineDir = -directions.get(i);
-            currentCell = nextCell;
-            previousPath.add(currentCell);
+    void visualizeSolution() {
+        mazePanel.mazeUI.path = mazePanel.mazeGame.solutionInstructions;
+        mazePanel.mazeUI.pathState = MazeUI.PathState.Solution;
+        mazePanel.mazeUI.repaint();
+    }
+
+    MazeUI.PathState validatePath() {
+        Cell currentCell = mazePanel.mazeGame.getStartCell();
+        for (Cell.Direction instruction : instructions) {
+            if (currentCell.hasWallInDirection(instruction)) return MazeUI.PathState.Invalid;
+            currentCell = currentCell.getCellInDir(instruction);
         }
-        if (currentCell != null && currentCell.cell.isEndCell()) {
-            System.out.println("You Won!");
-            return -2;
-        }
-        return -3;
+        if (currentCell.isEndCell()) return MazeUI.PathState.Finished;
+        return MazeUI.PathState.Normal;
     }
 
     void clearPath() {
-        for (int i = previousPath.size() - 1; i >= 0; i--) {
-            previousPath.get(i).inLineDir = 0;
-            previousPath.get(i).outLineDir = 0;
-            previousPath.get(i).repaint();
-        }
-        previousPath.clear();
+        instructions.clear();
+        instructionInput.setText("");
+        mazePanel.mazeUI.path = instructions;
+        mazePanel.mazeUI.pathState = MazeUI.PathState.Normal;
+        mazePanel.mazeUI.repaint();
     }
 
-    int getDirectionFromChar(char c) {
-        if (c == 'U') {
-            return -1;
-        } else if (c == 'D') {
-            return 1;
-        } else if (c == 'L') {
-            return -2;
-        } else if (c == 'R') {
-            return 2;
-        }
-        return 0;
+    public void addInstruction(String instruction) {
+        instructionInput.setText(instructionInput.getText() + instructions.size() + ": " + instruction + "\n");
     }
+
+    public void removeFirstInstruction() {
+        if (instructions.isEmpty()) return;
+
+        instructions.removeLast();
+        instructionInput.setText(getTextMinusLastLine(instructionInput.getText()));
+        updatePath();
+    }
+
+    int getStartIndexOfSecondToLastLine(String text) {
+        int index = instructionInput.getText().lastIndexOf(':') - 1;
+        if (index == -1) return -1;
+        while (index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
+            index--;
+        }
+        return index;
+    }
+
+    String getTextMinusLastLine(String text) {
+        int lastIndex = getStartIndexOfSecondToLastLine(text);
+        if (lastIndex > 0) {
+            return instructionInput.getText().substring(0, lastIndex + 1);
+        } else return "";
+
+    }
+
 }
