@@ -57,8 +57,9 @@ public class RandomGoalGen implements MazeGoalGenAlgorithm {
         while (currentNode.getParent() != null) {
             for (Cell.Direction dir : Cell.Direction.values()) {
                 if (currentNode.getCellInDir(dir) == currentNode.getParent()) {
-                    currentNode = currentNode.getCellInDir(dir);
+                    currentNode = currentNode.getParent();
                     solutions.add(Cell.getOppositeDir(dir));
+                    break;
                 }
             }
         }
