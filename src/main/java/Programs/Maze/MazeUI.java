@@ -85,7 +85,7 @@ class MazeUI extends JPanel {
 
     private void drawBorders(Graphics2D g2) {
         g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / rows)), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+        g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 150 / rows)), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
         g2.drawLine(0, 0, getWidth(), 0);
         g2.drawLine(0, getHeight(), getWidth(), getHeight());
         g2.drawLine(0, 0, 0, getHeight());

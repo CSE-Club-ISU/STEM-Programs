@@ -62,6 +62,7 @@ class MazePanel extends JPanel {
     private JButton createRegenerateMazeButton() {
         JButton regenerateButton = new RoundButton("Regenerate", Color.WHITE, 20, Color.BLUE, 10);
         regenerateButton.addActionListener((l) -> {
+            if (Integer.parseInt(sizeInput.getText()) <= 1) return;
             this.requestFocusInWindow();
             generateMaze();
         });
@@ -87,8 +88,9 @@ class MazePanel extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     mazePanel.requestFocusInWindow();
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    generateMaze();
                     mazePanel.requestFocusInWindow();
+                    if (Integer.parseInt(sizeInput.getText()) <= 1) return;
+                    generateMaze();
                 }
             }
 
