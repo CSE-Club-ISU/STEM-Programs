@@ -7,6 +7,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Handles validating the list of instructions and managing the list of user instructions.
+ */
 class InstructionPanel extends RoundPanel {
 
     JScrollPane scrollPane;
@@ -78,8 +81,39 @@ class InstructionPanel extends RoundPanel {
 
     void clearPath() {
         instructions.clear();
+        instructionInput.setText("");
         mazePanel.mazeUI.path = instructions;
         mazePanel.mazeUI.pathState = MazeUI.PathState.Normal;
         mazePanel.mazeUI.repaint();
     }
+
+    public void addInstruction(String instruction) {
+        instructionInput.setText(instructionInput.getText() + instructions.size() + ": " + instruction + "\n");
+    }
+
+    public void removeFirstInstruction() {
+        if (instructions.isEmpty()) return;
+
+        instructions.removeLast();
+        instructionInput.setText(getTextMinusLastLine(instructionInput.getText()));
+        updatePath();
+    }
+
+    int getStartIndexOfSecondToLastLine(String text) {
+        int index = instructionInput.getText().lastIndexOf(':') - 1;
+        if (index == -1) return -1;
+        while (index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
+            index--;
+        }
+        return index;
+    }
+
+    String getTextMinusLastLine(String text) {
+        int lastIndex = getStartIndexOfSecondToLastLine(text);
+        if (lastIndex > 0) {
+            return instructionInput.getText().substring(0, lastIndex + 1);
+        } else return "";
+
+    }
+
 }

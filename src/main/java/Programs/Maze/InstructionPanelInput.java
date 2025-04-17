@@ -6,10 +6,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ * Handles the user key input while playing the maze game.
+ */
 class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
     Program program;
-    boolean outOfBounds = false;
 
     InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
@@ -38,9 +40,8 @@ class InstructionPanelInput extends KeyAdapter {
             doInstruction(Cell.Direction.Right);
         } else if (keyCode == KeyEvent.VK_DELETE) {
             instructionPanel.clearPath();
-            clearInstructions();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
-            removeFirstInstruction();
+            instructionPanel.removeFirstInstruction();
         } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.visualizeSolution();
         }
@@ -48,66 +49,24 @@ class InstructionPanelInput extends KeyAdapter {
 
     void doInstruction(Cell.Direction direction) {
         if (isBackWardsInstruction(direction)) {
-            removeFirstInstruction();
+            instructionPanel.removeFirstInstruction();
             return;
         }
         if (instructionPanel.mazePanel.mazeUI.pathState == MazeUI.PathState.Invalid) return;
 
         instructionPanel.instructions.add(direction);
         switch (direction) {
-            case Up ->
-                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Up\n");
-            case Down ->
-                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Down\n");
-
-            case Left ->
-                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Left\n");
-
-            case Right ->
-                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Right\n");
-
+            case Up -> instructionPanel.addInstruction("Up");
+            case Down -> instructionPanel.addInstruction("Down");
+            case Left -> instructionPanel.addInstruction("Left");
+            case Right -> instructionPanel.addInstruction("Right");
         }
 
         instructionPanel.updatePath();
     }
 
     boolean isBackWardsInstruction(Cell.Direction direction) {
-        if (instructionPanel.instructions.isEmpty())
-            return false;
+        if (instructionPanel.instructions.isEmpty()) return false;
         return instructionPanel.instructions.getLast() == Cell.getOppositeDir(direction);
-    }
-
-    void removeFirstInstruction() {
-        if (instructionPanel.instructions.isEmpty()) return;
-
-        // on removal, should never be out of bounds
-        this.outOfBounds = false;
-
-        instructionPanel.instructions.removeLast();
-        instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
-        instructionPanel.updatePath();
-    }
-
-    int getStartIndexOfSecondToLastLine(String text) {
-        int index = instructionPanel.instructionInput.getText().lastIndexOf(':') - 1;
-        if (index == -1) return -1;
-        while (index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
-            index--;
-        }
-        return index;
-    }
-
-    String getTextMinusLastLine(String text) {
-        int lastIndex = getStartIndexOfSecondToLastLine(text);
-        if (lastIndex > 0) {
-            return instructionPanel.instructionInput.getText().substring(0, lastIndex + 1);
-        } else return "";
-
-    }
-
-    void clearInstructions() {
-        instructionPanel.instructionInput.setText("");
-        instructionPanel.instructions.clear();
-        this.outOfBounds = false;
     }
 }

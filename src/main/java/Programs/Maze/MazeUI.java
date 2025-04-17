@@ -5,7 +5,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * MazeUI is a panel that holds the grid
+ * MazeUI is a panel that handles painting the grid, cells, walls and solution path.
+ * There aren't any cell UI objects because that would be an intensive operation to maintain.
+ * Instead, walls are painted with lines to act as if there are cells.
+ * Rendering is done in the paintComponent method.
  */
 class MazeUI extends JPanel {
     private Frame frame;
