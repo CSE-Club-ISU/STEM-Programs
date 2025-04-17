@@ -13,11 +13,20 @@ class InstructionPanel extends RoundPanel {
     JTextArea instructionInput;
     MazePanel mazePanel;
     InstructionPanelInput instructionPanelInput;
-    ArrayList<CellUI> previousPath;
+    ArrayList<Integer> instructions;
+    PathState pathState;
+
+    enum PathState {
+        Normal,
+        Finished,
+        Invalid,
+    }
 
     InstructionPanel(MazePanel mazePanel, Frame frame) {
         super(Color.LIGHT_GRAY, 20);
         this.mazePanel = mazePanel;
+        instructions = new ArrayList<>();
+        pathState = PathState.Normal;
         setMaximumSize(new Dimension(200, 1000));
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
@@ -51,67 +60,26 @@ class InstructionPanel extends RoundPanel {
         add(Box.createVerticalStrut(10));
 
         setFocusable(true);
-        previousPath = new ArrayList<>();
     }
 
-    int visualisePath(ArrayList<Integer> directions) {
-        int returnValue = generatePath(directions);
-        Color lineColor = Color.BLUE;
-        if (returnValue == -1) {
-            lineColor = Color.RED;
-        } else if (returnValue == -2) {
-            lineColor = Color.GREEN;
-        }
-        for (CellUI cellUI : previousPath) {
-            cellUI.lineColor = lineColor;
-            cellUI.paintComponent(cellUI.getGraphics());
-        }
-//        mazePanel.paintAll(mazePanel.getGraphics());
-        return returnValue;
+    void updatePath() {
+        pathState = validatePath();
+        mazePanel.mazeUI.repaint();
     }
 
-    int generatePath(ArrayList<Integer> directions) {
-        clearPath();
-//        CellUI currentCell = mazePanel.mazeUI.getCellAt(mazePanel.mazeGame.startCell.getRow(), mazePanel.mazeGame.startCell.getColumn());
-//        previousPath.add(currentCell);
-//        for (int i = 0; i < directions.size(); i++) {
-//            if (currentCell == null) break;
-//            Cell nextGameCell = currentCell.cell.getCellInDir(directions.get(i));
-//            currentCell.outLineDir = directions.get(i);
-//            if (currentCell.cell.hasWallInDirection(directions.get(i)) || nextGameCell == null) {
-//                return -1;
-//            }
-//            CellUI nextCell = nextGameCell.cellUI;
-//            nextCell.inLineDir = -directions.get(i);
-//            currentCell = nextCell;
-//            previousPath.add(currentCell);
-//        }
-//        if (currentCell != null && currentCell.cell.isEndCell()) {
-//            System.out.println("You Won!");
-//            return -2;
-//        }
-        return -3;
+    PathState validatePath() {
+        Cell currentCell = mazePanel.mazeGame.getStartCell();
+        for (Integer instruction : instructions) {
+            if (currentCell.hasWallInDirection(instruction)) return PathState.Invalid;
+            currentCell = currentCell.getCellInDir(instruction);
+        }
+        if (currentCell.isEndCell()) return PathState.Finished;
+        return PathState.Normal;
     }
 
     void clearPath() {
-        for (int i = previousPath.size() - 1; i >= 0; i--) {
-            previousPath.get(i).inLineDir = 0;
-            previousPath.get(i).outLineDir = 0;
-            previousPath.get(i).repaint();
-        }
-        previousPath.clear();
-    }
-
-    int getDirectionFromChar(char c) {
-        if (c == 'U') {
-            return -1;
-        } else if (c == 'D') {
-            return 1;
-        } else if (c == 'L') {
-            return -2;
-        } else if (c == 'R') {
-            return 2;
-        }
-        return 0;
+        instructions.clear();
+        pathState = PathState.Normal;
+        mazePanel.mazeUI.repaint();
     }
 }

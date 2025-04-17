@@ -2,6 +2,7 @@ package Programs.Maze;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * MazeUI is a panel that holds the grid
@@ -9,10 +10,12 @@ import java.awt.*;
 class MazeUI extends JPanel {
     private Frame frame;
     int rows, columns;
+    MazePanel mazePanel;
     MazeGame mazeGame;
 
-    MazeUI(Frame frame, int rows, int columns) {
+    MazeUI(Frame frame, MazePanel mazePanel, int rows, int columns) {
         this.frame = frame;
+        this.mazePanel = mazePanel;
         setBackground(Color.LIGHT_GRAY);
         setMaximumSize(new Dimension(1000, 1000));
         setMinimumSize(new Dimension(700, 700));
@@ -56,6 +59,7 @@ class MazeUI extends JPanel {
         drawBorders((Graphics2D) g);
         drawLines((Graphics2D) g);
         drawWalls((Graphics2D) g);
+        visualizePath((Graphics2D) g);
     }
 
     private void drawStartAndEnd(Graphics2D g2) {
@@ -117,6 +121,36 @@ class MazeUI extends JPanel {
                     g2.drawLine((int) x, (int) y, (int) x, (int) (y + cellHeight));
                 }
             }
+        }
+    }
+
+    private void visualizePath(Graphics2D g2) {
+        ArrayList<Integer> instructions = mazePanel.instructionPanel.instructions;
+        switch (mazePanel.instructionPanel.pathState) {
+            case Normal -> g2.setColor(Color.BLUE);
+            case Finished -> g2.setColor(Color.GREEN);
+            case Invalid -> g2.setColor(Color.RED);
+        }
+        g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / rows)), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+        Cell currentCell = mazeGame.getStartCell();
+        double cellWidth = getWidth() / (double) columns;
+        double cellHeight = getHeight() / (double) columns;
+        for (Integer instruction : instructions) {
+            if (currentCell.hasWallInDirection(instruction)) {
+                double xOffset = 0;
+                double yOffset = 0;
+                if (instruction == 1) yOffset += cellHeight / 2;
+                if (instruction == 2) xOffset += cellWidth / 2;
+                if (instruction == -1) yOffset -= cellHeight / 2;
+                if (instruction == -2) xOffset -= cellWidth / 2;
+                g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                        (int) ((currentCell.getColumn() + .5) * cellWidth + xOffset), (int) ((currentCell.getRow() + .5) * cellHeight + yOffset));
+                return;
+            }
+            Cell nextCell = currentCell.getCellInDir(instruction);
+            g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                    (int) ((nextCell.getColumn() + .5) * cellWidth), (int) ((nextCell.getRow() + .5) * cellHeight));
+            currentCell = nextCell;
         }
     }
 }

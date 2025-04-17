@@ -6,20 +6,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
- class InstructionPanelInput extends KeyAdapter {
+class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
-    ArrayList<Integer> instructions;
     Program program;
     boolean outOfBounds = false;
 
-     InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
+    InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
         this.program = program;
-        instructions = new ArrayList<>(100);
     }
 
     @Override
-     public void keyPressed(KeyEvent event) {
+    public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
             if (!instructionPanel.mazePanel.sizeInput.hasFocus()) {
@@ -43,11 +41,10 @@ import java.util.ArrayList;
             clearInstructions();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
             removeFirstInstruction();
-            instructionPanel.visualisePath(instructions);
         } else if (keyCode == KeyEvent.VK_ENTER) {
             instructionPanel.clearPath();
-//            clearInstructions();
-            instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+            instructionPanel.instructions.addAll(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+            instructionPanel.updatePath();
         }
     }
 
@@ -56,44 +53,37 @@ import java.util.ArrayList;
             removeFirstInstruction();
             return;
         }
-        if (outOfBounds) {
-            return;
-        }
-        instructions.add(direction);
+        if (instructionPanel.pathState == InstructionPanel.PathState.Invalid) return;
+
+        instructionPanel.instructions.add(direction);
         if (direction == 1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Down\n");
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Down\n");
         } else if (direction == -1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Up\n");
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Up\n");
         } else if (direction == 2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Right\n");
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Right\n");
         } else if (direction == -2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Left\n");
+            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Left\n");
         }
 
-        // if out of bounds, disable forward movement
-        int errorLine = instructionPanel.visualisePath(instructions);
-        if (errorLine == -1 || errorLine == -2) {
-            this.outOfBounds = true;
-        }
-
-        //TODO: Add text signal to error line
+        instructionPanel.updatePath();
     }
 
     boolean isBackWardsInstruction(int direction) {
-        if (instructions.isEmpty())
+        if (instructionPanel.instructions.isEmpty())
             return false;
-        return instructions.getLast() == -direction;
+        return instructionPanel.instructions.getLast() == -direction;
     }
 
     void removeFirstInstruction() {
-        if (instructions.isEmpty()) return;
+        if (instructionPanel.instructions.isEmpty()) return;
 
         // on removal, should never be out of bounds
         this.outOfBounds = false;
 
-        instructions.removeLast();
+        instructionPanel.instructions.removeLast();
         instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
-        instructionPanel.visualisePath(instructions);
+        instructionPanel.updatePath();
     }
 
     int getStartIndexOfSecondToLastLine(String text) {
@@ -113,9 +103,9 @@ import java.util.ArrayList;
 
     }
 
-     void clearInstructions() {
+    void clearInstructions() {
         instructionPanel.instructionInput.setText("");
-        instructions.clear();
+        instructionPanel.instructions.clear();
         this.outOfBounds = false;
     }
 }

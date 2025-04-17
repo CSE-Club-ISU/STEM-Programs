@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class Cell {
     MazeGame mazeGame;
-    CellUI cellUI;
     boolean[] walls; //Left, Up, Down, Right
     boolean[] visitedSides;
     public int visited;
