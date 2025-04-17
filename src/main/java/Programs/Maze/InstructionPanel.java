@@ -13,7 +13,7 @@ class InstructionPanel extends RoundPanel {
     JTextArea instructionInput;
     MazePanel mazePanel;
     InstructionPanelInput instructionPanelInput;
-    ArrayList<Integer> instructions;
+    ArrayList<Cell.Direction> instructions;
 
     InstructionPanel(MazePanel mazePanel, Frame frame) {
         super(Color.LIGHT_GRAY, 20);
@@ -68,7 +68,7 @@ class InstructionPanel extends RoundPanel {
 
     MazeUI.PathState validatePath() {
         Cell currentCell = mazePanel.mazeGame.getStartCell();
-        for (Integer instruction : instructions) {
+        for (Cell.Direction instruction : instructions) {
             if (currentCell.hasWallInDirection(instruction)) return MazeUI.PathState.Invalid;
             currentCell = currentCell.getCellInDir(instruction);
         }

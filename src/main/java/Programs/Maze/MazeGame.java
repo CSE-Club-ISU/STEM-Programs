@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
     private Cell startCell;
     private Cell endCell;
     String algorithmName;
-    ArrayList<Integer> solutionInstructions;
+    ArrayList<Cell.Direction> solutionInstructions;
 
     /**
      * Initializes the maze game with random generation

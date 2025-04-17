@@ -12,5 +12,5 @@ public interface MazeGoalGenAlgorithm {
      * @param visitedValue the value of cells that haven't been visited yet.
      * @return the new visited value attached to each cell after the algorithm or null if it couldn't be generated.
      */
-    Cell generateMazeGoal(Cell[][] grid, Cell startCell, AtomicInteger visitedValue, ArrayList<Integer> solutions);
+    Cell generateMazeGoal(Cell[][] grid, Cell startCell, AtomicInteger visitedValue, ArrayList<Cell.Direction> solutions);
 }

@@ -5,11 +5,18 @@ import java.util.Random;
 
 public class Cell {
     MazeGame mazeGame;
-    boolean[] walls; //Left, Up, Down, Right
+    boolean[] walls;
     boolean[] visitedSides;
     public int visited;
     private final int r, c;
     private Cell parent;
+
+    public enum Direction {
+        Up,
+        Down,
+        Left,
+        Right,
+    }
 
     public Cell(MazeGame mazeGame, int r, int c) {
         this.mazeGame = mazeGame;
@@ -29,57 +36,51 @@ public class Cell {
     }
 
     public Cell moveToUnvisitedNeighbor(int visitedInt, boolean removeWalls) {
-        ArrayList<Cell> unvisited = new ArrayList(4);
-        ArrayList<Integer> unvisitedDir = new ArrayList(4);
-        for (int i = -2; i <= 2; i++) {
-            if (i == 0) continue;
-            Cell targetCell = getCellInDir(i);
+        ArrayList<Cell> unvisited = new ArrayList<>(4);
+        ArrayList<Direction> unvisitedDir = new ArrayList<>(4);
+        for (Direction dir : Direction.values()) {
+            Cell targetCell = getCellInDir(dir);
 
             if (targetCell != null && targetCell.visited != visitedInt) {
                 unvisited.add(targetCell);
-                unvisitedDir.add(i);
+                unvisitedDir.add(dir);
             }
         }
+
         if (unvisited.isEmpty()) return null;
-        int index = new Random().nextInt(0,unvisited.size());
+        int index = new Random().nextInt(0, unvisited.size());
         Cell targetCell = unvisited.get(index);
-        int cellDir = unvisitedDir.get(index);
+        Direction cellDir = unvisitedDir.get(index);
         if (targetCell == null)
             throw new IllegalStateException("Called chooseUnvistedNeighbor with no unvisted neighbors.");
         if (removeWalls) {
-            int dir = convertDirectionToIndex(cellDir);
-            walls[dir] = false;
-
-            dir = convertDirectionToIndex(-cellDir);
-            targetCell.walls[dir] = false;
+            walls[cellDir.ordinal()] = false;
+            targetCell.walls[getOppositeDir(cellDir).ordinal()] = false;
         }
         return targetCell;
     }
 
     public Cell moveToVisitedNeighbor(int visitedInt, boolean removeWalls) {
         ArrayList<Cell> visited = new ArrayList(4);
-        ArrayList<Integer> unvisitedDir = new ArrayList(4);
-        for (int i = -2; i <= 2; i++) {
-            if (i == 0) continue;
-            Cell targetCell = getCellInDir(i);
+        ArrayList<Direction> unvisitedDir = new ArrayList(4);
+        for (Direction dir : Direction.values()) {
+            Cell targetCell = getCellInDir(dir);
 
             if (targetCell != null && targetCell.visited == visitedInt) {
                 visited.add(targetCell);
-                unvisitedDir.add(i);
+                unvisitedDir.add(dir);
             }
         }
+
         if (visited.isEmpty()) return null;
-        int index = new Random().nextInt(0,visited.size());
+        int index = new Random().nextInt(0, visited.size());
         Cell targetCell = visited.get(index);
-        int cellDir = unvisitedDir.get(index);
+        Direction cellDir = unvisitedDir.get(index);
         if (targetCell == null)
             throw new IllegalStateException("Called chooseVistedNeighbor with no visited neighbors.");
         if (removeWalls) {
-            int dir = convertDirectionToIndex(cellDir);
-            walls[dir] = false;
-
-            dir = convertDirectionToIndex(-cellDir);
-            targetCell.walls[dir] = false;
+            walls[cellDir.ordinal()] = false;
+            targetCell.walls[getOppositeDir(cellDir).ordinal()] = false;
         }
         return targetCell;
     }
@@ -95,9 +96,8 @@ public class Cell {
     }
 
     public boolean hasUnvisitedNeighbor(int visitedInt) {
-        for (int i = -2; i <= 2; i++) {
-            if (i == 0) continue;
-            Cell targetCell = getCellInDir(i);
+        for (Direction dir : Direction.values()) {
+            Cell targetCell = getCellInDir(dir);
             if (targetCell != null && targetCell.visited != visitedInt)
                 return true;
         }
@@ -105,9 +105,8 @@ public class Cell {
     }
 
     public boolean hasVisitedNeighbor(int visitedInt) {
-        for (int i = -2; i <= 2; i++) {
-            if (i == 0) continue;
-            Cell targetCell = getCellInDir(i);
+        for (Direction dir : Direction.values()) {
+            Cell targetCell = getCellInDir(dir);
             if (targetCell != null && targetCell.visited == visitedInt)
                 return true;
         }
@@ -116,10 +115,10 @@ public class Cell {
 
     public ArrayList<Cell> getUnvisitedNeighborsWithWalls(int visitedInt, boolean inverse) {
         ArrayList<Cell> unvisitedNeighbors = new ArrayList<>(4);
-        for (int i = -2; i <= 2; i++) {
-            if (i == 0) continue;
-            if ((!inverse && walls[convertDirectionToIndex(i)]) || (inverse && !walls[convertDirectionToIndex(i)])) continue;
-            Cell targetCell = getCellInDir(i);
+        for (Direction dir : Direction.values()) {
+            if ((!inverse && walls[dir.ordinal()]) || (inverse && !walls[dir.ordinal()]))
+                continue;
+            Cell targetCell = getCellInDir(dir);
             if (targetCell != null && targetCell.visited != visitedInt)
                 unvisitedNeighbors.add(targetCell);
         }
@@ -129,31 +128,46 @@ public class Cell {
     /**
      * @param dir 1=down, 2=right, -1=up, -2=left
      */
-    public Cell getCellInDir(int dir) {
+    public Cell getCellInDir(Direction dir) {
         Cell[][] grid = mazeGame.getGrid();
-        if (dir == 1 && r != grid.length - 1) {
-            return grid[r+1][c];
-        } else if (dir == 2 && c != grid[0].length - 1) {
-            return grid[r][c+1];
-        } else if (dir == -1 && r != 0) {
-            return grid[r-1][c];
-        } else if (dir == -2 && c != 0) {
-            return grid[r][c-1];
+        switch (dir) {
+            case Up -> {
+                if (r == 0) return null;
+                return grid[r - 1][c];
+            }
+            case Down -> {
+                if (r == grid.length - 1) return null;
+                return grid[r + 1][c];
+            }
+            case Left -> {
+                if (c == 0) return null;
+                return grid[r][c - 1];
+            }
+            case Right -> {
+                if (c == grid[0].length - 1) return null;
+                return grid[r][c + 1];
+            }
         }
         return null;
     }
 
-    /**
-     * @param dir 1=down, 2=right, -1=up, -2=left
-     */
-    boolean hasWallInDirection(int dir) {
-        return walls[convertDirectionToIndex(dir)];
+    boolean hasWallInDirection(Direction dir) {
+        return walls[dir.ordinal()];
     }
 
     int convertDirectionToIndex(int dir) {
         if (dir < 0) dir += 2;
         else dir += 1;
         return dir;
+    }
+
+    public static Direction getOppositeDir(Direction direction) {
+        return switch (direction) {
+            case Up -> Direction.Down;
+            case Down -> Direction.Up;
+            case Left -> Direction.Right;
+            case Right -> Direction.Left;
+        };
     }
 
     public boolean isStartCell() {
@@ -164,9 +178,19 @@ public class Cell {
         return mazeGame.getEndCell() == this;
     }
 
-    public int getRow() { return r; }
-    public int getColumn() { return c; }
+    public int getRow() {
+        return r;
+    }
 
-    public Cell getParent() { return parent; }
-    public void setParent(Cell parent) { this.parent = parent; }
+    public int getColumn() {
+        return c;
+    }
+
+    public Cell getParent() {
+        return parent;
+    }
+
+    public void setParent(Cell parent) {
+        this.parent = parent;
+    }
 }

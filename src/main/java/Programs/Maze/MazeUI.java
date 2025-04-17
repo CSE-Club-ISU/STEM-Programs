@@ -11,7 +11,7 @@ class MazeUI extends JPanel {
     private Frame frame;
     int rows, columns;
     MazeGame mazeGame;
-    ArrayList<Integer> path;
+    ArrayList<Cell.Direction> path;
     PathState pathState;
 
     enum PathState {
@@ -113,22 +113,15 @@ class MazeUI extends JPanel {
                 // Calculate the upper left coordinates of the cell
                 double x = cell.getColumn() * cellWidth;
                 double y = cell.getRow() * cellHeight;
-                if (cell.hasWallInDirection(1)) {
-                    // Down
-                    g2.drawLine((int) x, (int) (y + cellHeight), (int) (x + cellWidth), (int) (y + cellHeight));
-                }
-                if (cell.hasWallInDirection(2)) {
-                    // Right
-                    g2.drawLine((int) (x + cellWidth), (int) y, (int) (x + cellWidth), (int) (y + cellHeight));
-                }
-                if (cell.hasWallInDirection(-1)) {
-                    // Up
+
+                if (cell.hasWallInDirection(Cell.Direction.Up))
                     g2.drawLine((int) x, (int) y, (int) (x + cellWidth), (int) y);
-                }
-                if (cell.hasWallInDirection(-2)) {
-                    // Left
+                if (cell.hasWallInDirection(Cell.Direction.Down))
+                    g2.drawLine((int) x, (int) (y + cellHeight), (int) (x + cellWidth), (int) (y + cellHeight));
+                if (cell.hasWallInDirection(Cell.Direction.Left))
                     g2.drawLine((int) x, (int) y, (int) x, (int) (y + cellHeight));
-                }
+                if (cell.hasWallInDirection(Cell.Direction.Right))
+                    g2.drawLine((int) (x + cellWidth), (int) y, (int) (x + cellWidth), (int) (y + cellHeight));
             }
         }
     }
@@ -143,14 +136,16 @@ class MazeUI extends JPanel {
         Cell currentCell = mazeGame.getStartCell();
         double cellWidth = getWidth() / (double) columns;
         double cellHeight = getHeight() / (double) columns;
-        for (Integer instruction : path) {
+        for (Cell.Direction instruction : path) {
             if (currentCell.hasWallInDirection(instruction)) {
                 double xOffset = 0;
                 double yOffset = 0;
-                if (instruction == 1) yOffset += cellHeight / 2;
-                if (instruction == 2) xOffset += cellWidth / 2;
-                if (instruction == -1) yOffset -= cellHeight / 2;
-                if (instruction == -2) xOffset -= cellWidth / 2;
+                switch (instruction) {
+                    case Up -> yOffset -= cellHeight / 2;
+                    case Down -> yOffset += cellHeight / 2;
+                    case Left -> xOffset -= cellWidth / 2;
+                    case Right -> xOffset += cellWidth / 2;
+                }
                 g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
                         (int) ((currentCell.getColumn() + .5) * cellWidth + xOffset), (int) ((currentCell.getRow() + .5) * cellHeight + yOffset));
                 return;

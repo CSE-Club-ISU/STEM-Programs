@@ -29,13 +29,13 @@ class InstructionPanelInput extends KeyAdapter {
         if (instructionPanel.mazePanel.mazeGame == null) return;
 
         if (keyCode == KeyEvent.VK_UP) {
-            doInstruction(-1);
+            doInstruction(Cell.Direction.Up);
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            doInstruction(1);
+            doInstruction(Cell.Direction.Down);
         } else if (keyCode == KeyEvent.VK_LEFT) {
-            doInstruction(-2);
+            doInstruction(Cell.Direction.Left);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            doInstruction(2);
+            doInstruction(Cell.Direction.Right);
         } else if (keyCode == KeyEvent.VK_DELETE) {
             instructionPanel.clearPath();
             clearInstructions();
@@ -46,7 +46,7 @@ class InstructionPanelInput extends KeyAdapter {
         }
     }
 
-    void doInstruction(int direction) {
+    void doInstruction(Cell.Direction direction) {
         if (isBackWardsInstruction(direction)) {
             removeFirstInstruction();
             return;
@@ -54,23 +54,27 @@ class InstructionPanelInput extends KeyAdapter {
         if (instructionPanel.mazePanel.mazeUI.pathState == MazeUI.PathState.Invalid) return;
 
         instructionPanel.instructions.add(direction);
-        if (direction == 1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Down\n");
-        } else if (direction == -1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Up\n");
-        } else if (direction == 2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Right\n");
-        } else if (direction == -2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Left\n");
+        switch (direction) {
+            case Up ->
+                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Up\n");
+            case Down ->
+                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Down\n");
+
+            case Left ->
+                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Left\n");
+
+            case Right ->
+                    instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructionPanel.instructions.size() + ": Right\n");
+
         }
 
         instructionPanel.updatePath();
     }
 
-    boolean isBackWardsInstruction(int direction) {
+    boolean isBackWardsInstruction(Cell.Direction direction) {
         if (instructionPanel.instructions.isEmpty())
             return false;
-        return instructionPanel.instructions.getLast() == -direction;
+        return instructionPanel.instructions.getLast() == Cell.getOppositeDir(direction);
     }
 
     void removeFirstInstruction() {
