@@ -27,17 +27,17 @@ class MazePanel extends JPanel {
         this.program = program;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(10));
-        title = UIUtils.addTitle("Maze",  this);
+        title = UIUtils.addTitle("Maze", this);
         mazeUI = new MazeUI(frame, 10, 10);
 
         JPanel top = new JPanel();
         top.setOpaque(false);
-        top.setBorder(new EmptyBorder(0,0,0,0));
+        top.setBorder(new EmptyBorder(0, 0, 0, 0));
         top.setLayout(new BoxLayout(top, BoxLayout.LINE_AXIS));
         top.add(createBackButton());
-        UIUtils.addSpace(10,10,top);
+        UIUtils.addSpace(10, 10, top);
         top.add(createRegenerateMazeButton());
-        UIUtils.addSpace(10,10,top);
+        UIUtils.addSpace(10, 10, top);
         top.add(createSizeInputField());
         add(top);
         add(Box.createVerticalStrut(10));
@@ -62,6 +62,7 @@ class MazePanel extends JPanel {
     private JButton createRegenerateMazeButton() {
         JButton regenerateButton = new RoundButton("Regenerate", Color.WHITE, 20, Color.BLUE, 10);
         regenerateButton.addActionListener((l) -> {
+            if (Integer.parseInt(sizeInput.getText()) <= 1) return;
             this.requestFocusInWindow();
             generateMaze();
         });
@@ -87,8 +88,9 @@ class MazePanel extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     mazePanel.requestFocusInWindow();
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    generateMaze();
                     mazePanel.requestFocusInWindow();
+                    if (Integer.parseInt(sizeInput.getText()) <= 1) return;
+                    generateMaze();
                 }
             }
 
@@ -106,12 +108,11 @@ class MazePanel extends JPanel {
         }
         mazeGame = new MazeGame(mazeUI.getGridRows(), mazeUI.getGridColumns());
         title.setText("Maze: " + mazeGame.algorithmName);
-        mazeUI.generateMaze(mazeGame.getGrid());
+        mazeUI.generateMaze(mazeGame);
     }
 
     private void regenerateMaze() {
         instructionPanel.clearPath();
-        instructionPanel.instructionPanelInput.clearInstructions();
         try {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {

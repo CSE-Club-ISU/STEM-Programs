@@ -121,10 +121,12 @@ class BoardPanel extends JPanel {
             g2.drawLine(i * getWidth() / cols, 0, i * getWidth() / cols, getHeight());
         }
 
-        g2.setColor(Color.BLUE);
         for (Block block : blockEscapeGame.getBlocks()) {
             int xPos = block.getX() * getWidth() / cols;
             int yPos = block.getY() * getHeight() / rows;
+            if (block.isFinalBlock()) g2.setColor(Color.YELLOW);
+            else g2.setColor(Color.BLUE);
+
             if (block.getDirection() == BlockEscapeGame.Direction.Up || block.getDirection() == BlockEscapeGame.Direction.Down) {
                 g2.fillRoundRect(xPos + 4, yPos + 4, blockSize - 8, blockSize * block.getLength() - 8, 10, 10);
             } else {

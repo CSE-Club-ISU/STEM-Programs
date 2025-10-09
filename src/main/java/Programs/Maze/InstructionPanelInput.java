@@ -6,20 +6,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
- class InstructionPanelInput extends KeyAdapter {
+/**
+ * Handles the user key input while playing the maze game.
+ */
+class InstructionPanelInput extends KeyAdapter {
     InstructionPanel instructionPanel;
-    ArrayList<Integer> instructions;
     Program program;
-    boolean outOfBounds = false;
 
-     InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
+    InstructionPanelInput(InstructionPanel instructionPanel, Program program) {
         this.instructionPanel = instructionPanel;
         this.program = program;
-        instructions = new ArrayList<>(100);
     }
 
     @Override
-     public void keyPressed(KeyEvent event) {
+    public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
             if (!instructionPanel.mazePanel.sizeInput.hasFocus()) {
@@ -31,91 +31,42 @@ import java.util.ArrayList;
         if (instructionPanel.mazePanel.mazeGame == null) return;
 
         if (keyCode == KeyEvent.VK_UP) {
-            doInstruction(-1);
+            doInstruction(Cell.Direction.Up);
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            doInstruction(1);
+            doInstruction(Cell.Direction.Down);
         } else if (keyCode == KeyEvent.VK_LEFT) {
-            doInstruction(-2);
+            doInstruction(Cell.Direction.Left);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            doInstruction(2);
+            doInstruction(Cell.Direction.Right);
         } else if (keyCode == KeyEvent.VK_DELETE) {
             instructionPanel.clearPath();
-            clearInstructions();
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
-            removeFirstInstruction();
-            instructionPanel.visualisePath(instructions);
+            instructionPanel.removeFirstInstruction();
         } else if (keyCode == KeyEvent.VK_ENTER) {
-            instructionPanel.clearPath();
-//            clearInstructions();
-            instructionPanel.visualisePath(instructionPanel.mazePanel.mazeGame.solutionInstructions);
+            instructionPanel.visualizeSolution();
         }
     }
 
-    void doInstruction(int direction) {
+    void doInstruction(Cell.Direction direction) {
         if (isBackWardsInstruction(direction)) {
-            removeFirstInstruction();
+            instructionPanel.removeFirstInstruction();
             return;
         }
-        if (outOfBounds) {
-            return;
-        }
-        instructions.add(direction);
-        if (direction == 1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Down\n");
-        } else if (direction == -1) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Up\n");
-        } else if (direction == 2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Right\n");
-        } else if (direction == -2) {
-            instructionPanel.instructionInput.setText(instructionPanel.instructionInput.getText() + instructions.size() + ": Left\n");
+        if (instructionPanel.mazePanel.mazeUI.pathState == MazeUI.PathState.Invalid) return;
+
+        instructionPanel.instructions.add(direction);
+        switch (direction) {
+            case Up -> instructionPanel.addInstruction("Up");
+            case Down -> instructionPanel.addInstruction("Down");
+            case Left -> instructionPanel.addInstruction("Left");
+            case Right -> instructionPanel.addInstruction("Right");
         }
 
-        // if out of bounds, disable forward movement
-        int errorLine = instructionPanel.visualisePath(instructions);
-        if (errorLine == -1 || errorLine == -2) {
-            this.outOfBounds = true;
-        }
-
-        //TODO: Add text signal to error line
+        instructionPanel.updatePath();
     }
 
-    boolean isBackWardsInstruction(int direction) {
-        if (instructions.isEmpty())
-            return false;
-        return instructions.getLast() == -direction;
-    }
-
-    void removeFirstInstruction() {
-        if (instructions.isEmpty()) return;
-
-        // on removal, should never be out of bounds
-        this.outOfBounds = false;
-
-        instructions.removeLast();
-        instructionPanel.instructionInput.setText(getTextMinusLastLine(instructionPanel.instructionInput.getText()));
-        instructionPanel.visualisePath(instructions);
-    }
-
-    int getStartIndexOfSecondToLastLine(String text) {
-        int index = instructionPanel.instructionInput.getText().lastIndexOf(':') - 1;
-        if (index == -1) return -1;
-        while (index > -1 && (Character.isDigit(text.charAt(index)) || text.charAt(index) == '>')) {
-            index--;
-        }
-        return index;
-    }
-
-    String getTextMinusLastLine(String text) {
-        int lastIndex = getStartIndexOfSecondToLastLine(text);
-        if (lastIndex > 0) {
-            return instructionPanel.instructionInput.getText().substring(0, lastIndex + 1);
-        } else return "";
-
-    }
-
-     void clearInstructions() {
-        instructionPanel.instructionInput.setText("");
-        instructions.clear();
-        this.outOfBounds = false;
+    boolean isBackWardsInstruction(Cell.Direction direction) {
+        if (instructionPanel.instructions.isEmpty()) return false;
+        return instructionPanel.instructions.getLast() == Cell.getOppositeDir(direction);
     }
 }
