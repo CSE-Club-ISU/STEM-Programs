@@ -15,7 +15,10 @@ class MazeUI extends JPanel {
     int rows, columns;
     MazeGame mazeGame;
     ArrayList<Cell.Direction> path;
+    ArrayList<Cell.Direction> directPath;
     PathState pathState;
+    boolean isSimulating = false;
+    ArrayList<Cell.Direction> simulationPath;
 
     enum PathState {
         Normal,
@@ -32,6 +35,8 @@ class MazeUI extends JPanel {
         this.rows = rows;
         this.columns = columns;
         path = new ArrayList<>();
+        directPath = new ArrayList<>();
+        simulationPath = new ArrayList<>();
         pathState = PathState.Normal;
     }
 
@@ -130,6 +135,66 @@ class MazeUI extends JPanel {
     }
 
     private void visualizePath(Graphics2D g2) {
+        if (!directPath.isEmpty()) {
+            switch (pathState) {
+                case Normal -> g2.setColor(Color.BLUE);
+                case Finished, Solution -> g2.setColor(Color.GREEN);
+                case Invalid -> g2.setColor(Color.RED);
+            }
+            g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / rows)), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+            Cell currentCell = mazeGame.getStartCell();
+            double cellWidth = getWidth() / (double) columns;
+            double cellHeight = getHeight() / (double) columns;
+            for (Cell.Direction instruction : directPath) {
+                if (currentCell.hasWallInDirection(instruction)) {
+                    double xOffset = 0;
+                    double yOffset = 0;
+                    switch (instruction) {
+                        case Up -> yOffset -= cellHeight / 2;
+                        case Down -> yOffset += cellHeight / 2;
+                        case Left -> xOffset -= cellWidth / 2;
+                        case Right -> xOffset += cellWidth / 2;
+                    }
+                    g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                            (int) ((currentCell.getColumn() + .5) * cellWidth + xOffset), (int) ((currentCell.getRow() + .5) * cellHeight + yOffset));
+                    return;
+                }
+                Cell nextCell = currentCell.getCellInDir(instruction);
+                g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                        (int) ((nextCell.getColumn() + .5) * cellWidth), (int) ((nextCell.getRow() + .5) * cellHeight));
+                currentCell = nextCell;
+            }
+            return;
+        }
+        
+        if (isSimulating && !simulationPath.isEmpty()) {
+            g2.setColor(pathState == PathState.Invalid ? Color.RED : Color.BLUE);
+            g2.setStroke(new BasicStroke(Math.min(15, Math.max(3, 100 / rows)), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+            Cell currentCell = mazeGame.getStartCell();
+            double cellWidth = getWidth() / (double) columns;
+            double cellHeight = getHeight() / (double) columns;
+            for (Cell.Direction instruction : simulationPath) {
+                if (currentCell.hasWallInDirection(instruction)) {
+                    double xOffset = 0;
+                    double yOffset = 0;
+                    switch (instruction) {
+                        case Up -> yOffset -= cellHeight / 2;
+                        case Down -> yOffset += cellHeight / 2;
+                        case Left -> xOffset -= cellWidth / 2;
+                        case Right -> xOffset += cellWidth / 2;
+                    }
+                    g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                            (int) ((currentCell.getColumn() + .5) * cellWidth + xOffset), (int) ((currentCell.getRow() + .5) * cellHeight + yOffset));
+                    return;
+                }
+                Cell nextCell = currentCell.getCellInDir(instruction);
+                g2.drawLine((int) ((currentCell.getColumn() + .5) * cellWidth), (int) ((currentCell.getRow() + .5) * cellHeight),
+                        (int) ((nextCell.getColumn() + .5) * cellWidth), (int) ((nextCell.getRow() + .5) * cellHeight));
+                currentCell = nextCell;
+            }
+            return;
+        }
+        
         switch (pathState) {
             case Normal -> g2.setColor(Color.BLUE);
             case Finished, Solution -> g2.setColor(Color.GREEN);
@@ -158,5 +223,30 @@ class MazeUI extends JPanel {
                     (int) ((nextCell.getColumn() + .5) * cellWidth), (int) ((nextCell.getRow() + .5) * cellHeight));
             currentCell = nextCell;
         }
+    }
+
+    void addDirectMovement(Cell.Direction direction) {
+        if (!directPath.isEmpty()) {
+            Cell.Direction lastDir = directPath.get(directPath.size() - 1);
+            if (lastDir == Cell.getOppositeDir(direction)) {
+                directPath.remove(directPath.size() - 1);
+                return;
+            }
+        }
+        directPath.add(direction);
+    }
+
+    void clearDirectPath() {
+        directPath.clear();
+    }
+
+    PathState validateDirectPath() {
+        Cell currentCell = mazeGame.getStartCell();
+        for (Cell.Direction instruction : directPath) {
+            if (currentCell.hasWallInDirection(instruction)) return PathState.Invalid;
+            currentCell = currentCell.getCellInDir(instruction);
+        }
+        if (currentCell.isEndCell()) return PathState.Finished;
+        return PathState.Normal;
     }
 }

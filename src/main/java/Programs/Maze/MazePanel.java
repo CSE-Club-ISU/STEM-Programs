@@ -113,6 +113,10 @@ class MazePanel extends JPanel {
 
     private void regenerateMaze() {
         instructionPanel.clearPath();
+        mazeUI.isSimulating = false;
+        mazeUI.simulationPath.clear();
+        mazeUI.directPath.clear();
+        mazeUI.pathState = MazeUI.PathState.Normal;
         try {
             int newSize = Integer.parseInt(sizeInput.getText());
             if (newSize != mazeUI.getGridColumns()) {
