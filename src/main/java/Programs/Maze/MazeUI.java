@@ -232,6 +232,9 @@ class MazeUI extends JPanel {
                 directPath.remove(directPath.size() - 1);
                 return;
             }
+            if (pathState == PathState.Invalid) {
+                return;
+            }
         }
         directPath.add(direction);
     }

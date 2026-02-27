@@ -28,7 +28,7 @@ class MazePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(10));
         title = UIUtils.addTitle("Maze", this);
-        mazeUI = new MazeUI(frame, 10, 10);
+        mazeUI = new MazeUI(frame, 6, 6);
 
         JPanel top = new JPanel();
         top.setOpaque(false);
@@ -37,6 +37,8 @@ class MazePanel extends JPanel {
         top.add(createBackButton());
         UIUtils.addSpace(10, 10, top);
         top.add(createRegenerateMazeButton());
+        UIUtils.addSpace(10, 10, top);
+        top.add(createResetPlayerButton());
         UIUtils.addSpace(10, 10, top);
         top.add(createSizeInputField());
         add(top);
@@ -69,6 +71,19 @@ class MazePanel extends JPanel {
         regenerateButton.setFocusPainted(false);
         regenerateButton.setFocusable(false);
         return regenerateButton;
+    }
+
+    private JButton createResetPlayerButton() {
+        JButton resetButton = new RoundButton("Reset Player", Color.WHITE, 20, new Color(255, 165, 0), 10);
+        resetButton.addActionListener((l) -> {
+            this.requestFocusInWindow();
+            mazeUI.clearDirectPath();
+            mazeUI.pathState = MazeUI.PathState.Normal;
+            mazeUI.repaint();
+        });
+        resetButton.setFocusPainted(false);
+        resetButton.setFocusable(false);
+        return resetButton;
     }
 
     private JTextField createSizeInputField() {
